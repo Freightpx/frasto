@@ -1,0 +1,33 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:where([data-ui-root]) {
+  font-family: var(--ui-font-sans);
+  color: var(--ui-ink);
+  background: var(--ui-bg);
+}
+
+:where([data-ui-root]) :focus-visible {
+  outline: 2px solid var(--ui-focus);
+  outline-offset: 2px;
+}
+
+:where(.ui-number, .ui-date, .ui-id) {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where([data-ui-root]) *,
+  :where([data-ui-root]) *::before,
+  :where([data-ui-root]) *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

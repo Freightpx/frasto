@@ -1,0 +1,42 @@
+---
+title: Introduction
+description: What Frasto UI is, who it is for, and what it intentionally does not own.
+---
+
+Frasto UI is an **Astro-first design system for business applications**: SaaS dashboards, admin panels, CRM, CMS, ERP-style interfaces, and internal tools.
+
+It is designed to sit between a primitive component library and a full application framework.
+
+```text
+Generic primitives
+Button / Input / Badge
+        ↓
+Frasto UI
+Components / Layouts / SaaS Patterns
+        ↓
+Your application
+CRM / CMS / Admin / SaaS / Internal Tool
+```
+
+## What we optimize for
+
+- server-rendered HTML by default
+- minimal client JavaScript
+- accessible interaction
+- compact business interfaces
+- repeatable SaaS patterns
+- easy theming through semantic tokens
+- backend independence
+- predictable component APIs
+
+## What we do not own
+
+The core library will not define your database, ORM, authentication system, billing provider, API client, or application state architecture.
+
+A table component should receive rows and columns. It should not require your data to live in a specific database.
+
+## Why documentation comes first
+
+A design system becomes expensive when visual rules and component contracts are decided separately screen by screen. The first phase therefore defines the shared language before a large component set exists.
+
+This lets implementation answer a simple question: **is this component following the system, or creating a new one?**

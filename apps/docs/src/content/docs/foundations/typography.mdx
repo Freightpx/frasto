@@ -1,0 +1,31 @@
+---
+title: Typography
+description: Editorial hierarchy adapted for compact application interfaces.
+---
+
+Typography is the primary hierarchy tool in the system.
+
+## Scale
+
+| Role | Size | Typical use |
+| --- | --- | --- |
+| Label | `0.6875rem` | contextual labels, table headers |
+| Caption | `0.75rem` | metadata, supporting detail |
+| Body small | `0.875rem` | compact controls and data rows |
+| Body | `1rem` | default prose and forms |
+| Title small | `1.125rem` | component/section title |
+| Title | `1.5rem` | major section heading |
+| Page title | `clamp(2rem, 4vw, 3.5rem)` | primary page heading |
+
+## Behavior
+
+- Keep page titles concise and tightly spaced.
+- Small contextual labels may use uppercase and tracking.
+- Avoid uppercase for long copy.
+- Body copy should not rely on very light font weights.
+- Use tabular numerals for values that need column alignment.
+- IDs, dates, and metadata should stay compact and consistent.
+
+## Fonts
+
+The project should reuse the licensed Freightpx web typeface when it is available in the repository. Until then, the system uses a strong system sans stack rather than adding an arbitrary brand font dependency.

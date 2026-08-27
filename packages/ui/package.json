@@ -1,0 +1,27 @@
+{
+  "name": "@freightpx/frasto",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Astro-first SaaS UI design system by Freightpx.",
+  "license": "MIT",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles/index.css",
+    "./tokens.css": "./src/styles/tokens.css"
+  },
+  "peerDependencies": {
+    "astro": ">=7.0.0"
+  },
+  "scripts": {
+    "build": "astro check --root .",
+    "check": "astro check --root ."
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "astro": "7.2.7",
+    "typescript": "7.0.2"
+  }
+}

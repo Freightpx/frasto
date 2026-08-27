@@ -1,0 +1,36 @@
+---
+title: Color
+description: Warm-neutral semantic tokens designed to stay out of the application's way.
+---
+
+The default palette is intentionally restrained. A SaaS design system should communicate hierarchy and status without turning every product into the same blue dashboard.
+
+## Light theme
+
+| Token | Value | Purpose |
+| --- | --- | --- |
+| `--ui-bg` | `#f4f1ea` | page background |
+| `--ui-surface` | `#ffffff` | primary contained surface |
+| `--ui-surface-subtle` | `#ece9e2` | subtle region / inline code / quiet state |
+| `--ui-ink` | `#111111` | primary text / primary action |
+| `--ui-ink-muted` | `#66645f` | secondary text |
+| `--ui-ink-soft` | `#8a8882` | tertiary metadata |
+| `--ui-border` | `#d7d3ca` | default divider/border |
+| `--ui-border-strong` | `#b9b5ac` | selected/strong boundary |
+| `--ui-positive` | `#166534` | positive state |
+| `--ui-warning` | `#92400e` | warning state |
+| `--ui-danger` | `#991b1b` | destructive/error state |
+
+## Usage rules
+
+- Near-black is the default primary action, not blue.
+- Success, warning, and danger are functional colors.
+- Red is not a general brand accent.
+- Selection should use more than color alone.
+- Borders should be visible enough to communicate structure but quiet enough not to dominate the interface.
+
+## Dark theme
+
+Dark mode keeps a warm neutral character. It should feel like the same product under different luminance, not a separate theme identity.
+
+The canonical token values live in `packages/ui/src/styles/tokens.css`.
