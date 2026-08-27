@@ -1,0 +1,39 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  badgeBase,
+  badgeSizes,
+  type BadgeSize,
+  type BadgeTone,
+  type BadgeVariant,
+} from './badge-styles';
+
+type Props = Omit<HTMLAttributes<'span'>, 'class'> & {
+  class?: string;
+  size?: BadgeSize;
+  tone?: BadgeTone;
+  variant?: BadgeVariant;
+};
+
+const {
+  class: className,
+  size = 'sm',
+  tone = 'neutral',
+  variant = 'subtle',
+  ...rest
+} = Astro.props;
+
+const hasStartIcon = Astro.slots.has('icon-start');
+---
+
+<span
+  {...rest}
+  class:list={[badgeBase, badgeSizes[size], className]}
+  data-frasto-badge
+  data-size={size}
+  data-tone={tone}
+  data-variant={variant}
+>
+  {hasStartIcon && <span class="inline-flex" aria-hidden="true"><slot name="icon-start" /></span>}
+  <slot />
+</span>

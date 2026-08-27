@@ -1,0 +1,51 @@
+---
+title: Popover
+description: A collision-aware non-modal panel for contextual content and compact controls.
+---
+
+import { Button, Popover } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Popover` opens non-modal contextual content beside a trigger. It keeps the rest of the page interactive, closes on outside interaction or Escape, and returns focus when keyboard dismissal occurs.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <Popover label="Sync details">
+    <Button slot="trigger" variant="outline">Sync status</Button>
+    <strong>Customer data is current.</strong>
+    <p style="margin:.5rem 0 0; color:var(--frasto-ink-muted);">Last checked two minutes ago.</p>
+  </Popover>
+</div>
+
+## Usage
+
+```astro
+<Popover label="Filter help" placement="bottom-start">
+  <Button slot="trigger" variant="ghost">Filter help</Button>
+  <p>Filters apply to the current customer workspace.</p>
+</Popover>
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `label` | `string` | required | accessible panel name |
+| `placement` | `'top' \| 'bottom' \| 'bottom-start' \| 'bottom-end'` | `'bottom-start'` | preferred position before collision handling |
+| `class` | `string` | — | styles the root |
+| `panelClass` | `string` | — | styles the popover surface |
+
+The `trigger` slot accepts one interactive trigger. The default slot accepts contextual content and compact controls.
+
+## Behavior and accessibility
+
+- The trigger receives `aria-haspopup`, `aria-controls`, and `aria-expanded`.
+- Escape and outside pointer interaction close the panel.
+- Popover does not trap or automatically move focus; modal tasks belong in [Dialog](/docs/components/dialog/).
+- The panel uses a labelled non-modal dialog role.
+- Keep keyboard order logical when the panel contains controls.
+- On narrow viewports the panel is constrained to the viewport and may flip above the trigger.
+
+Use Tooltip for a short non-interactive explanation and Dropdown for a menu of commands.

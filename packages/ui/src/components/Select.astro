@@ -1,0 +1,64 @@
+---
+import { ChevronDown } from '@lucide/astro';
+import type { HTMLAttributes } from 'astro/types';
+import Icon from './Icon.astro';
+import {
+  selectIconSizes,
+  selectPaddings,
+  selectRootBase,
+  selectRootSizes,
+  type SelectSize,
+} from './select-styles';
+
+type Props = Omit<HTMLAttributes<'select'>, 'class' | 'size'> & {
+  class?: string;
+  fullWidth?: boolean;
+  invalid?: boolean;
+  selectClass?: string;
+  size?: SelectSize;
+};
+
+const {
+  'aria-invalid': ariaInvalid,
+  class: className,
+  disabled = false,
+  fullWidth = true,
+  invalid = false,
+  selectClass,
+  size = 'md',
+  ...rest
+} = Astro.props;
+
+const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false && ariaInvalid !== 'false');
+---
+
+<span
+  class:list={[
+    selectRootBase,
+    selectRootSizes[size],
+    fullWidth ? 'w-full' : 'w-auto',
+    disabled && 'cursor-not-allowed opacity-40',
+    isInvalid && 'border-[var(--frasto-danger)] focus-within:border-[var(--frasto-danger)]',
+    className,
+  ]}
+  data-disabled={disabled ? 'true' : undefined}
+  data-frasto-select
+  data-invalid={isInvalid ? 'true' : undefined}
+  data-size={size}
+>
+  <select
+    {...rest}
+    class:list={[
+      'h-full min-w-0 flex-1 appearance-none border-0 bg-transparent py-0 text-inherit text-[var(--frasto-ink)] outline-none disabled:cursor-not-allowed',
+      selectPaddings[size],
+      selectClass,
+    ]}
+    disabled={disabled}
+    aria-invalid={invalid ? 'true' : ariaInvalid}
+  >
+    <slot />
+  </select>
+  <span class="pointer-events-none absolute right-3 inline-flex text-[var(--frasto-ink-muted)]" aria-hidden="true">
+    <Icon icon={ChevronDown} size={selectIconSizes[size]} />
+  </span>
+</span>

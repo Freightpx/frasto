@@ -1,0 +1,120 @@
+---
+title: Input
+description: A native single-line field with compact square styling and optional icon slots.
+---
+
+import { Icon, Input, SearchIcon } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Input` preserves a native `<input>` while applying Frasto's control height, typography, border, focus, disabled, and invalid states. It does not render a label or validation message; those relationships remain explicit in the form markup until `FormField` is available.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="width: min(100%, 22rem);">
+    <label for="input-preview">Customer name</label>
+    <Input id="input-preview" name="customer" placeholder="Maya Chen" />
+  </div>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Input } from '@freightpx/frasto';
+---
+
+<label for="email">Email address</label>
+<Input id="email" name="email" type="email" autocomplete="email" required />
+```
+
+Native attributes such as `name`, `value`, `type`, `required`, `autocomplete`, `inputmode`, and `pattern` are forwarded to the input.
+
+## Icons
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="width: min(100%, 22rem);">
+    <label class="sr-only" for="input-search">Search customers</label>
+    <Input id="input-search" type="search" placeholder="Search customers…">
+      <Icon icon={SearchIcon} slot="icon-start" />
+    </Input>
+  </div>
+</div>
+
+```astro
+<Input id="search" type="search" placeholder="Search customers…">
+  <Icon icon={SearchIcon} slot="icon-start" />
+</Input>
+```
+
+Slotted icons are decorative and hidden from assistive technology. The external label supplies the field name.
+
+## Sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="display:grid; gap:.5rem; width:min(100%, 22rem);">
+    <Input aria-label="Small input" size="sm" placeholder="Small · 32px" />
+    <Input aria-label="Default input" size="md" placeholder="Default · 36px" />
+    <Input aria-label="Large input" size="lg" placeholder="Large · 40px" />
+  </div>
+</div>
+
+| Size | Height | Typical use |
+| --- | --- | --- |
+| `sm` | `32px` | dense filters and table toolbars |
+| `md` | `36px` | default forms and searches |
+| `lg` | `40px` | forms that need additional breathing room |
+
+## Invalid, disabled, and read-only
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="display:grid; gap:.5rem; width:min(100%, 22rem);">
+    <Input aria-label="Invalid reference" invalid value="Invalid value" />
+    <Input aria-label="Disabled reference" disabled value="Unavailable" />
+    <Input aria-label="Read-only reference" readonly value="Read-only value" />
+  </div>
+</div>
+
+`invalid` applies the danger border and `aria-invalid="true"`. It does not create an error message; associate that message with `aria-describedby`.
+
+```astro
+<label for="reference">Reference</label>
+<Input id="reference" name="reference" invalid aria-describedby="reference-error" />
+<p id="reference-error">Enter a valid customer reference.</p>
+```
+
+## Width
+
+Inputs fill their available inline space by default. Constrain the parent for a readable field width, or set `fullWidth={false}` when intrinsic width is required.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | control height and spacing |
+| `invalid` | `boolean` | `false` | danger treatment and invalid semantics |
+| `fullWidth` | `boolean` | `true` | fills the available inline size |
+| `class` | `string` | — | adds a class to the outer control |
+| `inputClass` | `string` | — | adds a class directly to the native input |
+
+All other relevant native input and `aria-*` attributes are forwarded.
+
+## Slots
+
+| Slot | Purpose |
+| --- | --- |
+| `icon-start` | decorative leading icon |
+| `icon-end` | decorative trailing icon |
+
+## Accessibility
+
+- Every input requires an associated visible label unless the surrounding pattern already provides an equivalent accessible name.
+- Placeholder text is an example or hint, never the only label.
+- Connect descriptions and errors with `aria-describedby`.
+- Use the correct native `type`, `autocomplete`, and `inputmode` so browsers can provide the right keyboard and autofill behavior.
+- Prefer `readonly` when users should be able to focus and copy a value; use `disabled` only when the control is unavailable and should not submit.
+
+## Responsive behavior
+
+The default full-width behavior lets inputs follow their container on narrow screens. Icons and control height remain fixed while the text entry area shrinks; long values scroll within the native input rather than changing layout.

@@ -1,0 +1,41 @@
+---
+title: Installation
+description: Planned package installation and the current development status.
+---
+
+:::caution[Not published yet]
+Frasto is in documentation-first development. The package is not production-ready and the public API is not stable.
+:::
+
+The planned installation is:
+
+```bash
+pnpm add @freightpx/frasto
+```
+
+Import components in an Astro component or layout. The package entry automatically includes the compiled Frasto stylesheet:
+
+```astro
+---
+import { Button, PageHeader } from '@freightpx/frasto';
+---
+```
+
+## Requirements
+
+- Astro is the primary supported framework.
+- Consumers do not need React, Vue, Svelte, or Tailwind.
+- Consumers do not need a separate Frasto stylesheet import in the normal setup.
+- Static components should not add a client runtime.
+- TypeScript definitions ship with the package.
+
+## Working from source
+
+Contributors can run the documentation workspace with:
+
+```bash
+pnpm install
+pnpm docs:dev
+```
+
+Do not copy planned APIs into production code until the relevant component is marked Experimental or later.

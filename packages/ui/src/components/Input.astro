@@ -1,0 +1,72 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  inputEndIconPadding,
+  inputEndPadding,
+  inputRootBase,
+  inputRootSizes,
+  inputStartIconPadding,
+  inputStartPadding,
+  type InputSize,
+} from './input-styles';
+
+type Props = Omit<HTMLAttributes<'input'>, 'class' | 'size'> & {
+  class?: string;
+  fullWidth?: boolean;
+  inputClass?: string;
+  invalid?: boolean;
+  size?: InputSize;
+};
+
+const {
+  'aria-invalid': ariaInvalid,
+  class: className,
+  disabled = false,
+  fullWidth = true,
+  inputClass,
+  invalid = false,
+  size = 'md',
+  ...rest
+} = Astro.props;
+
+const hasStartIcon = Astro.slots.has('icon-start');
+const hasEndIcon = Astro.slots.has('icon-end');
+const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false && ariaInvalid !== 'false');
+---
+
+<span
+  class:list={[
+    inputRootBase,
+    inputRootSizes[size],
+    fullWidth ? 'w-full' : 'w-auto',
+    disabled && 'cursor-not-allowed opacity-40',
+    isInvalid && 'border-[var(--frasto-danger)] focus-within:border-[var(--frasto-danger)]',
+    className,
+  ]}
+  data-frasto-input
+  data-disabled={disabled ? 'true' : undefined}
+  data-invalid={isInvalid ? 'true' : undefined}
+  data-size={size}
+>
+  {hasStartIcon && (
+    <span class:list={['pointer-events-none inline-flex shrink-0 text-[var(--frasto-ink-muted)]', inputStartIconPadding[size]]} aria-hidden="true">
+      <slot name="icon-start" />
+    </span>
+  )}
+  <input
+    {...rest}
+    class:list={[
+      'h-full min-w-0 flex-1 appearance-none border-0 bg-transparent py-0 text-inherit text-[var(--frasto-ink)] outline-none placeholder:text-[var(--frasto-ink-soft)] disabled:cursor-not-allowed',
+      hasStartIcon ? inputStartPadding[size].withIcon : inputStartPadding[size].default,
+      hasEndIcon ? inputEndPadding[size].withIcon : inputEndPadding[size].default,
+      inputClass,
+    ]}
+    disabled={disabled}
+    aria-invalid={invalid ? 'true' : ariaInvalid}
+  />
+  {hasEndIcon && (
+    <span class:list={['pointer-events-none inline-flex shrink-0 text-[var(--frasto-ink-muted)]', inputEndIconPadding[size]]} aria-hidden="true">
+      <slot name="icon-end" />
+    </span>
+  )}
+</span>

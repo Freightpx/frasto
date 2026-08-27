@@ -1,0 +1,46 @@
+---
+title: Theming
+description: Semantic CSS tokens are the public customization contract.
+---
+
+The library should be brandable without editing component source.
+
+## Semantic tokens
+
+Components consume values such as:
+
+```css
+background: var(--frasto-surface);
+color: var(--frasto-ink);
+border-color: var(--frasto-border);
+border-radius: var(--frasto-radius);
+```
+
+They should not hard-code palette values unless the value itself is part of a fixed semantic requirement.
+
+## Consumer override
+
+A product should be able to define its own theme after importing the base stylesheet:
+
+```css
+:root {
+  --frasto-bg: #f8f6f0;
+  --frasto-ink: #161616;
+}
+```
+
+## Dark mode
+
+The base system ships a dark token set, but products remain free to replace it. Theme switching behavior belongs to the consuming application unless a minimal helper is added later.
+
+## Contract boundaries
+
+Public tokens may be overridden. Private implementation variables, selectors, and DOM shape are not theming APIs unless documented. Components must not require consumers to duplicate internal state selectors to create a coherent theme.
+
+## Validation
+
+Theme authors should review default, hover, focus, selected, disabled, invalid, loading, and overlay states—not only a static page background.
+
+## Tailwind
+
+Consumers should not need Tailwind configuration to use the library. Public theme API is CSS custom properties.

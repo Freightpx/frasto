@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { dropdownItemBase } from './dropdown-styles';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class' | 'disabled' | 'type'> & {
+  class?: string;
+  disabled?: boolean;
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+};
+
+const {
+  class: className,
+  disabled = false,
+  href,
+  type = 'button',
+  ...rest
+} = Astro.props;
+
+const Element = href ? 'a' : 'button';
+---
+
+<Element
+  {...rest}
+  class:list={[dropdownItemBase, className]}
+  href={href && !disabled ? href : undefined}
+  type={href ? undefined : type}
+  disabled={href ? undefined : disabled}
+  role="menuitem"
+  tabindex={disabled ? -1 : undefined}
+  aria-disabled={disabled ? 'true' : undefined}
+  data-frasto-dropdown-item
+>
+  <slot />
+</Element>

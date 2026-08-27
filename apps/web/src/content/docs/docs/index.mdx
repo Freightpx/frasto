@@ -1,0 +1,80 @@
+---
+title: Frasto UI
+description: Astro-first UI foundations and application patterns for serious SaaS products.
+template: splash
+hero:
+  tagline: Build serious SaaS applications with Astro. Server-first components, application patterns, and production-ready layouts.
+  actions:
+    - text: Get started
+      link: /docs/getting-started/introduction/
+      icon: right-arrow
+    - text: Explore foundations
+      link: /docs/foundations/design-principles/
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## 01 — Built for application work
+
+Frasto UI is intentionally more application-oriented than a generic primitive library. The goal is to make recurring SaaS structures—resource lists, settings, detail screens, navigation, filters, data states, and actions—feel coherent from the beginning.
+
+<CardGrid>
+  <Card title="Astro first">
+    Render useful HTML on the server. Add client behavior only when the interaction needs it.
+  </Card>
+  <Card title="SaaS patterns">
+    Treat AppShell, ResourceTable, FilterBar, DetailLayout, and SettingsLayout as first-class product primitives.
+  </Card>
+  <Card title="Backend agnostic">
+    Bring data from Astro Actions, REST, GraphQL, Supabase, Appwrite, your own API, or anything else.
+  </Card>
+  <Card title="Designed for daily use">
+    Clear hierarchy, restrained color, quiet borders, compact density, and accessible states.
+  </Card>
+</CardGrid>
+
+## 02 — One application language
+
+```text
+Foundations
+    ↓
+Core components
+    ↓
+Application components
+    ↓
+Patterns
+    ↓
+Complete recipes
+```
+
+The layers are designed together. A `ResourceTable` should use the same density, focus treatment, content rules, and responsive principles as the controls around it.
+
+## 03 — Freightpx direction
+
+The default visual language is editorial and neutral: warm surfaces, near-black primary actions, thin dividers, strict square geometry, minimal shadow, and typography doing most of the hierarchy work.
+
+> **Clarity first. Craft throughout.**
+
+## 04 — Documentation map
+
+<CardGrid>
+  <Card title="Foundations" icon="open-book" link="/docs/foundations/design-principles/">
+    Color, type, spacing, layout, motion, accessibility, themes, and content rules.
+  </Card>
+  <Card title="Architecture" icon="setting" link="/docs/architecture/astro-first/">
+    Rendering, interaction, dependencies, APIs, TypeScript, and data contracts.
+  </Card>
+  <Card title="Application components" icon="puzzle" link="/docs/application-components/overview/">
+    Planned contracts for shells, tables, filters, detail views, settings, and activity.
+  </Card>
+  <Card title="Patterns" icon="seti:folder" link="/docs/patterns/overview/">
+    Repeatable structures for dashboards, resources, settings, CRUD, and data states.
+  </Card>
+</CardGrid>
+
+## 05 — Current status
+
+The project is in its documentation-first foundation phase. We are defining the design language, component contracts, architecture, and contribution rules before implementing the first public component set.
+
+[See project status →](/docs/getting-started/status/)

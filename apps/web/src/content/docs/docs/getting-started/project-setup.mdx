@@ -1,0 +1,32 @@
+---
+title: Project setup
+description: A recommended Astro project structure for applications using Frasto.
+---
+
+Frasto does not dictate application architecture, but a predictable boundary between data, pages, and UI makes the system easier to maintain.
+
+```text
+src/
+├── components/       product-specific UI
+├── data/             loaders and display adapters
+├── layouts/          application and authentication layouts
+├── pages/            Astro routes
+├── styles/           product token overrides
+└── types/            application data contracts
+```
+
+## Root application layout
+
+Import the stylesheet once in the layout that owns the application interface. Avoid importing the full stylesheet separately in every component.
+
+## Theme boundary
+
+Apply `data-theme` at a stable ancestor such as `<html>` or the application root. Place product overrides after the Frasto stylesheet.
+
+## Data boundary
+
+Adapt backend records before rendering when their shape is coupled to storage. UI components should receive display-oriented values rather than ORM objects with hidden behavior.
+
+## Interactivity boundary
+
+Use Astro islands for product-specific client applications when needed. Frasto itself should not require a page-wide island to render static content.

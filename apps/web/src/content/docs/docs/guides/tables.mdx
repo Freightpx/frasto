@@ -1,0 +1,40 @@
+---
+title: Tables & data states
+description: Decide when data is tabular, how it transforms, and how every state preserves context.
+---
+
+## Use a table when
+
+People compare values across records and columns. Use a structured list when each record is read as a self-contained summary.
+
+## Choose columns
+
+Start with identity, the values needed for comparison, current status, and relevant actions. Secondary metadata can move to detail views or narrow-layout disclosures.
+
+## Sorting
+
+Declare which columns sort, the initial order, and whether the application controls sorting. A sortable header announces the active direction.
+
+## Responsive strategy
+
+Choose one or combine deliberately:
+
+- horizontal scroll for comparison integrity
+- priority columns for constrained space
+- structured rows for record-by-record reading
+- detail disclosure for secondary values
+
+## State checklist
+
+- initial loading
+- background refresh
+- first-use empty
+- filtered empty
+- partial rows or unavailable cells
+- regional error
+- long and localized values
+- selected rows and bulk results
+
+## Accessibility
+
+Keep true table semantics when the visual information remains tabular. Give row actions and selection controls record-specific names.

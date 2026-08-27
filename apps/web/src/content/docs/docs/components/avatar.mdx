@@ -1,0 +1,102 @@
+---
+title: Avatar
+description: A square identity primitive for images and explicit text fallbacks.
+---
+
+import { Avatar } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Avatar` represents a person, organization, workspace, or other identity using either an image or a short fallback. It uses square geometry, a quiet border, and no shadow.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <Avatar fallback="MC" label="Maya Chen" />
+  <Avatar fallback="AY" label="Arman Yusuf" />
+  <Avatar fallback="SP" label="Studio Porto" />
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Avatar } from '@freightpx/frasto';
+---
+
+<Avatar fallback="MC" label="Maya Chen" />
+```
+
+Fallback text is explicit rather than inferred. This keeps abbreviations, organization names, and non-Latin names under application control.
+
+## Image avatars
+
+`src` accepts a URL string or imported Astro image metadata.
+
+```astro
+---
+import mayaImage from '../assets/maya.jpg';
+---
+
+<Avatar src={mayaImage} alt="" />
+<span>Maya Chen</span>
+```
+
+Use an empty `alt` when a visible adjacent label already names the identity. Use descriptive alternative text when the avatar is the only identity label.
+
+The server-rendered component does not replace a failed remote image automatically. Applications with unreliable image sources should validate URLs, provide their own loading policy, or add deliberate client-side recovery.
+
+## Sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <Avatar size="xs" fallback="XS" label="Extra small avatar" />
+  <Avatar size="sm" fallback="SM" label="Small avatar" />
+  <Avatar size="md" fallback="MD" label="Medium avatar" />
+  <Avatar size="lg" fallback="LG" label="Large avatar" />
+</div>
+
+| Size | Dimensions | Typical use |
+| --- | --- | --- |
+| `xs` | `24 × 24px` | dense tables and activity metadata |
+| `sm` | `32 × 32px` | resource lists and compact navigation |
+| `md` | `40 × 40px` | default profile summaries |
+| `lg` | `48 × 48px` | detail headers and prominent identity blocks |
+
+## Custom fallback
+
+Use the named `fallback` slot when the fallback needs structured content supplied by the application.
+
+```astro
+<Avatar label="Organization">
+  <span slot="fallback">ORG</span>
+</Avatar>
+```
+
+Keep custom fallback content short. Interactive controls do not belong inside an avatar.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `src` | `string \| ImageMetadata` | — | identity image source |
+| `alt` | `string` | `''` | native image alternative text |
+| `fallback` | `string` | `'?'` | visible content when `src` is absent |
+| `label` | `string` | — | accessible name for a fallback avatar |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | avatar dimensions and fallback type size |
+| `loading` | `'eager' \| 'lazy'` | `'lazy'` | native image loading behavior |
+| `decoding` | `'async' \| 'auto' \| 'sync'` | `'async'` | native image decoding behavior |
+| `class` | `string` | — | adds a class to the outer avatar |
+| `imageClass` | `string` | — | adds a class directly to the image |
+
+Native span attributes are forwarded to the outer avatar.
+
+## Accessibility
+
+- When visible text next to the avatar already identifies the subject, use `alt=""` for image avatars.
+- Give fallback-only avatars a complete `label`; initials alone may be ambiguous.
+- Do not use an avatar as a button or link. Wrap it with the appropriate interactive element when navigation or activation is required.
+- Avoid conveying presence, permissions, or account state through the avatar alone; use visible status text.
+
+## Responsive behavior
+
+Avatars preserve their selected size and never stretch automatically. Let adjacent names truncate or wrap according to the surrounding list rather than shrinking the identity mark unpredictably.

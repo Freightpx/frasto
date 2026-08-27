@@ -34,7 +34,7 @@ The system is not a literal copy of the Freightpx marketing website. Marketing p
 - tighter spacing inside repeated data rows
 - warm, high-contrast neutrals
 - thin borders and dividers
-- restrained radius
+- strict square geometry
 - direct interface copy
 
 ### Avoid
@@ -42,7 +42,7 @@ The system is not a literal copy of the Freightpx marketing website. Marketing p
 - generic bright-blue dashboard styling
 - gradients as a default visual treatment
 - glassmorphism
-- oversized pill-shaped containers everywhere
+- rounded or pill-shaped controls and containers
 - large floating shadows
 - decorative dashboard charts
 - cards nested inside cards
@@ -55,21 +55,21 @@ The initial theme uses Freightpx's warm-neutral fallback palette. These values m
 
 ```css
 :root {
-  --ui-bg: #f4f1ea;
-  --ui-surface: #ffffff;
-  --ui-surface-subtle: #ece9e2;
+  --frasto-bg: #f4f1ea;
+  --frasto-surface: #ffffff;
+  --frasto-surface-subtle: #ece9e2;
 
-  --ui-ink: #111111;
-  --ui-ink-muted: #66645f;
-  --ui-ink-soft: #8a8882;
+  --frasto-ink: #111111;
+  --frasto-ink-muted: #66645f;
+  --frasto-ink-soft: #8a8882;
 
-  --ui-border: #d7d3ca;
-  --ui-border-strong: #b9b5ac;
+  --frasto-border: #d7d3ca;
+  --frasto-border-strong: #b9b5ac;
 
-  --ui-positive: #166534;
-  --ui-warning: #92400e;
-  --ui-danger: #991b1b;
-  --ui-focus: #111111;
+  --frasto-positive: #166534;
+  --frasto-warning: #92400e;
+  --frasto-danger: #991b1b;
+  --frasto-focus: #111111;
 }
 ```
 
@@ -91,39 +91,40 @@ Dark mode keeps the same neutral hierarchy rather than introducing a new accent 
 
 ```css
 [data-theme='dark'] {
-  --ui-bg: #11110f;
-  --ui-surface: #181816;
-  --ui-surface-subtle: #22221f;
+  --frasto-bg: #11110f;
+  --frasto-surface: #181816;
+  --frasto-surface-subtle: #22221f;
 
-  --ui-ink: #f4f1ea;
-  --ui-ink-muted: #b8b4aa;
-  --ui-ink-soft: #8f8b83;
+  --frasto-ink: #f4f1ea;
+  --frasto-ink-muted: #b8b4aa;
+  --frasto-ink-soft: #8f8b83;
 
-  --ui-border: #34332f;
-  --ui-border-strong: #504e48;
+  --frasto-border: #34332f;
+  --frasto-border-strong: #504e48;
 
-  --ui-positive: #86b991;
-  --ui-warning: #d2a46f;
-  --ui-danger: #d98a86;
-  --ui-focus: #f4f1ea;
+  --frasto-positive: #86b991;
+  --frasto-warning: #d2a46f;
+  --frasto-danger: #d98a86;
+  --frasto-focus: #f4f1ea;
 }
 ```
 
 ## 6. Typography
 
-Use the exact Freightpx typeface when its licensed web implementation is available to the project. Until then, use a refined system sans stack rather than bundling an arbitrary new font.
+Use **Inter** for interface text and **Inter Tight** for display headings. Keep system fallbacks so the package remains usable while fonts load or when a consumer chooses not to bundle the font files.
 
 ```css
---ui-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
---ui-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+--frasto-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+--frasto-font-display: "Inter Tight", Inter, ui-sans-serif, system-ui, sans-serif;
+--frasto-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
---ui-text-label: 0.6875rem;
---ui-text-caption: 0.75rem;
---ui-text-body-sm: 0.875rem;
---ui-text-body: 1rem;
---ui-text-title-sm: 1.125rem;
---ui-text-title: 1.5rem;
---ui-text-page-title: clamp(2rem, 4vw, 3.5rem);
+--frasto-text-label: 0.6875rem;
+--frasto-text-caption: 0.75rem;
+--frasto-text-body-sm: 0.875rem;
+--frasto-text-body: 1rem;
+--frasto-text-title-sm: 1.125rem;
+--frasto-text-title: 1.5rem;
+--frasto-text-page-title: clamp(2rem, 4vw, 3.5rem);
 ```
 
 ### Behavior
@@ -140,32 +141,50 @@ Use the exact Freightpx typeface when its licensed web implementation is availab
 Use one spacing scale everywhere.
 
 ```css
---ui-space-1: 4px;
---ui-space-2: 8px;
---ui-space-3: 12px;
---ui-space-4: 16px;
---ui-space-5: 24px;
---ui-space-6: 32px;
---ui-space-7: 48px;
---ui-space-8: 64px;
+--frasto-space-1: 4px;
+--frasto-space-2: 8px;
+--frasto-space-3: 12px;
+--frasto-space-4: 16px;
+--frasto-space-5: 24px;
+--frasto-space-6: 32px;
+--frasto-space-7: 48px;
+--frasto-space-8: 64px;
 ```
 
 Major page sections can breathe. Repeated rows, form groups, tables, filters, and toolbars should stay compact.
 
-## 8. Radius, borders, shadows
+## 8. Shape, borders, shadows
 
 ```css
---ui-radius-sm: 4px;
---ui-radius-md: 8px;
---ui-radius-lg: 12px;
+--frasto-control-height: 36px;
+--frasto-radius: 0px;
+--frasto-border-width: 1px;
 ```
 
 - Thin borders define structure.
-- Radius is subtle.
+- Buttons, inputs, checkboxes, slider parts, badges, icon buttons, menus, surfaces, and dialogs use square corners.
+- Rounded and pill treatments are not Frasto variants.
 - Shadows are reserved for overlays, floating menus, dialogs, and sticky surfaces that genuinely need separation.
 - Default sections should not look like floating cards.
 
-## 9. Motion
+### Tabs
+
+- The tab list uses a single quiet bottom border.
+- Individual tabs have no box, background, side border, top border, or radius.
+- The active tab uses stronger text and a short bottom rule aligned with the label area.
+- Inactive tabs use muted text while preserving sufficient contrast.
+- Focus-visible treatment remains distinct from the active indicator.
+
+## 9. Icons
+
+Lucide is the built-in icon source for Frasto. Render its interface icons with a consistent **1.25px stroke width**, `currentColor`, and a size appropriate to the control. Components should still expose icon slots so consumers can provide another compatible icon when required.
+
+- Decorative icons are hidden from assistive technology.
+- Icon-only controls always have an accessible name.
+- Unfamiliar actions pair an icon with text.
+- Icons remain functional and restrained, especially in dense tables.
+
+## 10. Motion
 
 Recommended duration: **120–220ms**.
 
@@ -187,7 +206,7 @@ Avoid:
 
 Always respect `prefers-reduced-motion`.
 
-## 10. Application density
+## 11. Application density
 
 A SaaS product is a workspace. The system should support long sessions and high-information screens.
 
@@ -196,7 +215,7 @@ A SaaS product is a workspace. The system should support long sessions and high-
 - Mobile layouts may transform rather than simply shrink.
 - Related information should group through hierarchy before adding containers.
 
-## 11. Component states
+## 12. Component states
 
 Every interactive component must consider:
 
@@ -218,7 +237,7 @@ Every data-display pattern should consider:
 - long content
 - narrow viewport
 
-## 12. Accessibility baseline
+## 13. Accessibility baseline
 
 - semantic HTML first
 - keyboard operation
@@ -231,7 +250,7 @@ Every data-display pattern should consider:
 - touch targets appropriate for mobile
 - reduced-motion support
 
-## 13. Design review question
+## 14. Design review question
 
 Before adding a visual treatment, ask:
 

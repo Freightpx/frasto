@@ -1,0 +1,39 @@
+---
+title: Themes
+description: Semantic roles that let products change identity without changing component source.
+---
+
+A Frasto theme is a coherent set of semantic token values. Components depend on roles—background, surface, ink, border, focus, positive, warning, danger—not brand-specific palette steps.
+
+## Required roles
+
+At minimum, a theme defines:
+
+- application background
+- primary and subtle surfaces
+- primary, muted, and soft ink
+- default and strong borders
+- focus indication
+- positive, warning, and danger states
+
+Typography, spacing, and motion may also be themed when the product needs them. Frasto's zero-radius geometry remains constant across themes.
+
+## Theme contract
+
+- Every value must work across the component inventory.
+- Text and interactive states must meet contrast requirements.
+- Semantic state colors keep their meaning.
+- Selection and status use more than color alone.
+- Theme overrides do not depend on component internals.
+
+## Activation
+
+```html
+<html data-theme="dark">
+```
+
+Custom themes use the same attribute convention or a product-specific root selector.
+
+## Ownership
+
+Frasto supplies light and dark defaults. The consuming application owns persistence, system-preference detection, and user-facing theme controls.

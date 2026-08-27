@@ -1,0 +1,40 @@
+---
+title: Icons
+description: Use Frasto's Lucide defaults or provide a compatible icon through a component slot.
+---
+
+Frasto uses [Lucide](https://lucide.dev/) for its built-in interface icons. The visual baseline is a `1.25px` stroke, `currentColor`, and sizing matched to the control. Components still expose icon slots so an application can provide a compatible custom icon when needed.
+
+## Usage
+
+Components that accept icons should prefer a slot or renderable child:
+
+```astro
+---
+import { Button, Icon, PlusIcon } from '@freightpx/frasto';
+---
+
+<Button>
+  <Icon icon={PlusIcon} slot="icon" />
+  Customer
+</Button>
+```
+
+Built-in icons use the same visual settings:
+
+```astro
+<Icon icon={PlusIcon} />
+```
+
+`Icon` applies a `16px` size, `1.25px` stroke width, `currentColor`, and decorative accessibility behavior by default. Pass `label` when the icon itself carries meaning.
+
+## Rules
+
+- decorative icons are hidden from assistive technology
+- icon-only controls require an accessible name
+- default icon size follows the control size
+- Lucide stroke width is `1.25px` by default
+- icons do not replace text when the action may be ambiguous
+- custom SVG should use `currentColor` when it inherits component color
+
+[Read the iconography foundation →](/docs/foundations/iconography/)

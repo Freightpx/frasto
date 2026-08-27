@@ -1,0 +1,48 @@
+---
+title: Accessibility
+description: Accessibility is part of the component contract, not a final audit step.
+---
+
+## Baseline requirements
+
+- semantic HTML first
+- full keyboard operation for interactive controls
+- visible `:focus-visible` states
+- logical heading order
+- explicit form labels
+- accessible names for icon-only controls
+- sufficient text and control contrast
+- status never represented by color alone
+- reduced-motion support
+- error messages associated with their controls
+- dialogs with accessible titles/descriptions and predictable focus handling
+
+## Touch interfaces
+
+Primary mobile controls should provide comfortable touch targets even when the visual layout stays compact.
+
+## Native first
+
+Prefer native controls when they provide the correct semantics and behavior. Replacing a native element means taking responsibility for its keyboard, focus, announcement, and state behavior.
+
+## Component contract
+
+Every interactive component specification must define:
+
+1. semantic role and accessible name
+2. keyboard commands
+3. focus entry, movement, and return
+4. announced state and changes
+5. disabled and invalid behavior
+6. reduced-motion behavior
+7. narrow viewport and touch operation
+
+## Data and feedback
+
+Loading, empty, error, success, and partial states require meaningful text. Live announcements should be used only when an update needs immediate attention; excessive live regions make an application harder to use.
+
+## Validation
+
+Automated checks help detect missing names, invalid roles, and common contrast issues. They do not replace keyboard testing, screen-reader review, zoom testing, high-contrast review, or evaluation with real content.
+
+Critical accessibility failures block a component from Stable status.

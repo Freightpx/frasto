@@ -1,0 +1,32 @@
+---
+title: Stat
+description: Planned compact quantitative summary with trend and context.
+---
+
+**Status: Planned**
+
+`Stat` presents a value, label, and optional change without turning every metric into a decorative card.
+
+## Anatomy
+
+- label
+- primary value
+- optional change or trend
+- optional description or period
+- optional small visualization
+
+## Data rules
+
+The application supplies formatted values and decides whether a change is positive, negative, or neutral in context. Revenue decreasing may be negative; response time decreasing may be positive.
+
+## Presentation
+
+Use tabular numerals where metrics align. A group of stats may use dividers and a grid instead of separate floating cards.
+
+## Accessibility
+
+Trend direction and meaning must be available in text, not only color or an arrow. Mini visualizations are supplementary unless they include an accessible summary.
+
+## Responsive behavior
+
+Stat groups reduce columns and preserve reading order. Long values must not force destructive clipping of labels or context.

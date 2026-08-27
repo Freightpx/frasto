@@ -1,0 +1,90 @@
+---
+title: Switch
+description: A native rectangular switch for immediate binary settings.
+---
+
+import { Switch } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Switch` is a native checkbox exposed with `role="switch"` for settings that take effect immediately. Its track is rectangular and its moving thumb is square, preserving Frasto's zero-radius geometry.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="display:grid; gap:.75rem;">
+    <Switch name="activity" checked>Show account activity</Switch>
+    <Switch name="archive">Archive inactive customers automatically</Switch>
+  </div>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Switch } from '@freightpx/frasto';
+---
+
+<Switch name="notifications" checked>
+  Email account updates
+</Switch>
+```
+
+`checked` defines the server-rendered initial state. The browser owns subsequent toggles unless the consuming application adds synchronization or persistence.
+
+## When to use a switch
+
+Use a switch when changing the setting should take effect immediately, such as enabling notifications or showing a dashboard feature.
+
+Use `Checkbox` when the choice is part of a form that is reviewed and submitted later, such as accepting terms or selecting several records.
+
+## Sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <Switch size="sm" checked>Small · 28 × 16px</Switch>
+  <Switch size="md" checked>Default · 36 × 20px</Switch>
+</div>
+
+Both sizes use a one-pixel border, square thumb, no shadow, and short state-change motion.
+
+## Invalid and disabled
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="display:grid; gap:.75rem;">
+    <Switch invalid>Required setting</Switch>
+    <Switch disabled>Unavailable setting</Switch>
+    <Switch disabled checked>Enabled but unavailable</Switch>
+  </div>
+</div>
+
+`invalid` applies the danger treatment and `aria-invalid="true"`. Disabled switches remain legible but cannot be changed or submitted.
+
+## Persistence
+
+The component does not send requests or store preferences. Attach application behavior when the setting must persist, and communicate pending, success, or failure states near the control.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md'` | `'md'` | switch and label size |
+| `checked` | `boolean` | `false` | initial on state |
+| `disabled` | `boolean` | `false` | prevents interaction and submission |
+| `invalid` | `boolean` | `false` | danger treatment and invalid semantics |
+| `class` | `string` | — | adds a class to the outer label |
+| `inputClass` | `string` | — | adds a class to the native checkbox input |
+
+Native checkbox attributes, including `name`, `value`, `required`, and `aria-*`, are forwarded.
+
+## Accessibility
+
+- Use a concise label that describes what the on state means.
+- Do not place “on” or “off” inside the label; assistive technology announces the current state.
+- The default slot supplies the accessible label. If omitted, provide `aria-label` or `aria-labelledby`.
+- Keep state changes reversible when possible.
+- If persistence is asynchronous, expose progress and failure without disabling focus unnecessarily.
+- The square thumb motion communicates state and respects reduced-motion preferences.
+
+## Responsive behavior
+
+The track remains fixed-size while the label wraps. The complete label remains the activation target, providing a practical touch area without enlarging the visual control.

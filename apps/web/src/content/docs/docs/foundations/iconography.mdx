@@ -1,0 +1,29 @@
+---
+title: Iconography
+description: A restrained Lucide-based icon language focused on meaning, alignment, and accessibility.
+---
+
+Icons support recognition and compact actions. They should not become a second visual language competing with content.
+
+## Interface policy
+
+Lucide is Frasto's built-in icon source. Use a consistent `1.25px` stroke width and `currentColor`. Frasto components also define icon slots and sizing behavior so consumers may supply a local Astro component or custom SVG when the resulting markup follows the same contract.
+
+## Size and alignment
+
+- Match icon size to the adjacent text or control size.
+- Keep Lucide icons at `1.25px` stroke width unless a documented optical correction is necessary.
+- Use a consistent optical box within repeated controls.
+- Align icon and label as one control, not as independent columns.
+- Prefer simple, legible strokes at application sizes.
+
+## Meaning
+
+- Pair unfamiliar icons with text.
+- Do not use different icons for the same action within one product.
+- Avoid decorative icons in dense data tables.
+- Directional icons should respect writing direction where relevant.
+
+## Accessibility
+
+Decorative icons use `aria-hidden="true"`. Icon-only controls receive an accessible name on the control itself. Meaningful standalone illustrations need equivalent text, but most interface icons should not be announced separately from their label.

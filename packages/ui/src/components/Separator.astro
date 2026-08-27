@@ -1,0 +1,43 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  separatorBase,
+  separatorOrientations,
+  separatorTones,
+  type SeparatorOrientation,
+  type SeparatorTone,
+} from './separator-styles';
+
+type Props = Omit<HTMLAttributes<'hr'>, 'class' | 'role'> & {
+  class?: string;
+  decorative?: boolean;
+  orientation?: SeparatorOrientation;
+  tone?: SeparatorTone;
+};
+
+const {
+  class: className,
+  decorative = false,
+  orientation = 'horizontal',
+  tone = 'default',
+  ...rest
+} = Astro.props;
+
+const Element = orientation === 'horizontal' ? 'hr' : 'div';
+---
+
+<Element
+  {...rest}
+  class:list={[
+    separatorBase,
+    separatorOrientations[orientation],
+    separatorTones[tone],
+    className,
+  ]}
+  role={decorative ? 'presentation' : orientation === 'vertical' ? 'separator' : undefined}
+  aria-orientation={!decorative && orientation === 'vertical' ? 'vertical' : undefined}
+  data-frasto-separator
+  data-decorative={decorative ? 'true' : undefined}
+  data-orientation={orientation}
+  data-tone={tone}
+/>

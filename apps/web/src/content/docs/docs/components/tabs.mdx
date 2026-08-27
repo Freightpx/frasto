@@ -1,0 +1,69 @@
+---
+title: Tabs
+description: An accessible client-side view switcher with a quiet baseline and active bottom rule.
+---
+
+import { Tab, TabPanel, Tabs } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Tabs` switches related views without navigation. It follows Frasto's strict underline model: one quiet list baseline, no tab boxes or backgrounds, and one short active bottom rule.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <Tabs label="Account sections" defaultValue="overview" style="width:100%;">
+    <Tab slot="tab" value="overview">Overview</Tab>
+    <Tab slot="tab" value="invoices">Invoices</Tab>
+    <TabPanel slot="panel" value="overview">Account overview content.</TabPanel>
+    <TabPanel slot="panel" value="invoices">Invoice content.</TabPanel>
+  </Tabs>
+</div>
+
+## Usage
+
+```astro
+---
+import { Tab, TabPanel, Tabs } from '@freightpx/frasto';
+---
+
+<Tabs label="Customer sections" defaultValue="overview">
+  <Tab slot="tab" value="overview">Overview</Tab>
+  <Tab slot="tab" value="invoices">Invoices</Tab>
+
+  <TabPanel slot="panel" value="overview">...</TabPanel>
+  <TabPanel slot="panel" value="invoices">...</TabPanel>
+</Tabs>
+```
+
+Every tab and panel pair shares the same `value`. The `slot` attributes are required so Frasto can preserve the tab-list and panel relationships in server-rendered markup.
+
+## Keyboard behavior
+
+- Only the active tab is in the ordinary Tab sequence.
+- Left and Right arrows move and activate the adjacent enabled tab.
+- Home and End activate the first and last enabled tab.
+- Focus moves with selection.
+- Disabled tabs are skipped.
+
+## API
+
+### Tabs
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `label` | `string` | required | accessible tab-list name |
+| `defaultValue` | `string` | first enabled tab | initial selected value |
+| `class` | `string` | — | styles the root |
+| `listClass` | `string` | — | styles the tab list |
+
+### Tab and TabPanel
+
+Both require `value`. Tab also accepts native button attributes and `disabled`; TabPanel accepts native div attributes. Selection emits a bubbling `frasto:tab-change` event with `{ value }` in `detail`.
+
+## Accessibility and responsive behavior
+
+- IDs, `aria-controls`, `aria-labelledby`, `aria-selected`, and roving tabindex are wired automatically.
+- All panels remain readable if JavaScript does not initialize; enhancement hides inactive panels.
+- Long tab lists scroll horizontally rather than becoming pills or wrapping into ambiguous rows.
+- Use ordinary links with `aria-current="page"` when changing routes instead of client-side views.

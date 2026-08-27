@@ -1,0 +1,33 @@
+---
+title: Why Frasto
+description: The application UI gap Frasto is designed to close for Astro teams.
+---
+
+Astro is excellent at websites and content-driven products. Business applications add another class of repeated problems: navigation shells, dense resource views, filters, bulk actions, detail screens, settings, data states, and accessible interaction.
+
+## The missing middle
+
+A primitive library may provide `Button`, `Input`, `Badge`, and `Table`. A SaaS team still has to define how those pieces become a coherent customer list, settings area, admin shell, or activity timeline.
+
+```text
+Primitive library        Frasto
+Button                   Resource list
+Input                    Detail layout
+Badge                    Settings navigation
+Table                    Application shell
+Dropdown                 Data-state patterns
+```
+
+Frasto treats both layers as product infrastructure.
+
+## Why Astro first
+
+Application UI should not force an Astro project to become a client-rendered application. Frasto starts with useful server-rendered HTML, adds CSS for presentation, and introduces focused client behavior only where the interaction requires it.
+
+## Why patterns matter
+
+Teams do not repeatedly struggle with the shape of one button. They struggle with the contract between many controls, states, and layouts. Patterns record those decisions once so products can stay consistent as they grow.
+
+## Positioning
+
+Frasto is not a port of a React library and is not “shadcn for Astro.” It is an application design system made specifically for Astro, with SaaS structures as first-class components.

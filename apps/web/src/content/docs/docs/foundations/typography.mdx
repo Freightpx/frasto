@@ -1,0 +1,53 @@
+---
+title: Typography
+description: Editorial hierarchy adapted for compact application interfaces.
+---
+
+Typography is the primary hierarchy tool in the system.
+
+Frasto uses **Inter** for interface text and **Inter Tight** for display and page headings. System fallbacks remain part of each stack for reliable rendering. Product applications should self-host or bundle the approved font files rather than fetching them from an undeclared third-party service at runtime.
+
+## Scale
+
+| Role | Size | Typical use |
+| --- | --- | --- |
+| Label | `0.6875rem` | contextual labels, table headers |
+| Caption | `0.75rem` | metadata, supporting detail |
+| Body small | `0.875rem` | compact controls and data rows |
+| Body | `1rem` | default prose and forms |
+| Title small | `1.125rem` | component/section title |
+| Title | `1.5rem` | major section heading |
+| Page title | `clamp(2rem, 4vw, 3.5rem)` | primary page heading |
+
+## Behavior
+
+- Keep page titles concise and tightly spaced.
+- Small contextual labels may use uppercase and tracking.
+- Avoid uppercase for long copy.
+- Body copy should not rely on very light font weights.
+- Use tabular numerals for values that need column alignment.
+- IDs, dates, and metadata should stay compact and consistent.
+
+## Measure and rhythm
+
+- Prose should usually remain between `55ch` and `75ch`.
+- Interface labels may be shorter and denser than documentation copy.
+- Use line-height to preserve readability; do not add arbitrary margins to each text node.
+- Keep heading hierarchy semantic even when two levels share a visual size.
+
+## Numeric data
+
+Use `font-variant-numeric: tabular-nums` for aligned currency, quantities, dates, IDs, and statistics. Preserve units and signs so a value remains meaningful outside visual color cues.
+
+## Truncation
+
+Truncation is a last-mile layout decision, not a content strategy. Preserve the full value through wrapping, a detail view, or an accessible disclosure when the hidden content matters.
+
+## Fonts
+
+```css
+--frasto-font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+--frasto-font-display: "Inter Tight", Inter, ui-sans-serif, system-ui, sans-serif;
+```
+
+Use the display family selectively. Controls, tables, forms, and body copy stay in Inter; large page headings and editorial display moments use Inter Tight.

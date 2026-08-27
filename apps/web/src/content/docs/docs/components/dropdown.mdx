@@ -1,0 +1,64 @@
+---
+title: Dropdown
+description: A compact keyboard-operable menu of actions anchored to a trigger.
+---
+
+import { Button, Dropdown, DropdownItem } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Dropdown` presents a short menu of commands or navigation choices. It manages trigger relationships, collision-aware positioning, arrow-key navigation, outside dismissal, Escape, and focus return.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <Dropdown label="Customer actions">
+    <Button slot="trigger" variant="outline">Actions</Button>
+    <DropdownItem>Edit customer</DropdownItem>
+    <DropdownItem href="/docs/">Open documentation</DropdownItem>
+    <DropdownItem disabled>Archive customer</DropdownItem>
+  </Dropdown>
+</div>
+
+## Usage
+
+```astro
+<Dropdown label="Customer actions" placement="bottom-end">
+  <Button slot="trigger" variant="outline">Actions</Button>
+  <DropdownItem>Edit customer</DropdownItem>
+  <DropdownItem>Duplicate customer</DropdownItem>
+</Dropdown>
+```
+
+Use Dropdown for actions. Use [Select](/docs/components/select/) for a form value and [Popover](/docs/components/popover/) for contextual content or controls.
+
+## Keyboard behavior
+
+- Enter or Space on the trigger toggles through native button behavior.
+- Arrow Down opens and focuses the first item; Arrow Up opens and focuses the last.
+- Arrow keys, Home, and End move through enabled items.
+- Escape closes and returns focus to the trigger.
+- Tab closes the menu and continues normal focus movement.
+
+## API
+
+### Dropdown
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `label` | `string` | required | accessible menu name |
+| `placement` | `'bottom-start' \| 'bottom-end'` | `'bottom-end'` | preferred trigger alignment |
+| `class` | `string` | — | styles the root |
+| `panelClass` | `string` | — | styles the menu surface |
+
+The `trigger` slot accepts one interactive trigger. The default slot accepts menu items.
+
+### DropdownItem
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `href` | `string` | — | renders an anchor instead of a button |
+| `disabled` | `boolean` | `false` | removes the item from interaction |
+| `type` | button type | `'button'` | native action behavior |
+
+Keep menus concise, use verb-led item labels, and do not place form layouts or explanatory panels inside a menu.

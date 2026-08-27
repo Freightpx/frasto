@@ -1,0 +1,157 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import Brand from '../../components/Brand.astro';
+import { Avatar, Badge, Button, Checkbox, Dialog, Drawer, Dropdown, DropdownItem, Icon, IconButton, Input, MenuIcon, PlusIcon, Popover, Radio, SearchIcon, Select, Separator, Skeleton, Spinner, Surface, Switch, Tab, TabPanel, Tabs, Textarea, Tooltip } from '@freightpx/frasto';
+---
+
+<SiteLayout
+  title="Demo — Frasto UI"
+  description="A working preview of Frasto's application design direction."
+>
+  <section class="demo-intro">
+    <p class="index-label">03 / DEMO</p>
+    <h1>Application preview</h1>
+    <p>The customer workspace will become Frasto’s first complete component reference.</p>
+  </section>
+
+  <Surface as="section" class="demo-frame" variant="outlined" padding="none" aria-label="Customer workspace preview">
+    <aside class="demo-sidebar">
+      <Brand class="demo-brand" size="sm" suffix="DEMO" />
+      <nav aria-label="Demo navigation">
+        <a href="#">Overview</a>
+        <a class="is-active" href="#" aria-current="page">Customers</a>
+        <a href="#">Orders</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+    <div class="demo-workspace">
+      <p class="index-label">01 / CUSTOMERS</p>
+      <div class="demo-title-row">
+        <div>
+          <h2>Customers</h2>
+          <p>Manage customer records and account status.</p>
+        </div>
+        <div class="demo-title-actions">
+          <Dropdown label="Customer actions">
+            <Tooltip slot="trigger" content="More customer actions" placement="bottom">
+              <IconButton icon={MenuIcon} label="Open customer actions" variant="outline" />
+            </Tooltip>
+            <DropdownItem>Export customer list</DropdownItem>
+            <DropdownItem>Import customers</DropdownItem>
+            <DropdownItem disabled>Archive selected</DropdownItem>
+          </Dropdown>
+          <Dialog title="Add customer" description="Create a customer record for the account workspace.">
+            <Button slot="trigger"><Icon icon={PlusIcon} slot="icon-start" /> Add customer</Button>
+            <form class="demo-overlay-form">
+              <div class="demo-field">
+                <label for="new-customer-name">Customer name</label>
+                <Input id="new-customer-name" name="name" autocomplete="name" />
+              </div>
+              <div class="demo-field">
+                <label for="new-customer-status">Initial status</label>
+                <Select id="new-customer-status" name="status">
+                  <option value="active">Active</option>
+                  <option value="invited">Invited</option>
+                  <option value="inactive">Inactive</option>
+                </Select>
+              </div>
+            </form>
+            <Button slot="footer" variant="outline" data-frasto-dialog-close>Cancel</Button>
+            <Button slot="footer" type="button">Create customer</Button>
+          </Dialog>
+        </div>
+      </div>
+      <Tabs class="demo-tabs" label="Customer sections" defaultValue="overview">
+        <Tab slot="tab" value="overview">Overview</Tab>
+        <Tab slot="tab" value="invoices">Invoices</Tab>
+        <TabPanel slot="panel" value="overview" class="demo-tab-panel">
+          <div class="demo-toolbar">
+            <label class="sr-only" for="customer-search">Search customers</label>
+            <Input id="customer-search" class="demo-search" type="search" placeholder="Search customers…">
+              <Icon icon={SearchIcon} slot="icon-start" />
+            </Input>
+            <Popover label="Customer refresh status" placement="bottom-end">
+              <Button slot="trigger" size="sm" variant="ghost"><Spinner size="sm" slot="icon-start" /> Refreshing 128 records</Button>
+              <p class="demo-popover-label">LIVE DATA</p>
+              <strong>Customer list refresh</strong>
+              <p class="demo-popover-copy">Three records are current. The next result is still loading.</p>
+            </Popover>
+          </div>
+          <div class="demo-table-wrap">
+            <table>
+              <thead><tr><th>Customer</th><th>Company</th><th>Status</th><th>Updated</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <Drawer title="Maya Chen" description="Customer account context" size="sm">
+                      <button class="demo-customer-trigger" slot="trigger" type="button">
+                        <Avatar size="sm" fallback="MC" label="Maya Chen" /><span>Maya Chen</span>
+                      </button>
+                      <dl class="demo-detail-list">
+                        <div><dt>Company</dt><dd>Northstar Goods</dd></div>
+                        <div><dt>Status</dt><dd><Badge tone="positive">Active</Badge></dd></div>
+                        <div><dt>Owner</dt><dd>Commercial team</dd></div>
+                        <div><dt>Last updated</dt><dd>Today</dd></div>
+                      </dl>
+                    </Drawer>
+                  </td>
+                  <td>Northstar Goods</td><td><Badge tone="positive">Active</Badge></td><td>Today</td>
+                </tr>
+                <tr><td><span class="demo-customer"><Avatar size="sm" fallback="AY" label="Arman Yusuf" /><span>Arman Yusuf</span></span></td><td>Common Supply</td><td><Badge tone="positive">Active</Badge></td><td>Yesterday</td></tr>
+                <tr><td><span class="demo-customer"><Avatar size="sm" fallback="ER" label="Elena Rossi" /><span>Elena Rossi</span></span></td><td>Studio Porto</td><td><Badge>Invited</Badge></td><td>24 Aug</td></tr>
+                <tr class="demo-loading-row" aria-busy="true">
+                  <td>
+                    <span class="sr-only">Loading another customer</span>
+                    <span class="demo-customer"><Skeleton class="demo-avatar-skeleton" variant="block" /><Skeleton style="width:7rem;" /></span>
+                  </td>
+                  <td><Skeleton style="width:8rem;" /></td>
+                  <td><Skeleton style="width:4rem;" /></td>
+                  <td><Skeleton style="width:3.5rem;" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <Separator class="demo-section-separator" />
+          <section class="demo-editor" aria-labelledby="customer-note-title">
+            <div>
+              <p class="index-label">02 / CUSTOMER NOTE</p>
+              <h3 id="customer-note-title">Keep account context close.</h3>
+              <p>Add an internal note for the team handling this customer.</p>
+            </div>
+            <form class="demo-editor-form">
+              <div class="demo-field">
+                <label for="customer-note">Internal note</label>
+                <Textarea id="customer-note" name="note" placeholder="Add operational context…" />
+              </div>
+              <div class="demo-field">
+                <label for="note-priority">Priority</label>
+                <Select id="note-priority" name="priority">
+                  <option value="normal">Normal</option>
+                  <option value="follow-up">Follow up</option>
+                  <option value="urgent">Urgent</option>
+                </Select>
+              </div>
+              <fieldset class="demo-choice-group">
+                <legend>Visibility</legend>
+                <Radio name="visibility" value="team" checked>Team only</Radio>
+                <Radio name="visibility" value="shared">Shared with customer</Radio>
+              </fieldset>
+              <Checkbox name="notify-owner" checked>Notify the account owner about this update</Checkbox>
+              <Switch name="pin-note" checked>Pin new notes to the customer timeline</Switch>
+              <div class="demo-form-actions">
+                <Button type="button" size="sm">Save note</Button>
+              </div>
+            </form>
+          </section>
+        </TabPanel>
+        <TabPanel slot="panel" value="invoices" class="demo-tab-panel">
+          <div class="demo-empty-tab">
+            <p class="index-label">02 / INVOICES</p>
+            <h3>No invoices in this preview.</h3>
+            <p>The invoice workspace will arrive with the SaaS component phase.</p>
+          </div>
+        </TabPanel>
+      </Tabs>
+    </div>
+  </Surface>
+</SiteLayout>

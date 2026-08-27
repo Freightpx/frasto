@@ -1,0 +1,67 @@
+---
+title: Select
+description: A compact native option selector with Frasto control styling and form semantics.
+---
+
+import { Select } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Select` styles the native `<select>` element without replacing its keyboard behavior, form participation, or platform option menu.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <Select aria-label="Customer status" style="max-width:18rem;">
+    <option>Active</option>
+    <option>Invited</option>
+    <option>Inactive</option>
+  </Select>
+</div>
+
+## Usage
+
+```astro
+---
+import { Select } from '@freightpx/frasto';
+---
+
+<label for="status">Status</label>
+<Select id="status" name="status" required>
+  <option value="">Choose status</option>
+  <option value="active">Active</option>
+  <option value="invited">Invited</option>
+</Select>
+```
+
+## Sizes and states
+
+`size` supports `sm`, `md`, and `lg`, matching Input heights of 32px, 36px, and 40px. Use `invalid` with associated error text, and use native `disabled`, `required`, `multiple`, and form attributes normally.
+
+```astro
+<Select size="sm">...</Select>
+<Select invalid aria-describedby="status-error">...</Select>
+<Select disabled>...</Select>
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | control height and spacing |
+| `invalid` | `boolean` | `false` | applies invalid styling and semantics |
+| `fullWidth` | `boolean` | `true` | fills available inline space |
+| `class` | `string` | — | styles the outer control |
+| `selectClass` | `string` | — | styles the native select |
+
+Native select attributes are forwarded, and the default slot accepts native `option` and `optgroup` elements.
+
+## Accessibility and responsive behavior
+
+- Always provide a visible label or accessible name.
+- Placeholder-like options must remain real options; do not rely on an empty visual placeholder.
+- Associate invalid text through `aria-describedby`.
+- Native option menus adapt to keyboard, touch, zoom, and operating-system conventions.
+- The control fills its container by default; constrain the surrounding field when a shorter width is appropriate.
+
+Use a future combobox component when filtering, remote search, or custom option content is genuinely required.

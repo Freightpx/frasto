@@ -1,0 +1,107 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tabListBase, tabsRoot } from './tabs-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'role'> & {
+  class?: string;
+  defaultValue?: string;
+  label: string;
+  listClass?: string;
+};
+
+const {
+  class: className,
+  defaultValue,
+  label,
+  listClass,
+  ...rest
+} = Astro.props;
+---
+
+<frasto-tabs {...rest} class:list={[tabsRoot, className]} data-default-value={defaultValue}>
+  <div class:list={[tabListBase, listClass]} role="tablist" aria-label={label} data-frasto-tab-list>
+    <slot name="tab" />
+  </div>
+  <div data-frasto-tab-panels>
+    <slot name="panel" />
+  </div>
+</frasto-tabs>
+
+<script>
+  let tabsInstance = 0;
+
+  class FrastoTabs extends HTMLElement {
+    private panels: HTMLElement[] = [];
+    private tabs: HTMLButtonElement[] = [];
+
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      tabsInstance += 1;
+      this.tabs = Array.from(this.querySelectorAll<HTMLButtonElement>('[data-frasto-tab]'));
+      this.panels = Array.from(this.querySelectorAll<HTMLElement>('[data-frasto-tab-panel]'));
+
+      this.tabs.forEach((tab, index) => {
+        const panel = this.panels.find((candidate) => candidate.dataset.value === tab.dataset.value);
+        tab.id ||= `frasto-tab-${tabsInstance}-${index}`;
+        if (panel) {
+          panel.id ||= `frasto-tab-panel-${tabsInstance}-${index}`;
+          tab.setAttribute('aria-controls', panel.id);
+          panel.setAttribute('aria-labelledby', tab.id);
+        }
+        tab.addEventListener('click', this.handleClick);
+        tab.addEventListener('keydown', this.handleKeydown);
+      });
+
+      const selected = this.tabs.find((tab) => tab.dataset.value === this.dataset.defaultValue && !tab.disabled)
+        ?? this.tabs.find((tab) => !tab.disabled);
+      if (selected) this.activate(selected, false, false);
+    }
+
+    disconnectedCallback() {
+      this.tabs.forEach((tab) => {
+        tab.removeEventListener('click', this.handleClick);
+        tab.removeEventListener('keydown', this.handleKeydown);
+      });
+      delete this.dataset.initialized;
+    }
+
+    private handleClick = (event: Event) => this.activate(event.currentTarget as HTMLButtonElement);
+    private handleKeydown = (event: KeyboardEvent) => {
+      const enabled = this.tabs.filter((tab) => !tab.disabled);
+      const current = enabled.indexOf(event.currentTarget as HTMLButtonElement);
+      let next = current;
+      if (event.key === 'ArrowRight') next = (current + 1) % enabled.length;
+      else if (event.key === 'ArrowLeft') next = (current - 1 + enabled.length) % enabled.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = enabled.length - 1;
+      else return;
+      event.preventDefault();
+      if (enabled[next]) this.activate(enabled[next], true);
+    };
+
+    private activate(tab: HTMLButtonElement, focus = false, emit = true) {
+      if (tab.disabled) return;
+      const value = tab.dataset.value;
+      this.tabs.forEach((candidate) => {
+        const selected = candidate === tab;
+        candidate.setAttribute('aria-selected', selected ? 'true' : 'false');
+        candidate.tabIndex = selected ? 0 : -1;
+      });
+      this.panels.forEach((panel) => {
+        panel.hidden = panel.dataset.value !== value;
+      });
+      if (focus) tab.focus();
+      if (emit) {
+        this.dispatchEvent(new CustomEvent('frasto:tab-change', {
+          bubbles: true,
+          detail: { value },
+        }));
+      }
+    }
+  }
+
+  if (!customElements.get('frasto-tabs')) {
+    customElements.define('frasto-tabs', FrastoTabs);
+  }
+</script>

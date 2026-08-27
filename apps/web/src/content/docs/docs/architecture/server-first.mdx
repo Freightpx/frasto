@@ -1,0 +1,55 @@
+---
+title: Server-first
+description: Render useful HTML first and add JavaScript only for genuine interaction.
+---
+
+Frasto UI should not require a client application runtime for static interface pieces.
+
+## Preferred ladder
+
+```text
+Native HTML
+    ↓
+Astro component
+    ↓
+CSS
+    ↓
+Small TypeScript enhancement
+    ↓
+Web Component
+    ↓
+Focused external dependency
+```
+
+## Expected zero-runtime components
+
+Examples include:
+
+- Badge
+- Avatar
+- PageHeader
+- Stat
+- Breadcrumb
+- EmptyState
+- basic Table
+- layout primitives
+
+## Interactive components
+
+Dropdown, dialog, select, combobox, command interfaces, and other behavioral components may require JavaScript. Their runtime should remain local to the feature rather than hydrating an entire page.
+
+## Runtime budget
+
+- Static components export no browser script.
+- Interactive code loads only when the component is present.
+- One interaction must not initialize unrelated components.
+- Repeated instances should share module code without duplicating global listeners.
+- Behavior should remain understandable under slow loading and initialization failure.
+
+## Server-rendered state
+
+The server should render labels, values, selected state, validation messages, and other known information. Do not hide useful content until hydration when it already exists during rendering.
+
+## Why this matters
+
+Server-first is not only a performance choice. It keeps component ownership clear, reduces framework coupling, and lets Astro remain the primary mental model.

@@ -1,0 +1,28 @@
+---
+title: Forms
+description: Compose semantic fields, validation, submission, and recovery around application-owned data.
+---
+
+## Start with native behavior
+
+Use `<form>`, labels, appropriate input types, autocomplete, and normal submission semantics. Enhance only when the task requires it.
+
+## Group fields
+
+Use headings and fieldsets for meaningful groups. Keep descriptions near the field or group they explain. Do not use placeholders as labels.
+
+## Validation
+
+Validate at useful times without interrupting entry. Associate messages with fields, summarize multiple errors when needed, and move focus only when it helps recovery.
+
+## Submission
+
+Prevent accidental duplicate actions, preserve entered values on failure, and distinguish validation failure from a temporary server error.
+
+## Backend boundary
+
+Astro Actions, REST endpoints, or any other mutation system can process the same form. Frasto owns markup and feedback structure, not the transport.
+
+## Mobile and accessibility
+
+Use input types and autocomplete that summon appropriate keyboards. Test zoom, long error messages, screen-reader order, keyboard submission, and sticky action regions.

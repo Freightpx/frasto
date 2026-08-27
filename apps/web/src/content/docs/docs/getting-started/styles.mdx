@@ -1,0 +1,41 @@
+---
+title: Styles
+description: How Frasto CSS, semantic tokens, and consumer overrides fit together.
+---
+
+Importing anything from the main package entry includes Frasto's compiled CSS automatically:
+
+```astro
+---
+import { Button } from '@freightpx/frasto';
+---
+```
+
+The explicit `@freightpx/frasto/styles.css` subpath remains available for styles-only integrations and advanced build setups. It is not required in the normal component workflow.
+
+## What the stylesheet owns
+
+- semantic design tokens
+- component classes and states
+- focus treatment
+- reduced-motion behavior
+- light and dark defaults
+
+It should not reset an entire product aggressively or require a utility CSS framework.
+
+## Theme overrides
+
+```css
+:root {
+  --frasto-bg: #f8f6f0;
+  --frasto-ink: #161616;
+}
+```
+
+Load product theme overrides after the application imports Frasto. Overrides should target public semantic tokens. Depending on internal selectors or generated class names is unsupported.
+
+## Scope
+
+Global tokens live on `:root`. Component styles should remain low-specificity and composable so application code can establish layout without fighting the library.
+
+[Read the CSS and token architecture →](/docs/architecture/css-tokens/)

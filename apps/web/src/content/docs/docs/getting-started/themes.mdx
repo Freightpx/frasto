@@ -1,0 +1,33 @@
+---
+title: Themes
+description: The planned consumer workflow for light, dark, and branded themes.
+---
+
+Frasto themes are sets of semantic CSS custom properties. Components consume roles such as surface, ink, border, focus, and danger instead of fixed palette names.
+
+## Set the active theme
+
+```html
+<html data-theme="dark">
+```
+
+Theme switching belongs to the consuming application. Frasto may later provide a small helper, but it will not require a global state library.
+
+## Add a product theme
+
+```css
+[data-theme='brand'] {
+  color-scheme: light;
+  --frasto-bg: #f7f4ec;
+  --frasto-surface: #fffef9;
+  --frasto-ink: #181713;
+  --frasto-border: #d5d0c4;
+  --frasto-focus: #181713;
+}
+```
+
+## Preserve semantics
+
+A theme may change values, but it should preserve the meaning and contrast of each token. A danger token remains destructive; a muted text token remains readable.
+
+[Read the theme foundation →](/docs/foundations/themes/)

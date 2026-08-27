@@ -1,0 +1,38 @@
+---
+title: Astro first
+description: Astro components are the primary implementation and distribution model for Frasto.
+---
+
+Frasto is designed from Astro's rendering model outward. It is not a wrapper around a client-framework component library.
+
+## Primary format
+
+Use `.astro` for components whose structure can be rendered on the server. Props are typed in the frontmatter, markup remains semantic, and styles are delivered without a client application runtime.
+
+```astro
+---
+interface Props {
+  label: string;
+  value: string | number;
+}
+
+const { label, value } = Astro.props;
+---
+
+<section aria-labelledby="stat-label">
+  <p id="stat-label">{label}</p>
+  <p>{value}</p>
+</section>
+```
+
+## Framework boundary
+
+React, Vue, and Svelte can coexist in an Astro application, but Frasto core must not require one. A component should not hydrate merely because its implementation was convenient in a client framework.
+
+## Astro features
+
+Prefer Astro props, slots, content collections, server rendering, and route composition where they match the problem. Product-specific data loading remains in the consuming application.
+
+## Exceptions
+
+Interactive behavior may use a small browser script or Web Component. A framework-specific adapter belongs outside the core until real demand justifies it.

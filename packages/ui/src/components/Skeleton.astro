@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  skeletonBase,
+  skeletonVariants,
+  type SkeletonAnimation,
+  type SkeletonVariant,
+} from './skeleton-styles';
+
+type Props = Omit<HTMLAttributes<'span'>, 'aria-hidden' | 'class' | 'role'> & {
+  animation?: SkeletonAnimation;
+  class?: string;
+  variant?: SkeletonVariant;
+};
+
+const {
+  animation = 'pulse',
+  class: className,
+  variant = 'text',
+  ...rest
+} = Astro.props;
+---
+
+<span
+  {...rest}
+  class:list={[skeletonBase, skeletonVariants[variant], className]}
+  aria-hidden="true"
+  data-animation={animation}
+  data-frasto-skeleton
+  data-variant={variant}
+></span>

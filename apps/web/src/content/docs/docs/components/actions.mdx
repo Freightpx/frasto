@@ -1,0 +1,32 @@
+---
+title: Actions
+description: Available action primitives and the planned grouped-action contract.
+---
+
+**Status: Mixed — Button and IconButton are Experimental; ButtonGroup is Planned.**
+
+Actions initiate a user-controlled operation or navigation. Labels should be verbs that describe the outcome.
+
+## Inventory
+
+| Component | Purpose | Initial obligations |
+| --- | --- | --- |
+| [Button](/docs/components/button/) | text action or link treatment | Experimental |
+| [IconButton](/docs/components/icon-button/) | compact familiar action | Experimental |
+| ButtonGroup | related actions | spacing, adjacency, focus order |
+
+## Shared API language
+
+Actions may use `variant`, `tone`, and `size`. A destructive tone communicates risk; it does not imply that confirmation is handled by the button.
+
+## Semantics
+
+Render `<button>` for an action and `<a>` for navigation. Visual consistency does not justify changing the native role.
+
+## States
+
+Define default, hover, active, focus-visible, disabled, and loading. Loading must prevent duplicate activation without making the control lose its accessible name or dimensions.
+
+## Composition
+
+Icons are optional support. The label remains the primary communication unless the action is universally understood and has a strong accessible name.

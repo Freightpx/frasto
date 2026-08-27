@@ -1,0 +1,127 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  tooltipContent,
+  tooltipRoot,
+  type TooltipPlacement,
+} from './tooltip-styles';
+
+type Props = Omit<HTMLAttributes<'span'>, 'class'> & {
+  class?: string;
+  content?: string;
+  contentClass?: string;
+  delay?: number;
+  placement?: TooltipPlacement;
+};
+
+const {
+  class: className,
+  content,
+  contentClass,
+  delay = 400,
+  id,
+  placement = 'top',
+  ...rest
+} = Astro.props;
+
+const contentId = id ?? `frasto-tooltip-${Math.random().toString(36).slice(2)}`;
+---
+
+<frasto-tooltip
+  {...rest}
+  class:list={[tooltipRoot, className]}
+  data-delay={delay}
+  data-placement={placement}
+>
+  <span class="inline-flex" data-frasto-tooltip-trigger><slot /></span>
+  <span
+    id={contentId}
+    class:list={[tooltipContent, contentClass]}
+    role="tooltip"
+    data-frasto-tooltip-content
+    hidden
+  >
+    <slot name="content">{content}</slot>
+  </span>
+</frasto-tooltip>
+
+<script>
+  import { positionFloating } from './floating';
+  import type { TooltipPlacement } from './tooltip-styles';
+
+  class FrastoTooltip extends HTMLElement {
+    private content: HTMLElement | null = null;
+    private trigger: HTMLElement | null = null;
+    private timer: number | undefined;
+
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      this.content = this.querySelector('[data-frasto-tooltip-content]');
+      const triggerRoot = this.querySelector<HTMLElement>('[data-frasto-tooltip-trigger]');
+      this.trigger = triggerRoot?.querySelector<HTMLElement>('button, a, input, select, textarea, [tabindex]') ?? triggerRoot;
+      if (!this.content || !this.trigger) return;
+
+      this.trigger.setAttribute('aria-describedby', this.content.id);
+      this.addEventListener('pointerenter', this.handlePointerEnter);
+      this.addEventListener('pointerleave', this.handlePointerLeave);
+      this.trigger.addEventListener('focus', this.handleFocus);
+      this.trigger.addEventListener('blur', this.handleBlur);
+      this.trigger.addEventListener('click', this.hide);
+      this.trigger.addEventListener('keydown', this.handleKeydown);
+      window.addEventListener('resize', this.reposition);
+      window.addEventListener('scroll', this.reposition, true);
+    }
+
+    disconnectedCallback() {
+      window.clearTimeout(this.timer);
+      this.removeEventListener('pointerenter', this.handlePointerEnter);
+      this.removeEventListener('pointerleave', this.handlePointerLeave);
+      this.trigger?.removeEventListener('focus', this.handleFocus);
+      this.trigger?.removeEventListener('blur', this.handleBlur);
+      this.trigger?.removeEventListener('click', this.hide);
+      this.trigger?.removeEventListener('keydown', this.handleKeydown);
+      window.removeEventListener('resize', this.reposition);
+      window.removeEventListener('scroll', this.reposition, true);
+      delete this.dataset.initialized;
+    }
+
+    private handlePointerEnter = () => {
+      if (!window.matchMedia('(hover: hover)').matches) return;
+      this.timer = window.setTimeout(this.show, Number(this.dataset.delay ?? 400));
+    };
+
+    private handlePointerLeave = () => {
+      window.clearTimeout(this.timer);
+      this.hide();
+    };
+
+    private handleFocus = () => this.show();
+    private handleBlur = () => this.hide();
+    private handleKeydown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') this.hide();
+    };
+
+    private show = () => {
+      if (!this.content || !this.trigger) return;
+      this.content.hidden = false;
+      this.dataset.open = 'true';
+      this.reposition();
+    };
+
+    private hide = () => {
+      if (!this.content) return;
+      this.content.hidden = true;
+      delete this.dataset.open;
+    };
+
+    private reposition = () => {
+      if (!this.content || !this.trigger || this.content.hidden) return;
+      positionFloating(this.trigger, this.content, (this.dataset.placement ?? 'top') as TooltipPlacement);
+    };
+  }
+
+  if (!customElements.get('frasto-tooltip')) {
+    customElements.define('frasto-tooltip', FrastoTooltip);
+  }
+</script>

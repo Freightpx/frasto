@@ -1,0 +1,100 @@
+---
+title: Spinner
+description: A compact square indeterminate progress indicator for short waits and local operations.
+---
+
+import { Button, Spinner } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Spinner` communicates a short indeterminate wait. Its thin square outline follows Frasto's zero-radius geometry, inherits the surrounding text color, and becomes static when reduced motion is requested.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <span style="display:inline-flex; align-items:center; gap:.5rem;">
+    <Spinner />
+    Refreshing customers
+  </span>
+</div>
+
+## Basic usage
+
+Pair the decorative default with visible status text.
+
+```astro
+---
+import { Spinner } from '@freightpx/frasto';
+---
+
+<span style="display:inline-flex; align-items:center; gap:.5rem;">
+  <Spinner />
+  Loading invoices
+</span>
+```
+
+If no visible text is appropriate, provide `label` so the Spinner becomes a polite status announcement.
+
+```astro
+<Spinner label="Loading invoices" />
+```
+
+## Sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <span style="display:inline-flex; align-items:center; gap:1.5rem;">
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner size="sm" /> Small</span>
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner size="md" /> Medium</span>
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner size="lg" /> Large</span>
+  </span>
+</div>
+
+| Size | Dimension | Typical use |
+| --- | --- | --- |
+| `sm` | `12px` | compact buttons and table tools |
+| `md` | `16px` | inline status and default controls |
+| `lg` | `20px` | standalone local progress |
+
+## Color
+
+Spinner uses `currentColor`, so its color follows its parent. Keep semantic color on the accompanying status or surrounding operation; the indicator itself does not infer success, warning, or failure.
+
+```astro
+<span style="color:var(--frasto-ink-muted);">
+  <Spinner /> Refreshing
+</span>
+```
+
+## Button loading
+
+<div class="frasto-preview" data-frasto-root>
+  <Button loading loadingLabel="Saving changes">Save changes</Button>
+</div>
+
+`Button` uses Spinner internally while preserving its label width, preventing duplicate activation, and exposing `aria-busy="true"` on the control.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | indicator dimensions |
+| `label` | `string` | — | exposes the Spinner as an accessible status |
+| `class` | `string` | — | adds a consumer class |
+
+Native span attributes are forwarded except `role`, `aria-label`, and `aria-hidden`, which the component owns.
+
+## Accessibility
+
+- Without `label`, Spinner is `aria-hidden="true"`; pair it with visible status text or an already-labelled busy control.
+- With `label`, Spinner uses `role="status"` and the supplied accessible name.
+- Prefer one status announcement for the affected region instead of labelling several indicators.
+- For a longer wait, add visible explanatory text and preserve page context.
+- Use determinate progress when the completion value is known.
+
+## Reduced motion
+
+Rotation stops automatically under `prefers-reduced-motion`. The indicator becomes a complete, partially muted square while surrounding text or its accessible label continues to communicate progress.
+
+## Choosing between Spinner and Skeleton
+
+Use Spinner for a short local operation whose final structure is already present. Use [Skeleton](/docs/components/skeleton/) when initially unavailable structured content needs to reserve its eventual layout.

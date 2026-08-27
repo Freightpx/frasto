@@ -1,0 +1,38 @@
+---
+title: Product principles
+description: The non-negotiable product decisions behind Frasto UI.
+---
+
+These principles decide what belongs in Frasto and how it should be built.
+
+## 01 — Astro first
+
+Use `.astro` components wherever practical. React, Vue, and Svelte may consume or accompany the library, but none is a requirement for the core system.
+
+## 02 — Server first
+
+Static UI ships as HTML and CSS. JavaScript is reserved for genuine behavior and remains local to the component that needs it.
+
+## 03 — SaaS first
+
+Application components such as `AppShell`, `ResourceTable`, `FilterBar`, and `SettingsLayout` are as important as primitives.
+
+## 04 — Backend agnostic
+
+Components accept values and callbacks through clear contracts. They do not own databases, APIs, authentication, billing, or persistence.
+
+## 05 — Accessible by default
+
+Semantics, focus, keyboard operation, announcements, touch targets, contrast, and reduced motion are part of the component contract.
+
+## 06 — Progressive interactivity
+
+Prefer native HTML, Astro, CSS, and small TypeScript enhancements before Web Components or focused dependencies.
+
+## 07 — Documentation is product work
+
+Purpose, states, responsive behavior, accessibility, and API decisions are documented before or alongside implementation.
+
+## 08 — Clarity first. Craft throughout.
+
+Every detail should improve comprehension, scanning, operation, or consistency. Decoration without a job stays out of the default system.

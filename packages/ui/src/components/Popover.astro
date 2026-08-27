@@ -1,0 +1,113 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  popoverPanel,
+  popoverRoot,
+  type PopoverPlacement,
+} from './popover-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'aria-label' | 'class' | 'role'> & {
+  class?: string;
+  label: string;
+  panelClass?: string;
+  placement?: PopoverPlacement;
+};
+
+const {
+  class: className,
+  id,
+  label,
+  panelClass,
+  placement = 'bottom-start',
+  ...rest
+} = Astro.props;
+
+const panelId = id ?? `frasto-popover-${Math.random().toString(36).slice(2)}`;
+---
+
+<frasto-popover {...rest} class:list={[popoverRoot, className]} data-placement={placement}>
+  <span class="inline-flex" data-frasto-overlay-trigger><slot name="trigger" /></span>
+  <div
+    id={panelId}
+    class:list={[popoverPanel, panelClass]}
+    role="dialog"
+    aria-label={label}
+    data-frasto-popover-panel
+    hidden
+  >
+    <slot />
+  </div>
+</frasto-popover>
+
+<script>
+  import { positionFloating } from './floating';
+  import type { PopoverPlacement } from './popover-styles';
+
+  class FrastoPopover extends HTMLElement {
+    private panel: HTMLElement | null = null;
+    private trigger: HTMLElement | null = null;
+
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      const triggerRoot = this.querySelector<HTMLElement>('[data-frasto-overlay-trigger]');
+      this.trigger = triggerRoot?.querySelector<HTMLElement>('button, a, [tabindex]') ?? null;
+      this.panel = this.querySelector('[data-frasto-popover-panel]');
+      if (!this.trigger || !this.panel) return;
+      this.trigger.setAttribute('aria-haspopup', 'dialog');
+      this.trigger.setAttribute('aria-controls', this.panel.id);
+      this.trigger.setAttribute('aria-expanded', 'false');
+      this.trigger.addEventListener('click', this.handleTriggerClick);
+      this.addEventListener('keydown', this.handleKeydown);
+      document.addEventListener('pointerdown', this.handleOutsidePointer);
+      window.addEventListener('resize', this.reposition);
+      window.addEventListener('scroll', this.reposition, true);
+    }
+
+    disconnectedCallback() {
+      this.trigger?.removeEventListener('click', this.handleTriggerClick);
+      this.removeEventListener('keydown', this.handleKeydown);
+      document.removeEventListener('pointerdown', this.handleOutsidePointer);
+      window.removeEventListener('resize', this.reposition);
+      window.removeEventListener('scroll', this.reposition, true);
+      delete this.dataset.initialized;
+    }
+
+    private handleTriggerClick = () => this.panel?.hidden ? this.open() : this.close();
+    private handleOutsidePointer = (event: PointerEvent) => {
+      if (!this.contains(event.target as Node)) this.close(false);
+    };
+    private handleKeydown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || this.panel?.hidden) return;
+      event.preventDefault();
+      this.close();
+    };
+
+    private open() {
+      if (!this.panel || !this.trigger || !this.panel.hidden) return;
+      this.panel.hidden = false;
+      this.trigger.setAttribute('aria-expanded', 'true');
+      this.dataset.open = 'true';
+      this.reposition();
+      this.dispatchEvent(new CustomEvent('frasto:open', { bubbles: true }));
+    }
+
+    private close(returnFocus = true) {
+      if (!this.panel || !this.trigger || this.panel.hidden) return;
+      this.panel.hidden = true;
+      this.trigger.setAttribute('aria-expanded', 'false');
+      delete this.dataset.open;
+      if (returnFocus) this.trigger.focus();
+      this.dispatchEvent(new CustomEvent('frasto:close', { bubbles: true }));
+    }
+
+    private reposition = () => {
+      if (!this.panel || !this.trigger || this.panel.hidden) return;
+      positionFloating(this.trigger, this.panel, (this.dataset.placement ?? 'bottom-start') as PopoverPlacement);
+    };
+  }
+
+  if (!customElements.get('frasto-popover')) {
+    customElements.define('frasto-popover', FrastoPopover);
+  }
+</script>

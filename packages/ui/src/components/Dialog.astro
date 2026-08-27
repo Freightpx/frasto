@@ -1,0 +1,126 @@
+---
+import { X } from '@lucide/astro';
+import type { HTMLAttributes } from 'astro/types';
+import IconButton from './IconButton.astro';
+import {
+  dialogElement,
+  dialogPanel,
+  dialogRoot,
+  dialogSizes,
+  type DialogSize,
+} from './dialog-styles';
+
+type Props = Omit<HTMLAttributes<'dialog'>, 'class' | 'open'> & {
+  class?: string;
+  closeLabel?: string;
+  description?: string;
+  dialogClass?: string;
+  dismissible?: boolean;
+  panelClass?: string;
+  size?: DialogSize;
+  title: string;
+};
+
+const {
+  class: className,
+  closeLabel = 'Close dialog',
+  description,
+  dialogClass,
+  dismissible = true,
+  id,
+  panelClass,
+  size = 'md',
+  title,
+  ...rest
+} = Astro.props;
+
+const dialogId = id ?? `frasto-dialog-${Math.random().toString(36).slice(2)}`;
+const titleId = `${dialogId}-title`;
+const descriptionId = description ? `${dialogId}-description` : undefined;
+---
+
+<frasto-dialog class:list={[dialogRoot, className]} data-dismissible={dismissible ? 'true' : 'false'}>
+  <span class="inline-flex" data-frasto-overlay-trigger><slot name="trigger" /></span>
+  <dialog
+    {...rest}
+    id={dialogId}
+    class:list={[dialogElement, dialogClass]}
+    aria-labelledby={titleId}
+    aria-describedby={descriptionId}
+    data-frasto-dialog
+  >
+    <div class:list={[dialogPanel, dialogSizes[size], panelClass]} data-frasto-dialog-panel>
+      <header class="flex items-start justify-between gap-4 border-b border-[var(--frasto-border)] p-5">
+        <div class="min-w-0">
+          <h2 id={titleId} class="m-0 font-medium text-lg leading-6">{title}</h2>
+          {description && <p id={descriptionId} class="m-0 mt-2 text-sm leading-5 text-[var(--frasto-ink-muted)]">{description}</p>}
+        </div>
+        <IconButton icon={X} label={closeLabel} size="sm" data-frasto-dialog-close />
+      </header>
+      <div class="min-h-0 overflow-y-auto p-5" data-frasto-dialog-content><slot /></div>
+      {Astro.slots.has('footer') && (
+        <footer class="flex flex-wrap items-center justify-end gap-2 border-t border-[var(--frasto-border)] p-4">
+          <slot name="footer" />
+        </footer>
+      )}
+    </div>
+  </dialog>
+</frasto-dialog>
+
+<script>
+  class FrastoDialog extends HTMLElement {
+    private dialog: HTMLDialogElement | null = null;
+    private opener: HTMLElement | null = null;
+    private trigger: HTMLElement | null = null;
+
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      const triggerRoot = this.querySelector<HTMLElement>('[data-frasto-overlay-trigger]');
+      this.trigger = triggerRoot?.querySelector<HTMLElement>('button, a, [tabindex]') ?? null;
+      this.dialog = this.querySelector('dialog[data-frasto-dialog]');
+      if (!this.trigger || !this.dialog) return;
+      this.trigger.setAttribute('aria-haspopup', 'dialog');
+      this.trigger.setAttribute('aria-controls', this.dialog.id);
+      this.trigger.setAttribute('aria-expanded', 'false');
+      this.trigger.addEventListener('click', this.open);
+      this.dialog.addEventListener('cancel', this.handleCancel);
+      this.dialog.addEventListener('close', this.handleClose);
+      this.dialog.addEventListener('pointerdown', this.handleBackdropPointer);
+      this.querySelectorAll('[data-frasto-dialog-close]').forEach((button) => button.addEventListener('click', this.close));
+    }
+
+    disconnectedCallback() {
+      this.trigger?.removeEventListener('click', this.open);
+      this.dialog?.removeEventListener('cancel', this.handleCancel);
+      this.dialog?.removeEventListener('close', this.handleClose);
+      this.dialog?.removeEventListener('pointerdown', this.handleBackdropPointer);
+      this.querySelectorAll('[data-frasto-dialog-close]').forEach((button) => button.removeEventListener('click', this.close));
+      delete this.dataset.initialized;
+    }
+
+    private open = () => {
+      if (!this.dialog || this.dialog.open) return;
+      this.opener = document.activeElement as HTMLElement;
+      this.dialog.showModal();
+      this.trigger?.setAttribute('aria-expanded', 'true');
+      this.dispatchEvent(new CustomEvent('frasto:open', { bubbles: true }));
+    };
+    private close = () => this.dialog?.close();
+    private handleCancel = (event: Event) => {
+      if (this.dataset.dismissible !== 'true') event.preventDefault();
+    };
+    private handleBackdropPointer = (event: PointerEvent) => {
+      if (this.dataset.dismissible === 'true' && event.target === this.dialog) this.dialog?.close();
+    };
+    private handleClose = () => {
+      this.trigger?.setAttribute('aria-expanded', 'false');
+      this.opener?.focus();
+      this.dispatchEvent(new CustomEvent('frasto:close', { bubbles: true }));
+    };
+  }
+
+  if (!customElements.get('frasto-dialog')) {
+    customElements.define('frasto-dialog', FrastoDialog);
+  }
+</script>

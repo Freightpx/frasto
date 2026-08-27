@@ -1,0 +1,57 @@
+---
+title: Dialog
+description: A native modal task or decision surface with focus containment and return.
+---
+
+import { Button, Dialog, Input } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Dialog` builds on native `<dialog>` for modal focus containment, Escape handling, and top-layer rendering. Frasto adds a labelled square surface, close control, backdrop policy, content regions, and focus return.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <Dialog title="Rename customer" description="Update the display name used across the workspace.">
+    <Button slot="trigger" variant="outline">Rename customer</Button>
+    <label for="preview-customer-name">Customer name</label>
+    <Input id="preview-customer-name" value="Northstar Goods" style="margin-top:.5rem;" />
+    <Button slot="footer" variant="outline" data-frasto-dialog-close>Cancel</Button>
+    <Button slot="footer">Save name</Button>
+  </Dialog>
+</div>
+
+## Usage
+
+```astro
+<Dialog title="Delete customer" description="This action cannot be undone." size="sm">
+  <Button slot="trigger" tone="danger">Delete</Button>
+  <p>Northstar Goods and its workspace data will be removed.</p>
+  <Button slot="footer" variant="outline" data-frasto-dialog-close>Cancel</Button>
+  <Button slot="footer" tone="danger">Delete customer</Button>
+</Dialog>
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `title` | `string` | required | visible and accessible dialog title |
+| `description` | `string` | — | visible supporting context |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | maximum task width |
+| `dismissible` | `boolean` | `true` | permits Escape and backdrop dismissal |
+| `closeLabel` | `string` | `'Close dialog'` | close-control accessible name |
+| `class` | `string` | — | styles the component root |
+| `dialogClass` | `string` | — | styles the native dialog |
+| `panelClass` | `string` | — | styles the visible surface |
+
+Slots are `trigger`, default content, and `footer`. Add `data-frasto-dialog-close` to a footer control that should close the dialog.
+
+## Accessibility and responsive behavior
+
+- Native modal behavior contains focus and marks outside content inert.
+- The title always supplies `aria-labelledby`; description supplies `aria-describedby`.
+- Focus returns to the opening control after close.
+- Non-dismissible dialogs still include the visible close button; reserve them for flows where accidental Escape would be harmful.
+- Dialog widths remain within a 16px viewport margin and content scrolls internally.
+- Use a full task page when content, navigation, or validation becomes extensive.

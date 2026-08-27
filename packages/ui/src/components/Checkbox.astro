@@ -1,0 +1,67 @@
+---
+import { Check } from '@lucide/astro';
+import type { HTMLAttributes } from 'astro/types';
+import Icon from './Icon.astro';
+import {
+  checkboxInputBase,
+  checkboxRootBase,
+  checkboxSizes,
+  type CheckboxSize,
+} from './checkbox-styles';
+
+type Props = Omit<HTMLAttributes<'input'>, 'class' | 'size' | 'type'> & {
+  class?: string;
+  inputClass?: string;
+  invalid?: boolean;
+  size?: CheckboxSize;
+};
+
+const {
+  'aria-invalid': ariaInvalid,
+  checked,
+  class: className,
+  disabled = false,
+  inputClass,
+  invalid = false,
+  size = 'md',
+  ...rest
+} = Astro.props;
+
+const hasLabel = Astro.slots.has('default');
+const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false && ariaInvalid !== 'false');
+---
+
+<label
+  class:list={[
+    checkboxRootBase,
+    disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+    className,
+  ]}
+  data-frasto-checkbox
+  data-disabled={disabled ? 'true' : undefined}
+  data-invalid={isInvalid ? 'true' : undefined}
+  data-size={size}
+>
+  <span class:list={['relative inline-flex shrink-0', checkboxSizes[size].box]}>
+    <input
+      {...rest}
+      class:list={[
+        checkboxInputBase,
+        checkboxSizes[size].box,
+        isInvalid && 'border-[var(--frasto-danger)] checked:border-[var(--frasto-danger)] checked:bg-[var(--frasto-danger)]',
+        inputClass,
+      ]}
+      type="checkbox"
+      checked={checked}
+      disabled={disabled}
+      aria-invalid={invalid ? 'true' : ariaInvalid}
+      data-frasto-checkbox-input
+    />
+    <Icon
+      icon={Check}
+      size={checkboxSizes[size].icon}
+      class="pointer-events-none absolute inset-0 m-auto text-[var(--frasto-bg)] opacity-0 peer-checked:opacity-100"
+    />
+  </span>
+  {hasLabel && <span class={checkboxSizes[size].label}><slot /></span>}
+</label>

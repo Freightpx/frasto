@@ -1,0 +1,57 @@
+---
+title: Tooltip
+description: A short supplemental label or explanation shown on hover and keyboard focus.
+---
+
+import { Button, Tooltip } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Tooltip` adds brief supporting information to an interactive trigger. It opens on keyboard focus or hover-capable pointers, closes on blur, pointer exit, or Escape, and stays within the viewport.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <Tooltip content="Exports the current filtered result">
+    <Button variant="outline">Export</Button>
+  </Tooltip>
+</div>
+
+## Usage
+
+```astro
+<Tooltip content="Exports the current filtered result" placement="top">
+  <Button variant="outline">Export</Button>
+</Tooltip>
+```
+
+Use the `content` slot when the text is authored as markup.
+
+```astro
+<Tooltip>
+  <Button>Refresh</Button>
+  <span slot="content">Refresh customer records</span>
+</Tooltip>
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `content` | `string` | — | tooltip text |
+| `placement` | `'top' \| 'bottom'` | `'top'` | preferred position before collision handling |
+| `delay` | `number` | `400` | hover opening delay in milliseconds |
+| `class` | `string` | — | styles the trigger wrapper |
+| `contentClass` | `string` | — | styles the tooltip surface |
+
+The default slot is the trigger; the `content` slot overrides the text prop.
+
+## Accessibility
+
+- The trigger receives `aria-describedby` automatically.
+- The trigger must already be keyboard-focusable and correctly named.
+- Tooltip content cannot contain links, controls, or required instructions.
+- Touch users must not need the tooltip to understand or complete an action.
+- Escape dismisses an open tooltip without moving focus.
+
+Tooltip uses fixed positioning and flips between top and bottom when the preferred side lacks space. It has no decorative arrow, radius, or motion.

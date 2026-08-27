@@ -1,0 +1,89 @@
+---
+title: Radio
+description: A native square radio control for selecting one option from a visible group.
+---
+
+import { Radio } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Radio` preserves a native radio input and makes its visible label the full activation target. Frasto uses a square boundary and inner square selection mark instead of circular geometry.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <fieldset style="margin:0; padding:0; display:grid; gap:.75rem; border:0;">
+    <legend style="margin-bottom:.75rem; padding:0; font-weight:650;">Billing cadence</legend>
+    <Radio name="cadence-preview" value="monthly" checked>Monthly</Radio>
+    <Radio name="cadence-preview" value="annual">Annual</Radio>
+  </fieldset>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Radio } from '@freightpx/frasto';
+---
+
+<fieldset>
+  <legend>Billing cadence</legend>
+  <Radio name="cadence" value="monthly" checked>Monthly</Radio>
+  <Radio name="cadence" value="annual">Annual</Radio>
+</fieldset>
+```
+
+Radios with the same `name` form one native selection group. Give each option a distinct `value`.
+
+## Selection behavior
+
+Only one enabled radio in a named group can be selected. Selecting a different option clears the previous selection automatically through native browser behavior.
+
+Use `Checkbox` when each option can be selected independently. Do not use radios for a single yes-or-no choice.
+
+## Sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <Radio name="radio-size-sm" size="sm" checked>Small · 16px</Radio>
+  <Radio name="radio-size-md" size="md" checked>Default · 18px</Radio>
+</div>
+
+Use `sm` in dense filters and compact option matrices. Use `md` for ordinary forms and settings.
+
+## Invalid and disabled
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="display:grid; gap:.75rem;">
+    <Radio name="radio-invalid" invalid>Required option</Radio>
+    <Radio name="radio-disabled" disabled>Unavailable option</Radio>
+    <Radio name="radio-disabled-selected" disabled checked>Selected but unavailable</Radio>
+  </div>
+</div>
+
+`invalid` applies the danger border and `aria-invalid="true"`. Prefer marking and describing the group as a whole when the validation problem applies to every option.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md'` | `'md'` | radio and label size |
+| `checked` | `boolean` | `false` | initial selected state |
+| `disabled` | `boolean` | `false` | removes an option from interaction and submission |
+| `invalid` | `boolean` | `false` | danger treatment and invalid semantics |
+| `class` | `string` | — | adds a class to the outer label |
+| `inputClass` | `string` | — | adds a class to the native input |
+
+Native input attributes, including `name`, `value`, `required`, and `aria-*`, are forwarded.
+
+## Accessibility
+
+- Wrap a related radio group in `fieldset` and give it a concise `legend`.
+- Use one shared `name` for all options in a group.
+- Keep option labels distinct and understandable without relying on their position.
+- The default slot supplies the accessible label. If omitted, provide `aria-label` or `aria-labelledby`.
+- Put shared help and error text on the group and associate it appropriately.
+- Native arrow-key behavior moves between enabled options in the group.
+
+## Responsive behavior
+
+The square control remains fixed-size while labels wrap naturally. Groups may change from horizontal to vertical layout without changing radio semantics or names.

@@ -1,0 +1,68 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  radioInputBase,
+  radioRootBase,
+  radioSizes,
+  type RadioSize,
+} from './radio-styles';
+
+type Props = Omit<HTMLAttributes<'input'>, 'class' | 'size' | 'type'> & {
+  class?: string;
+  inputClass?: string;
+  invalid?: boolean;
+  size?: RadioSize;
+};
+
+const {
+  'aria-invalid': ariaInvalid,
+  checked,
+  class: className,
+  disabled = false,
+  inputClass,
+  invalid = false,
+  size = 'md',
+  ...rest
+} = Astro.props;
+
+const hasLabel = Astro.slots.has('default');
+const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false && ariaInvalid !== 'false');
+---
+
+<label
+  class:list={[
+    radioRootBase,
+    disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+    className,
+  ]}
+  data-frasto-radio
+  data-disabled={disabled ? 'true' : undefined}
+  data-invalid={isInvalid ? 'true' : undefined}
+  data-size={size}
+>
+  <span class:list={['relative inline-flex shrink-0', radioSizes[size].box]}>
+    <input
+      {...rest}
+      class:list={[
+        radioInputBase,
+        radioSizes[size].box,
+        isInvalid && 'border-[var(--frasto-danger)]',
+        inputClass,
+      ]}
+      type="radio"
+      checked={checked}
+      disabled={disabled}
+      aria-invalid={invalid ? 'true' : ariaInvalid}
+      data-frasto-radio-input
+    />
+    <span
+      class:list={[
+        'pointer-events-none absolute inset-0 m-auto bg-[var(--frasto-ink)] opacity-0 peer-checked:opacity-100',
+        radioSizes[size].indicator,
+      ]}
+      aria-hidden="true"
+      data-frasto-radio-indicator
+    ></span>
+  </span>
+  {hasLabel && <span class={radioSizes[size].label}><slot /></span>}
+</label>

@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tabBase } from './tabs-styles';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class' | 'role' | 'type' | 'value'> & {
+  class?: string;
+  disabled?: boolean;
+  value: string;
+};
+
+const {
+  class: className,
+  disabled = false,
+  value,
+  ...rest
+} = Astro.props;
+---
+
+<button
+  {...rest}
+  type="button"
+  class:list={[tabBase, className]}
+  role="tab"
+  aria-selected="false"
+  tabindex="-1"
+  disabled={disabled}
+  data-frasto-tab
+  data-value={value}
+>
+  <slot />
+</button>

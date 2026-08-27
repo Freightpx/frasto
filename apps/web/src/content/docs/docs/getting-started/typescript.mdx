@@ -1,0 +1,36 @@
+---
+title: TypeScript
+description: How Frasto types component intent without taking ownership of application models.
+---
+
+Frasto ships TypeScript definitions and uses strict contracts for public component inputs.
+
+## Display contracts, not database models
+
+```ts
+interface SelectOption {
+  label: string;
+  value: string;
+  disabled?: boolean;
+}
+```
+
+This describes what a select needs to render. It does not imply a table, ORM entity, or API response.
+
+## Generic data components
+
+Table-like components should preserve row types where practical:
+
+```ts
+interface TableColumn<Row> {
+  key: keyof Row | string;
+  label: string;
+  sortable?: boolean;
+}
+```
+
+## Stability
+
+Types are part of the public API. Renames, narrower unions, changed defaults, and newly required props need the same review as runtime behavior.
+
+[Read the TypeScript conventions →](/docs/architecture/typescript/)

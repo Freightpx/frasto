@@ -1,0 +1,55 @@
+---
+title: Color
+description: Warm-neutral semantic tokens designed to stay out of the application's way.
+---
+
+The default palette is intentionally restrained. A SaaS design system should communicate hierarchy and status without turning every product into the same blue dashboard.
+
+## Light theme
+
+| Token | Value | Purpose |
+| --- | --- | --- |
+| `--frasto-bg` | `#f4f1ea` | page background |
+| `--frasto-surface` | `#ffffff` | primary contained surface |
+| `--frasto-surface-subtle` | `#ece9e2` | subtle region / inline code / quiet state |
+| `--frasto-ink` | `#111111` | primary text / primary action |
+| `--frasto-ink-muted` | `#66645f` | secondary text |
+| `--frasto-ink-soft` | `#8a8882` | tertiary metadata |
+| `--frasto-border` | `#d7d3ca` | default divider/border |
+| `--frasto-border-strong` | `#b9b5ac` | selected/strong boundary |
+| `--frasto-positive` | `#166534` | positive state |
+| `--frasto-warning` | `#92400e` | warning state |
+| `--frasto-danger` | `#991b1b` | destructive/error state |
+
+## Usage rules
+
+- Near-black is the default primary action, not blue.
+- Success, warning, and danger are functional colors.
+- Red is not a general brand accent.
+- Selection should use more than color alone.
+- Borders should be visible enough to communicate structure but quiet enough not to dominate the interface.
+
+## Functional color
+
+Functional color communicates an application state. Pair it with text, an icon, or another visible cue.
+
+| State | Use | Do not use for |
+| --- | --- | --- |
+| Positive | success, completed, healthy | decoration or primary navigation |
+| Warning | attention, pending risk | neutral informational metadata |
+| Danger | error, destructive action, failure | general emphasis |
+
+Information states may use a product-defined token later. Frasto does not make bright blue the default brand action merely because it is conventional.
+
+## Contrast and state
+
+- Test text, icons, borders, and focus indicators against their actual surface.
+- Disabled content may be quieter but must remain understandable.
+- Hover must not be the only way to discover an interactive element.
+- Selected and error states need a non-color indicator.
+
+## Dark theme
+
+Dark mode keeps a warm neutral character. It should feel like the same product under different luminance, not a separate theme identity.
+
+The canonical token values live in `packages/ui/src/styles/tokens.css`.

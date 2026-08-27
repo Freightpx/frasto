@@ -1,0 +1,40 @@
+---
+title: PageHeader
+description: Planned page context, hierarchy, metadata, and actions.
+---
+
+**Status: Planned**
+
+`PageHeader` gives every application view a clear name, context, purpose, and action hierarchy.
+
+## Anatomy
+
+1. optional breadcrumb
+2. optional eyebrow or context label
+3. one page title
+4. concise description
+5. optional metadata
+6. primary and secondary actions
+
+```text
+CUSTOMERS / CRM
+
+Customers
+
+Manage customer relationships and account activity.      [Import] [+ Customer]
+```
+
+## Rules
+
+- Keep one dominant page action.
+- Do not repeat navigation context in a long title.
+- Metadata supports the page; it does not compete with the title.
+- Heading level is configurable when the component appears below another page heading.
+
+## Responsive behavior
+
+Actions wrap or stack below the title at narrow widths. Preserve the title and primary action before lower-priority metadata.
+
+## Accessibility
+
+Breadcrumbs use navigation semantics, the title participates in a logical heading order, and icon-only actions have accessible names.

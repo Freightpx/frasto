@@ -1,0 +1,42 @@
+---
+title: Progressive interactivity
+description: Add browser behavior in the smallest layer that completely solves the interaction.
+---
+
+Frasto starts with useful HTML and progressively adds behavior.
+
+```text
+Native HTML
+    ↓
+Astro component
+    ↓
+CSS
+    ↓
+Small TypeScript enhancement
+    ↓
+Web Component
+    ↓
+Focused dependency
+```
+
+## Decision rule
+
+Use the lowest layer that delivers complete semantics, keyboard operation, focus behavior, announcements, and responsive interaction.
+
+## Examples
+
+| Need | Preferred starting point |
+| --- | --- |
+| disclosure | `<details>` / `<summary>` |
+| modal foundation | `<dialog>` |
+| static tabs appearance | links or server-rendered navigation |
+| client tab switching | focused script or Web Component |
+| anchored collision-aware popover | native Popover API or Floating UI if needed |
+
+## Enhancement contract
+
+Enhanced components should begin from understandable markup where practical. Initialization must be idempotent, local, and safe when multiple component instances exist.
+
+## Failure behavior
+
+If JavaScript does not run, static content should remain readable and form submissions should remain possible when the product architecture supports a server fallback.

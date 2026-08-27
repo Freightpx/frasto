@@ -1,0 +1,34 @@
+---
+title: Backend integrations
+description: Connect any data source through application-owned loaders and display contracts.
+---
+
+Frasto does not need a provider-specific adapter to render ordinary application data.
+
+## Boundary
+
+```text
+Database / API / service
+        ↓
+Application loader or action
+        ↓
+Display-oriented adapter
+        ↓
+Frasto component props
+```
+
+## Reads
+
+Load data in an Astro page, endpoint, server function, or client flow. Map provider records into a clear display contract before rendering.
+
+## Writes
+
+Use native form submission, Astro Actions, REST, GraphQL mutations, or a product-specific client. Frasto feedback structures can communicate pending and result states without owning the request.
+
+## Providers
+
+Supabase, Appwrite, Firebase, PostgreSQL, REST APIs, and custom services can all sit behind the same UI boundary. Provider-specific pagination, authorization, and error handling stay in the application.
+
+## Guide policy
+
+Future provider guides must use real APIs, explain security and server/client boundaries, and avoid turning one integration into a core package dependency.

@@ -1,0 +1,98 @@
+---
+title: Checkbox
+description: A native square checkbox for independent boolean and multi-select choices.
+---
+
+import { Checkbox } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Checkbox` preserves a native checkbox input and makes its visible label the full activation target. Its indicator is a Lucide checkmark rendered at Frasto's 1.25px stroke width.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="display:grid; gap:.75rem;">
+    <Checkbox name="notifications" checked>Notify the account owner</Checkbox>
+    <Checkbox name="digest">Include this customer in the weekly digest</Checkbox>
+  </div>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Checkbox } from '@freightpx/frasto';
+---
+
+<Checkbox name="terms" value="accepted" required>
+  I accept the service terms
+</Checkbox>
+```
+
+The default slot becomes the visible label. Native attributes such as `name`, `value`, `checked`, `required`, `disabled`, and `aria-*` are forwarded to the input.
+
+## Checked and unchecked
+
+<div class="frasto-preview" data-frasto-root>
+  <Checkbox checked>Selected</Checkbox>
+  <Checkbox>Not selected</Checkbox>
+</div>
+
+`checked` sets the server-rendered initial state. Native browser behavior owns subsequent toggles unless the consuming application adds its own client-side state.
+
+## Sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <Checkbox size="sm" checked>Small · 16px</Checkbox>
+  <Checkbox size="md" checked>Default · 18px</Checkbox>
+</div>
+
+Use `sm` in dense table filters and compact option lists. Use `md` in ordinary forms and settings pages.
+
+## Invalid and disabled
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="display:grid; gap:.75rem;">
+    <Checkbox invalid>Required confirmation</Checkbox>
+    <Checkbox disabled>Unavailable option</Checkbox>
+    <Checkbox disabled checked>Selected but unavailable</Checkbox>
+  </div>
+</div>
+
+`invalid` applies the danger treatment and `aria-invalid="true"`; it does not create error copy. Associate the relevant message with `aria-describedby`.
+
+## Value submission
+
+A checked checkbox submits its `value`. An unchecked checkbox is omitted from native form data, following standard HTML behavior.
+
+```astro
+<Checkbox name="features" value="reporting">Reporting</Checkbox>
+<Checkbox name="features" value="exports">Data exports</Checkbox>
+```
+
+Use a shared `name` with distinct values when several checkboxes form a multi-select group.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md'` | `'md'` | checkbox and label size |
+| `checked` | `boolean` | `false` | initial checked state |
+| `disabled` | `boolean` | `false` | prevents interaction and submission |
+| `invalid` | `boolean` | `false` | danger treatment and invalid semantics |
+| `class` | `string` | — | adds a class to the outer label |
+| `inputClass` | `string` | — | adds a class to the native input |
+
+## Accessibility
+
+- Use concise affirmative label text that describes the checked state.
+- Do not use a checkbox for an immediate on/off setting; use `Switch` when changing the control should take effect immediately.
+- Use a visible `fieldset` and `legend` when several checkboxes answer one question.
+- The default slot supplies the accessible label. If it is omitted, provide `aria-label` or `aria-labelledby`.
+- Color is supplemental: the checkmark remains the primary selected-state cue.
+- Indeterminate state is not included yet because the native property requires deliberate client-side synchronization.
+
+## Responsive behavior
+
+The checkbox remains fixed-size while its label wraps naturally. Because the entire label is clickable, wrapped choices retain a practical activation target on narrow screens.

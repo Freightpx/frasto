@@ -27,22 +27,23 @@ Astro already makes it easy to build fast websites. Application UI is different:
 
 ```text
 apps/
-  docs/          Starlight documentation
+  web/           Website, Starlight documentation, and demo
 packages/
-  ui/            Astro UI package (foundation only for now)
+  ui/            Published as @freightpx/frasto
 ```
 
 ## Local development
 
 ```bash
 pnpm install
-pnpm docs:dev
+pnpm dev
 ```
 
 ## Documentation source of truth
 
-Start with:
+The structured documentation lives in [`apps/web/src/content/docs/docs`](./apps/web/src/content/docs/docs). Start with:
 
+- [Frasto documentation](https://frasto.freightpx.com/docs)
 - [`DESIGN.md`](./DESIGN.md)
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md)
 - [`ROADMAP.md`](./ROADMAP.md)

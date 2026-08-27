@@ -1,0 +1,44 @@
+---
+title: Architecture overview
+description: How foundations become components, patterns, and complete application recipes.
+---
+
+Frasto uses one layered system rather than a collection of unrelated snippets.
+
+```text
+01 Foundations
+      ↓
+02 Core components
+      ↓
+03 Application components
+      ↓
+04 Patterns
+      ↓
+05 Recipes
+```
+
+## Foundations
+
+Semantic tokens, typography, spacing, layout, interaction states, accessibility, responsive behavior, and content rules form the shared language.
+
+## Core components
+
+Small reusable controls and display elements: actions, forms, feedback, navigation, containers, and overlays.
+
+## Application components
+
+Higher-level structures that encode recurring SaaS needs, such as resource tables, filter toolbars, page headers, sidebars, settings layouts, and activity feeds.
+
+## Patterns
+
+Patterns specify how components cooperate across an entire task: resource list, resource detail, dashboard, settings, CRUD, filtering, bulk actions, and data states.
+
+## Recipes
+
+Complete realistic applications validate the system under production-like density. Recipes are examples, not hidden framework requirements.
+
+## Package boundary
+
+V1 uses one package, `@freightpx/frasto`. Package splitting requires evidence from real usage, not speculation.
+
+[Read the technical architecture →](/docs/architecture/astro-first/)

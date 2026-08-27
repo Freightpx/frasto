@@ -1,0 +1,111 @@
+---
+title: Textarea
+description: A native multiline field with compact square styling and controlled resize behavior.
+---
+
+import { Textarea } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Textarea` preserves a native `<textarea>` while applying Frasto's typography, border, focus, disabled, read-only, invalid, and resize rules. It is intended for notes, descriptions, messages, and other multiline values.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="width: min(100%, 28rem);">
+    <label for="textarea-preview">Internal note</label>
+    <Textarea id="textarea-preview" name="note" placeholder="Add operational context…" />
+  </div>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Textarea } from '@freightpx/frasto';
+---
+
+<label for="description">Description</label>
+<Textarea id="description" name="description" rows={5} />
+```
+
+Native attributes such as `name`, `required`, `maxlength`, `autocomplete`, and `aria-*` are forwarded.
+
+## Initial value
+
+Use `value` or the default slot to provide server-rendered initial content.
+
+```astro
+<Textarea name="notes" value="Existing account context" />
+
+<Textarea name="summary">
+  Existing summary
+</Textarea>
+```
+
+When both are provided, `value` takes precedence. Browser and application form state remain native after rendering.
+
+## Sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="display:grid; gap:.75rem; width:min(100%, 28rem);">
+    <Textarea aria-label="Small textarea" size="sm" rows={2} placeholder="Small" />
+    <Textarea aria-label="Default textarea" size="md" rows={3} placeholder="Default" />
+    <Textarea aria-label="Large textarea" size="lg" rows={3} placeholder="Large" />
+  </div>
+</div>
+
+| Size | Minimum height | Typical use |
+| --- | --- | --- |
+| `sm` | `80px` | dense filters and compact notes |
+| `md` | `96px` | default forms |
+| `lg` | `112px` | longer descriptions and editorial forms |
+
+`rows` can increase the rendered height beyond the size minimum.
+
+## Resize behavior
+
+| Value | Behavior |
+| --- | --- |
+| `vertical` | default; users may increase height without disturbing horizontal layout |
+| `none` | fixed by the layout or application |
+| `horizontal` | horizontal resizing only |
+| `both` | native resizing in both directions |
+
+Prefer `vertical` for ordinary application forms. Use `none` only when the surrounding layout already provides a deliberate expansion mechanism.
+
+## Invalid, disabled, and read-only
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="display:grid; gap:.75rem; width:min(100%, 28rem);">
+    <Textarea aria-label="Invalid note" invalid value="Incomplete note" />
+    <Textarea aria-label="Disabled note" disabled value="Unavailable" />
+    <Textarea aria-label="Read-only note" readonly value="Visible and copyable" />
+  </div>
+</div>
+
+`invalid` adds the danger border and `aria-invalid="true"`. Error copy remains application content and should be associated with `aria-describedby`.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | minimum height, text size, and spacing |
+| `resize` | `'none' \| 'vertical' \| 'horizontal' \| 'both'` | `'vertical'` | native resize direction |
+| `rows` | `number` | `4` | initial native row count |
+| `value` | `string \| number` | — | server-rendered initial content |
+| `invalid` | `boolean` | `false` | danger treatment and invalid semantics |
+| `fullWidth` | `boolean` | `true` | fills the available inline size |
+| `class` | `string` | — | adds a consumer class |
+
+## Accessibility
+
+- Associate every textarea with a visible label.
+- Use placeholder text only for examples or format hints.
+- Connect descriptions, limits, and errors with `aria-describedby`.
+- Prefer `readonly` when content should remain focusable and copyable.
+- If a character limit matters, communicate it in visible text instead of relying only on `maxlength`.
+
+## Responsive behavior
+
+Textarea fills its container by default and preserves its minimum height on narrow screens. Vertical resize is the safest default because it does not create horizontal page overflow.

@@ -1,0 +1,50 @@
+---
+title: Quick start
+description: The intended minimal Frasto setup once the public package is available.
+---
+
+:::note[Planned workflow]
+This page defines the target developer experience. It is not a claim that these components are implemented today.
+:::
+
+## 1. Import the system
+
+```astro
+---
+import { AppShell, PageHeader } from '@freightpx/frasto';
+---
+```
+
+## 2. Render server-first UI
+
+```astro
+<AppShell>
+  <PageHeader
+    eyebrow="Customers / CRM"
+    title="Customers"
+    description="Manage relationships and account activity."
+  />
+
+  <slot />
+</AppShell>
+```
+
+## 3. Bring application data
+
+Frasto components receive your data. They do not fetch from a prescribed endpoint or infer a database schema.
+
+```astro
+<ResourceTable rows={customers} columns={columns} />
+```
+
+## 4. Customize semantic tokens
+
+```css
+:root {
+  --frasto-bg: #f8f6f0;
+  --frasto-ink: #161616;
+  --frasto-radius: 0px;
+}
+```
+
+Your overrides describe the product theme; component source remains unchanged.

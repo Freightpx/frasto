@@ -1,0 +1,100 @@
+---
+title: Separator
+description: A thin semantic or decorative divider for horizontal and vertical structure.
+---
+
+import { Separator } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Separator` creates a one-pixel structural division without introducing a surface or card. Horizontal separators render as native `<hr>` elements; vertical separators expose separator semantics explicitly.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <div style="width:100%;">
+    <span>Account details</span>
+    <Separator style="margin-block:1rem;" />
+    <span>Billing details</span>
+  </div>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Separator } from '@freightpx/frasto';
+---
+
+<section>Customer details</section>
+<Separator />
+<section>Billing details</section>
+```
+
+Spacing remains a layout responsibility. Add margins with the surrounding stack, section, or a consumer class.
+
+## Orientation
+
+<div class="frasto-preview" data-frasto-root>
+  <div style="height:2rem; display:flex; align-items:stretch; gap:1rem;">
+    <span>Overview</span>
+    <Separator orientation="vertical" />
+    <span>Invoices</span>
+  </div>
+</div>
+
+```astro
+<div style="display:flex; align-items:stretch;">
+  <span>Overview</span>
+  <Separator orientation="vertical" />
+  <span>Invoices</span>
+</div>
+```
+
+A vertical separator stretches to its parent's cross-axis size. The parent must therefore establish a meaningful height.
+
+## Tone
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <div style="display:grid; gap:1rem; width:100%;">
+    <Separator />
+    <Separator tone="strong" />
+  </div>
+</div>
+
+- `default` uses the quiet structural border token.
+- `strong` uses the stronger border token for major region changes.
+
+Neither tone adds shadow, radius, or decorative color.
+
+## Semantic and decorative use
+
+Separators are semantic by default. Set `decorative` when the line only supports an already-clear visual layout and should not be exposed to assistive technology.
+
+```astro
+<Separator decorative />
+```
+
+Horizontal semantic separators use native `<hr>`. Vertical semantic separators render with `role="separator"` and `aria-orientation="vertical"`.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | line direction and semantics |
+| `tone` | `'default' \| 'strong'` | `'default'` | structural contrast |
+| `decorative` | `boolean` | `false` | removes separator semantics |
+| `class` | `string` | — | adds a consumer class |
+
+Native horizontal-rule attributes are forwarded.
+
+## Accessibility
+
+- Keep the default semantic behavior when the separator marks a meaningful content boundary.
+- Use `decorative` when headings, landmarks, or layout already communicate the same structure.
+- Do not add accessible labels to ordinary decorative lines.
+- A separator is not spacing. The surrounding layout still needs an intentional gap.
+
+## Responsive behavior
+
+Horizontal separators fill their container. Vertical separators stretch inside a parent with an established height. Change orientation only when the content relationship remains understandable at the new breakpoint.

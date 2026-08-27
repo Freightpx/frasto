@@ -1,0 +1,88 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Spinner from './Spinner.astro';
+import {
+  buttonBase,
+  buttonSizes,
+  buttonTreatments,
+  type ButtonSize,
+  type ButtonTone,
+  type ButtonVariant,
+} from './button-styles';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class' | 'disabled' | 'type'> & {
+  class?: string;
+  disabled?: boolean;
+  download?: boolean | string;
+  fullWidth?: boolean;
+  href?: string;
+  loading?: boolean;
+  loadingLabel?: string;
+  rel?: string;
+  size?: ButtonSize;
+  target?: string;
+  tone?: ButtonTone;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: ButtonVariant;
+};
+
+const {
+  class: className,
+  disabled = false,
+  download,
+  fullWidth = false,
+  href,
+  loading = false,
+  loadingLabel = 'Loading',
+  rel,
+  size = 'md',
+  target,
+  tone = 'neutral',
+  type = 'button',
+  variant = 'solid',
+  tabindex,
+  ...rest
+} = Astro.props;
+
+const Element = href ? 'a' : 'button';
+const inactive = disabled || loading;
+const safeRel = rel ?? (target === '_blank' ? 'noreferrer' : undefined);
+const hasStartIcon = Astro.slots.has('icon-start');
+const hasEndIcon = Astro.slots.has('icon-end');
+---
+
+<Element
+  {...rest}
+  class:list={[
+    buttonBase,
+    buttonSizes[size],
+    buttonTreatments[tone][variant],
+    fullWidth && 'w-full',
+    className,
+  ]}
+  href={href && !inactive ? href : undefined}
+  target={href ? target : undefined}
+  rel={href ? safeRel : undefined}
+  download={href ? download : undefined}
+  type={href ? undefined : type}
+  disabled={href ? undefined : inactive}
+  tabindex={href && inactive ? -1 : tabindex}
+  aria-busy={loading ? 'true' : undefined}
+  aria-disabled={inactive ? 'true' : undefined}
+  data-frasto-button
+  data-size={size}
+  data-tone={tone}
+  data-variant={variant}
+>
+  <span class:list={['inline-flex items-center justify-center gap-[inherit]', loading && 'invisible']}>
+    {hasStartIcon && <span class="inline-flex" aria-hidden="true"><slot name="icon-start" /></span>}
+    <span><slot /></span>
+    {hasEndIcon && <span class="inline-flex" aria-hidden="true"><slot name="icon-end" /></span>}
+  </span>
+  {loading && (
+    <span class="absolute inset-0 inline-flex items-center justify-center" aria-hidden="true">
+      <Spinner size="sm" />
+    </span>
+  )}
+  {loading && <span class="sr-only">{loadingLabel}</span>}
+</Element>

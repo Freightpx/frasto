@@ -1,0 +1,32 @@
+---
+title: SearchInput
+description: Planned search control with clear intent, reset behavior, and submission flexibility.
+---
+
+**Status: Planned**
+
+`SearchInput` is a labeled search field that can support native form submission or application-controlled filtering.
+
+## Anatomy
+
+- visible or accessible label
+- search input
+- optional search icon
+- clear control when a value exists
+- optional shortcut or loading indicator
+
+## Behavior
+
+The component does not decide between submit-on-enter, debounced search, or immediate local filtering. That behavior is explicit in the consuming pattern.
+
+## Keyboard
+
+The clear control is keyboard reachable when present and returns focus predictably. Escape-to-clear, if supported, must be documented and must not interfere with a surrounding overlay.
+
+## States
+
+Default, focus-visible, populated, loading, disabled, and invalid where search validation exists.
+
+## Content
+
+Placeholder text may suggest searchable fields, but it does not replace the label. Search scope should be clear from nearby context.

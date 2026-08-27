@@ -1,0 +1,31 @@
+---
+title: Pagination
+description: Planned result navigation with page context and server-friendly links.
+---
+
+**Status: Planned**
+
+`Pagination` moves through a known result sequence and communicates the current position.
+
+## Anatomy
+
+- previous and next destinations
+- current page
+- nearby page links when useful
+- optional result range and total
+
+## Semantics
+
+Use a labeled navigation landmark. The current page uses `aria-current="page"`. Unavailable previous/next controls should not pretend to be functioning links.
+
+## Server first
+
+Pagination should support real URLs and normal navigation. Client-side enhancement may preserve scroll or update a partial view, but it is not required for the base component.
+
+## Responsive behavior
+
+Compact layouts may show only previous, current context, and next. Preserve an understandable position rather than fitting every page number into a narrow row.
+
+## Data boundary
+
+The application provides URLs, page counts, cursor information, or events. Frasto does not construct database queries.

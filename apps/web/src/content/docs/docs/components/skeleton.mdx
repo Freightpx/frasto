@@ -1,0 +1,105 @@
+---
+title: Skeleton
+description: A quiet decorative placeholder that preserves layout while structured content loads.
+---
+
+import { Skeleton, Surface } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Skeleton` reserves the shape of content that is genuinely still loading. It is visually quiet, square, and hidden from assistive technology so the surrounding region can communicate loading once.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <Surface variant="outlined" style="display:grid; gap:.75rem; width:100%;">
+    <Skeleton style="width:38%;" />
+    <Skeleton style="width:72%;" />
+    <Skeleton style="width:56%;" />
+  </Surface>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Skeleton } from '@freightpx/frasto';
+---
+
+<section aria-busy="true" aria-label="Loading customer details">
+  <Skeleton style="width:10rem;" />
+  <Skeleton style="width:16rem; margin-top:.75rem;" />
+</section>
+```
+
+Match the stable content's approximate dimensions to prevent avoidable layout movement. Do not render a skeleton when the server already has the content.
+
+## Variants
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <div style="display:grid; gap:1rem; width:100%;">
+    <Skeleton variant="text" style="width:55%;" />
+    <Skeleton variant="control" style="width:14rem;" />
+    <Skeleton variant="block" style="width:100%;" />
+  </div>
+</div>
+
+- `text` reserves one standard line.
+- `control` uses Frasto's default 36px control height.
+- `block` reserves a larger content region with a minimum height.
+
+Width remains a consumer decision. Set it with a class or native `style` attribute so the placeholder resembles the eventual content.
+
+## Animation
+
+The default `pulse` animation changes opacity slowly without directional shimmer. Use `none` when motion adds no useful state cue or when several placeholders would make a page visually busy.
+
+```astro
+<Skeleton animation="pulse" />
+<Skeleton animation="none" />
+```
+
+Pulse animation stops automatically when the user requests reduced motion.
+
+## Structured loading
+
+Skeletons should reproduce stable structure without reproducing every character or decoration.
+
+```astro
+<div aria-busy="true" aria-label="Loading invoice">
+  <Skeleton style="width:7rem;" />
+  <Skeleton style="width:12rem; margin-top:.75rem;" />
+  <Skeleton variant="control" style="margin-top:1.5rem;" />
+</div>
+```
+
+Keep existing headings, navigation, and known data visible during a local refresh. Replace only the region whose content is unavailable.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `variant` | `'text' \| 'control' \| 'block'` | `'text'` | reserved content shape |
+| `animation` | `'pulse' \| 'none'` | `'pulse'` | visual loading motion |
+| `class` | `string` | — | adds a consumer class |
+
+Native span attributes are forwarded except `role` and `aria-hidden`, which the component owns.
+
+## Accessibility
+
+- Every `Skeleton` is always `aria-hidden="true"`; it is not content or a progress announcement.
+- Put `aria-busy="true"` on the smallest region that is waiting for content.
+- Give the region a concise accessible label or nearby status text when the loading state needs explanation.
+- Do not repeat loading announcements for every placeholder.
+- Remove `aria-busy` when the real content arrives.
+
+## Responsive behavior
+
+Skeletons fill their container by default. Constrain widths to approximate the expected content, and let block placeholders follow the same responsive layout as the region they replace.
+
+## Avoid
+
+- Skeletons for content already rendered by Astro on the server.
+- Full-page skeleton replacement when only one panel is refreshing.
+- Decorative shimmer, gradients, or multiple competing animation speeds.
+- Random placeholder geometry that causes the finished layout to jump.

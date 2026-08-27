@@ -1,0 +1,28 @@
+---
+title: Responsive layouts
+description: Design application behavior at constrained widths instead of merely shrinking desktop UI.
+---
+
+## 1. Prioritize
+
+Rank content and actions by task importance. Source order should make sense when columns stack.
+
+## 2. Choose transformations
+
+Specify how each structural component changes: sidebar to drawer, table to prioritized rows, settings rail to compact navigation, dialog to sheet.
+
+## 3. Preserve state
+
+Opening a mobile detail route should not discard filters, selection, scroll position, or unsaved input without warning.
+
+## 4. Protect interaction
+
+Maintain touch targets, spacing, focus visibility, keyboard access, and controls that are not hidden under sticky regions or browser chrome.
+
+## 5. Test content stress
+
+Use long names, translated labels, large numbers, empty values, errors, many active filters, and several actions—not only ideal mock data.
+
+## 6. Validate modes
+
+Review desktop, tablet-like constraints, and mobile in both themes, at increased zoom, and with reduced motion. Breakpoints are implementation tools; usable behavior is the requirement.

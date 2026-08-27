@@ -1,0 +1,142 @@
+---
+title: Button
+description: A compact square action primitive for operations and navigation.
+---
+
+import { ArrowUpRightIcon, Button, Icon, PlusIcon } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Button` renders a native button for actions and an anchor when `href` is provided. It includes Frasto's compiled styles automatically and requires no Tailwind configuration from the consuming application.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <Button>Save changes</Button>
+  <Button variant="outline">Cancel</Button>
+  <Button variant="ghost">View details</Button>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Button } from '@freightpx/frasto';
+---
+
+<Button type="submit">Save changes</Button>
+```
+
+The default `type` is `button`, preventing accidental form submission. Set `type="submit"` deliberately inside a form.
+
+## Variants
+
+<div class="frasto-preview" data-frasto-root>
+  <Button variant="solid">Solid</Button>
+  <Button variant="outline">Outline</Button>
+  <Button variant="ghost">Ghost</Button>
+</div>
+
+- `solid` carries the dominant action.
+- `outline` provides a visible secondary boundary.
+- `ghost` is reserved for lower-emphasis actions in an already structured region.
+
+All variants use square corners and no shadow.
+
+## Sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <Button size="sm">Small</Button>
+  <Button size="md">Default</Button>
+  <Button size="lg">Large</Button>
+</div>
+
+| Size | Height | Typical use |
+| --- | --- | --- |
+| `sm` | `32px` | dense toolbars and table actions |
+| `md` | `36px` | default forms and page actions |
+| `lg` | `40px` | prominent actions with additional space |
+
+## Icons
+
+<div class="frasto-preview" data-frasto-root>
+  <Button><Icon icon={PlusIcon} slot="icon-start" /> Add customer</Button>
+  <Button variant="outline">Open report <Icon icon={ArrowUpRightIcon} slot="icon-end" /></Button>
+</div>
+
+```astro
+<Button>
+  <Icon icon={PlusIcon} slot="icon-start" />
+  Add customer
+</Button>
+```
+
+Icons support the label; they do not replace it. Use `IconButton` when a compact icon-only control is appropriate.
+
+## Destructive tone
+
+<div class="frasto-preview" data-frasto-root>
+  <Button tone="danger">Delete customer</Button>
+  <Button tone="danger" variant="outline">Remove access</Button>
+  <Button tone="danger" variant="ghost">Discard</Button>
+</div>
+
+Danger styling communicates risk. Confirmation, permissions, and undo behavior remain application responsibilities.
+
+## Loading and disabled
+
+<div class="frasto-preview" data-frasto-root>
+  <Button loading loadingLabel="Saving changes">Save changes</Button>
+  <Button disabled>Unavailable</Button>
+  <Button variant="outline" disabled>Disabled secondary</Button>
+</div>
+
+Loading preserves the button's dimensions, exposes `aria-busy="true"`, and prevents duplicate activation. Button uses [Spinner](/docs/components/spinner/) internally, and its rotation stops when reduced motion is requested.
+
+## Navigation
+
+<div class="frasto-preview" data-frasto-root>
+  <Button href="/docs/components/icon-button/" variant="outline">
+    IconButton documentation <Icon icon={ArrowUpRightIcon} slot="icon-end" />
+  </Button>
+</div>
+
+Providing `href` renders an anchor. A disabled or loading anchor has its `href` removed, receives `aria-disabled="true"`, and leaves the tab order.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `variant` | `'solid' \| 'outline' \| 'ghost'` | `'solid'` | visual emphasis |
+| `tone` | `'neutral' \| 'danger'` | `'neutral'` | semantic risk |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | control height and spacing |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | native button behavior |
+| `href` | `string` | — | renders an anchor for navigation |
+| `loading` | `boolean` | `false` | prevents activation and shows progress |
+| `loadingLabel` | `string` | `'Loading'` | accessible progress text |
+| `disabled` | `boolean` | `false` | prevents activation |
+| `fullWidth` | `boolean` | `false` | fills the available inline size |
+| `class` | `string` | — | adds a consumer class |
+
+Relevant native attributes, including form and `aria-*` attributes, are forwarded.
+
+## Slots
+
+| Slot | Purpose |
+| --- | --- |
+| default | visible action label |
+| `icon-start` | decorative leading icon |
+| `icon-end` | decorative trailing icon |
+
+## Accessibility
+
+- Use a concise verb-led label.
+- Keep one dominant solid action per decision area.
+- Do not communicate destructive intent through color alone; the label must remain explicit.
+- Use native `disabled` behavior for unavailable button actions.
+- Use `href` only for actual navigation.
+- Preserve a visible focus indicator; active, hover, and focus are distinct states.
+
+## Responsive behavior
+
+Buttons retain their control height at narrow widths. Use `fullWidth` deliberately for stacked mobile forms or confirmation actions; do not stretch every toolbar action automatically.

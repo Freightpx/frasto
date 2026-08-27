@@ -1,0 +1,34 @@
+---
+title: Core components
+description: The planned primitive layer and the status model used before APIs become stable.
+---
+
+Core components establish consistent actions, forms, display, containment, navigation, overlays, and feedback. They are small enough to compose but substantial enough to add semantics, states, behavior, or system-level consistency.
+
+:::note[Implementation has started]
+Phase 2 primitives and the Phase 3 interaction layer are available as Experimental exports. Other inventory remains planned until its component page says otherwise.
+:::
+
+## Categories
+
+| Category | Initial components |
+| --- | --- |
+| Actions | [Button](/docs/components/button/), [IconButton](/docs/components/icon-button/), ButtonGroup |
+| Forms | [Input](/docs/components/input/), [Textarea](/docs/components/textarea/), [Select](/docs/components/select/), [Checkbox](/docs/components/checkbox/), [Radio](/docs/components/radio/), [Switch](/docs/components/switch/), FormField, SearchInput |
+| Display | [Badge](/docs/components/badge/), [Avatar](/docs/components/avatar/), Status, [Separator](/docs/components/separator/), [Skeleton](/docs/components/skeleton/), Progress, [Spinner](/docs/components/spinner/) |
+| Containers | [Surface](/docs/components/surface/), Card, Section, Stack, Inline |
+| Navigation | Breadcrumb, [Tabs](/docs/components/tabs/), Navbar, Sidebar, Pagination |
+| Overlays | [Dialog](/docs/components/dialog/), [Drawer](/docs/components/drawer/), [Dropdown](/docs/components/dropdown/), [Popover](/docs/components/popover/), [Tooltip](/docs/components/tooltip/) |
+| Feedback | FormError, EmptyState, loading and status primitives |
+
+## Specification before implementation
+
+A component advances from Planned only after its purpose, anatomy, states, semantic API, accessibility behavior, responsive behavior, and composition boundary are defined.
+
+## Documentation standard
+
+A mature component page contains overview, preview, installation, basic usage, variants, sizes, states, props, accessibility, responsive behavior, examples, best practices, and anti-patterns.
+
+## Native HTML
+
+Frasto does not wrap an element only to increase inventory count. A component must contribute a reusable system decision or behavior.

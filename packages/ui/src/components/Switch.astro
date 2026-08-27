@@ -1,0 +1,71 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  switchRootBase,
+  switchSizes,
+  type SwitchSize,
+} from './switch-styles';
+
+type Props = Omit<HTMLAttributes<'input'>, 'class' | 'role' | 'size' | 'type'> & {
+  class?: string;
+  inputClass?: string;
+  invalid?: boolean;
+  size?: SwitchSize;
+};
+
+const {
+  'aria-invalid': ariaInvalid,
+  checked,
+  class: className,
+  disabled = false,
+  inputClass,
+  invalid = false,
+  size = 'md',
+  ...rest
+} = Astro.props;
+
+const hasLabel = Astro.slots.has('default');
+const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false && ariaInvalid !== 'false');
+---
+
+<label
+  class:list={[
+    switchRootBase,
+    disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+    className,
+  ]}
+  data-frasto-switch
+  data-disabled={disabled ? 'true' : undefined}
+  data-invalid={isInvalid ? 'true' : undefined}
+  data-size={size}
+>
+  <span class="relative inline-flex shrink-0">
+    <input
+      {...rest}
+      class:list={['peer sr-only', inputClass]}
+      type="checkbox"
+      role="switch"
+      checked={checked}
+      disabled={disabled}
+      aria-invalid={invalid ? 'true' : ariaInvalid}
+      data-frasto-switch-input
+    />
+    <span
+      class:list={[
+        'frasto-switch-track inline-flex border border-[var(--frasto-border-strong)] bg-[var(--frasto-surface)] shadow-none transition-colors duration-[var(--frasto-duration-fast)] ease-[var(--frasto-ease-standard)] peer-checked:border-[var(--frasto-ink)] peer-checked:bg-[var(--frasto-ink)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--frasto-focus)]',
+        switchSizes[size].track,
+      ]}
+      aria-hidden="true"
+      data-frasto-switch-track
+    >
+      <span
+        class:list={[
+          'frasto-switch-thumb block bg-[var(--frasto-ink-muted)] transition-[transform,background-color] duration-[var(--frasto-duration-fast)] ease-[var(--frasto-ease-standard)]',
+          switchSizes[size].thumb,
+        ]}
+        data-frasto-switch-thumb
+      ></span>
+    </span>
+  </span>
+  {hasLabel && <span class={switchSizes[size].label}><slot /></span>}
+</label>

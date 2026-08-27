@@ -1,0 +1,88 @@
+---
+title: IconButton
+description: A square icon-only control with a required accessible label.
+---
+
+import { IconButton, MenuIcon, PlusIcon, SearchIcon } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`IconButton` is for familiar, compact actions where a visible text label would add unnecessary repetition. Its `label` prop is required and becomes the accessible name.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <IconButton icon={PlusIcon} label="Add customer" variant="solid" />
+  <IconButton icon={SearchIcon} label="Search customers" variant="outline" />
+  <IconButton icon={MenuIcon} label="Open menu" />
+</div>
+
+## Basic usage
+
+```astro
+---
+import { IconButton, SearchIcon } from '@freightpx/frasto';
+---
+
+<IconButton icon={SearchIcon} label="Search customers" />
+```
+
+The icon is decorative to assistive technology because the button itself owns the accessible label.
+
+## Variants and sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <IconButton icon={MenuIcon} label="Solid menu" variant="solid" size="sm" />
+  <IconButton icon={MenuIcon} label="Outlined menu" variant="outline" size="md" />
+  <IconButton icon={MenuIcon} label="Ghost menu" variant="ghost" size="lg" />
+</div>
+
+Icon buttons are always square: `32px`, `36px`, or `40px`. They never use a circular or rounded container.
+
+## Loading, disabled, and danger
+
+<div class="frasto-preview" data-frasto-root>
+  <IconButton icon={SearchIcon} label="Searching" loading variant="outline" />
+  <IconButton icon={MenuIcon} label="Menu unavailable" disabled variant="outline" />
+  <IconButton icon={MenuIcon} label="Delete customer" tone="danger" variant="outline" />
+</div>
+
+## Navigation
+
+Provide `href` when the icon moves to another location:
+
+```astro
+<IconButton
+  icon={ArrowUpRightIcon}
+  label="Open report"
+  href="/reports/monthly"
+/>
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `icon` | Lucide Astro component | required | rendered icon |
+| `label` | `string` | required | accessible control name |
+| `variant` | `'solid' \| 'outline' \| 'ghost'` | `'ghost'` | visual emphasis |
+| `tone` | `'neutral' \| 'danger'` | `'neutral'` | semantic risk |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | square control size |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | native button behavior |
+| `href` | `string` | — | renders an anchor for navigation |
+| `loading` | `boolean` | `false` | prevents activation and shows progress |
+| `disabled` | `boolean` | `false` | prevents activation |
+| `class` | `string` | — | adds a consumer class |
+
+## Accessibility
+
+- `label` is mandatory even if a visual tooltip will be added later.
+- Use familiar icons consistently across the product.
+- Do not rely on a browser `title` attribute as the accessible name.
+- Pair unfamiliar actions with visible text using `Button`.
+- Keep the focus outline distinct from hover, selected, and active states.
+- When tooltips are introduced, the tooltip text should match the accessible label.
+
+## When not to use it
+
+Do not turn every toolbar action into an icon. If people may need to interpret or learn the action, use a labeled `Button` instead.

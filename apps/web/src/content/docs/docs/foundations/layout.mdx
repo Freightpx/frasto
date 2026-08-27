@@ -1,0 +1,44 @@
+---
+title: Layout & grid
+description: Grid alignment and deliberate whitespace for application-scale hierarchy.
+---
+
+Frasto layouts establish a predictable scan path before introducing containers.
+
+## Order of operations
+
+```text
+Typography
+    ↓
+Whitespace
+    ↓
+Divider
+    ↓
+Grid
+    ↓
+Contained surface, only when useful
+```
+
+## Page regions
+
+A typical application page contains:
+
+1. context and primary heading
+2. page-level actions
+3. optional filters or view controls
+4. primary content
+5. pagination, related content, or secondary actions
+
+Keep the main left edge stable across those regions.
+
+## Grid rules
+
+- Align headings, labels, values, and row actions across repeated structures.
+- Use intrinsic sizing for compact controls and flexible tracks for content.
+- Set readable maximum widths for prose and forms.
+- Let data views use wider space when column comparison benefits from it.
+- Avoid arbitrary one-off gaps outside the spacing scale.
+
+## Containment
+
+Use a `Surface` when background or border provides meaningful grouping. A section does not need a card merely because it has a title.

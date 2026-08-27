@@ -1,0 +1,84 @@
+---
+import type { AstroComponent } from '@lucide/astro';
+import type { HTMLAttributes } from 'astro/types';
+import Icon from './Icon.astro';
+import Spinner from './Spinner.astro';
+import {
+  buttonBase,
+  buttonTreatments,
+  iconButtonSizes,
+  iconSizes,
+  type ButtonSize,
+  type ButtonTone,
+  type ButtonVariant,
+} from './button-styles';
+
+type Props = Omit<HTMLAttributes<'button'>, 'aria-label' | 'class' | 'disabled' | 'type'> & {
+  class?: string;
+  disabled?: boolean;
+  download?: boolean | string;
+  href?: string;
+  icon: AstroComponent;
+  label: string;
+  loading?: boolean;
+  rel?: string;
+  size?: ButtonSize;
+  target?: string;
+  tone?: ButtonTone;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: ButtonVariant;
+};
+
+const {
+  class: className,
+  disabled = false,
+  download,
+  href,
+  icon,
+  label,
+  loading = false,
+  rel,
+  size = 'md',
+  target,
+  tone = 'neutral',
+  type = 'button',
+  variant = 'ghost',
+  tabindex,
+  ...rest
+} = Astro.props;
+
+const Element = href ? 'a' : 'button';
+const inactive = disabled || loading;
+const safeRel = rel ?? (target === '_blank' ? 'noreferrer' : undefined);
+---
+
+<Element
+  {...rest}
+  class:list={[
+    buttonBase,
+    iconButtonSizes[size],
+    buttonTreatments[tone][variant],
+    className,
+  ]}
+  href={href && !inactive ? href : undefined}
+  target={href ? target : undefined}
+  rel={href ? safeRel : undefined}
+  download={href ? download : undefined}
+  type={href ? undefined : type}
+  disabled={href ? undefined : inactive}
+  tabindex={href && inactive ? -1 : tabindex}
+  aria-label={label}
+  aria-busy={loading ? 'true' : undefined}
+  aria-disabled={inactive ? 'true' : undefined}
+  data-frasto-icon-button
+  data-size={size}
+  data-tone={tone}
+  data-variant={variant}
+>
+  <Icon icon={icon} size={iconSizes[size]} class={loading ? 'invisible' : undefined} />
+  {loading && (
+    <span class="absolute inset-0 inline-flex items-center justify-center" aria-hidden="true">
+      <Spinner size="sm" />
+    </span>
+  )}
+</Element>

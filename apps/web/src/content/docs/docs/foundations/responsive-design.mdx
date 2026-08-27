@@ -1,0 +1,36 @@
+---
+title: Responsive design
+description: Intentional desktop, tablet, and mobile transformations for business interfaces.
+---
+
+Responsive behavior is part of a component specification. Passing a “fits without overflow” check is not enough.
+
+## Design modes
+
+| Mode | Typical behavior |
+| --- | --- |
+| Desktop | persistent navigation, full data comparison, parallel actions |
+| Tablet | reduced navigation, prioritized columns, tighter multi-column layouts |
+| Mobile | drawer navigation, stacked regions, transformed data views, touch-first actions |
+
+These are behavior categories, not fixed device assumptions. Components should respond to available space.
+
+## Transformation over shrinking
+
+- A sidebar becomes a drawer.
+- A wide table scrolls, reduces columns, or becomes structured rows.
+- A settings rail becomes a select, drawer, or compact navigation.
+- A large dialog may become a near-full-screen sheet.
+- Page actions may wrap, collapse into a menu, or move closer to the affected content.
+
+## Priority
+
+Identify primary content and actions before defining a narrow layout. Do not hide essential information simply because it appears in a later desktop column.
+
+## Touch
+
+Maintain comfortable hit areas, sufficient spacing between controls, and visible pressed/focus states. Compact visual density must not create tiny interaction targets.
+
+## Documentation requirement
+
+Each mature component page documents its wide, constrained, and narrow behavior, including overflow, truncation, long content, and input modality.

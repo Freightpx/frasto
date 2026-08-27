@@ -1,61 +1,66 @@
 :root {
   color-scheme: light;
 
-  --ui-bg: #f4f1ea;
-  --ui-surface: #ffffff;
-  --ui-surface-subtle: #ece9e2;
-  --ui-ink: #111111;
-  --ui-ink-muted: #66645f;
-  --ui-ink-soft: #8a8882;
-  --ui-border: #d7d3ca;
-  --ui-border-strong: #b9b5ac;
-  --ui-positive: #166534;
-  --ui-warning: #92400e;
-  --ui-danger: #991b1b;
-  --ui-focus: #111111;
+  --frasto-bg: #f4f1ea;
+  --frasto-surface: #ffffff;
+  --frasto-surface-subtle: #ece9e2;
+  --frasto-ink: #111111;
+  --frasto-ink-muted: #66645f;
+  --frasto-ink-soft: #8a8882;
+  --frasto-border: #d7d3ca;
+  --frasto-border-strong: #b9b5ac;
+  --frasto-positive: #166534;
+  --frasto-warning: #92400e;
+  --frasto-danger: #991b1b;
+  --frasto-info: #315b70;
+  --frasto-focus: #111111;
 
-  --ui-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --ui-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --frasto-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --frasto-font-display: "Inter Tight", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --frasto-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-  --ui-text-label: 0.6875rem;
-  --ui-text-caption: 0.75rem;
-  --ui-text-body-sm: 0.875rem;
-  --ui-text-body: 1rem;
-  --ui-text-title-sm: 1.125rem;
-  --ui-text-title: 1.5rem;
-  --ui-text-page-title: clamp(2rem, 4vw, 3.5rem);
+  --frasto-text-label: 0.6875rem;
+  --frasto-text-caption: 0.75rem;
+  --frasto-text-body-sm: 0.875rem;
+  --frasto-text-body: 1rem;
+  --frasto-text-title-sm: 1.125rem;
+  --frasto-text-title: 1.5rem;
+  --frasto-text-page-title: clamp(2rem, 4vw, 3.5rem);
 
-  --ui-space-1: 4px;
-  --ui-space-2: 8px;
-  --ui-space-3: 12px;
-  --ui-space-4: 16px;
-  --ui-space-5: 24px;
-  --ui-space-6: 32px;
-  --ui-space-7: 48px;
-  --ui-space-8: 64px;
+  --frasto-space-1: 4px;
+  --frasto-space-2: 8px;
+  --frasto-space-3: 12px;
+  --frasto-space-4: 16px;
+  --frasto-space-5: 24px;
+  --frasto-space-6: 32px;
+  --frasto-space-7: 48px;
+  --frasto-space-8: 64px;
 
-  --ui-radius-sm: 4px;
-  --ui-radius-md: 8px;
-  --ui-radius-lg: 12px;
+  --frasto-control-height: 36px;
+  --frasto-border-width: 1px;
+  --frasto-icon-stroke-width: 1.25;
 
-  --ui-duration-fast: 120ms;
-  --ui-duration-normal: 180ms;
-  --ui-duration-slow: 220ms;
-  --ui-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --frasto-radius: 0px;
+
+  --frasto-duration-fast: 120ms;
+  --frasto-duration-normal: 180ms;
+  --frasto-duration-slow: 220ms;
+  --frasto-ease-standard: cubic-bezier(0.2, 0, 0, 1);
 }
 
 [data-theme='dark'] {
   color-scheme: dark;
-  --ui-bg: #11110f;
-  --ui-surface: #181816;
-  --ui-surface-subtle: #22221f;
-  --ui-ink: #f4f1ea;
-  --ui-ink-muted: #b8b4aa;
-  --ui-ink-soft: #8f8b83;
-  --ui-border: #34332f;
-  --ui-border-strong: #504e48;
-  --ui-positive: #86b991;
-  --ui-warning: #d2a46f;
-  --ui-danger: #d98a86;
-  --ui-focus: #f4f1ea;
+  --frasto-bg: #11110f;
+  --frasto-surface: #181816;
+  --frasto-surface-subtle: #22221f;
+  --frasto-ink: #f4f1ea;
+  --frasto-ink-muted: #b8b4aa;
+  --frasto-ink-soft: #8f8b83;
+  --frasto-border: #34332f;
+  --frasto-border-strong: #504e48;
+  --frasto-positive: #86b991;
+  --frasto-warning: #d2a46f;
+  --frasto-danger: #d98a86;
+  --frasto-info: #8ab4c7;
+  --frasto-focus: #f4f1ea;
 }

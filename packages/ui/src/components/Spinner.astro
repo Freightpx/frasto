@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  spinnerBase,
+  spinnerSizes,
+  type SpinnerSize,
+} from './spinner-styles';
+
+type Props = Omit<HTMLAttributes<'span'>, 'aria-hidden' | 'aria-label' | 'class' | 'role'> & {
+  class?: string;
+  label?: string;
+  size?: SpinnerSize;
+};
+
+const {
+  class: className,
+  label,
+  size = 'md',
+  ...rest
+} = Astro.props;
+---
+
+<span
+  {...rest}
+  class:list={[spinnerBase, spinnerSizes[size], className]}
+  role={label ? 'status' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  data-frasto-spinner
+  data-size={size}
+></span>

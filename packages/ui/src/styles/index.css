@@ -1,33 +1,229 @@
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
 @import './tokens.css';
 
-*,
-*::before,
-*::after {
+@source '../**/*.{astro,ts}';
+
+:where([data-frasto-root]),
+:where([data-frasto-root]) *,
+:where([data-frasto-root]) *::before,
+:where([data-frasto-root]) *::after {
   box-sizing: border-box;
 }
 
-:where([data-ui-root]) {
-  font-family: var(--ui-font-sans);
-  color: var(--ui-ink);
-  background: var(--ui-bg);
+:where([data-frasto-root]) {
+  font-family: var(--frasto-font-sans);
+  color: var(--frasto-ink);
+  background: var(--frasto-bg);
 }
 
-:where([data-ui-root]) :focus-visible {
-  outline: 2px solid var(--ui-focus);
+:where([data-frasto-root]) :focus-visible {
+  outline: 2px solid var(--frasto-focus);
   outline-offset: 2px;
 }
 
-:where(.ui-number, .ui-date, .ui-id) {
+:where([data-frasto-input]) > input:focus-visible,
+:where([data-frasto-select]) > select:focus-visible {
+  outline: none;
+  outline-offset: 0;
+}
+
+:where([data-frasto-button], [data-frasto-icon-button], [data-frasto-input] > input, [data-frasto-select] > select, [data-frasto-textarea]) {
+  font: inherit;
+}
+
+:where(
+  [data-frasto-button],
+  [data-frasto-icon-button],
+  [data-frasto-input],
+  [data-frasto-select],
+  [data-frasto-textarea],
+  [data-frasto-checkbox-input],
+  [data-frasto-badge],
+  [data-frasto-radio-input],
+  [data-frasto-radio-indicator],
+  [data-frasto-switch-track],
+  [data-frasto-switch-thumb],
+  [data-frasto-avatar],
+  [data-frasto-avatar-image],
+  [data-frasto-surface],
+  [data-frasto-skeleton],
+  [data-frasto-spinner],
+  [data-frasto-tooltip-content],
+  [data-frasto-dropdown-item],
+  [data-frasto-tab]
+) {
+  border-radius: var(--frasto-radius);
+}
+
+:where(
+  [data-frasto-dropdown-panel],
+  [data-frasto-popover-panel],
+  [data-frasto-dialog-panel],
+  [data-frasto-drawer-panel]
+) {
+  border-radius: var(--frasto-radius);
+  box-shadow: 0 12px 32px rgb(17 17 17 / 12%);
+}
+
+:where([data-frasto-dialog], [data-frasto-drawer])::backdrop {
+  background: rgb(17 17 17 / 48%);
+}
+
+[data-frasto-tab][aria-selected='true'] {
+  color: var(--frasto-ink);
+  font-weight: 500;
+}
+
+[data-frasto-tab][aria-selected='true']::after {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px;
+  height: 2px;
+  background: currentColor;
+  content: '';
+}
+
+@keyframes frasto-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.52;
+  }
+}
+
+[data-frasto-skeleton][data-animation='pulse'] {
+  animation: frasto-skeleton-pulse 1.6s var(--frasto-ease-standard) infinite;
+}
+
+[data-frasto-input][data-invalid='true']:focus-within,
+[data-frasto-select][data-invalid='true']:focus-within,
+[data-frasto-textarea][data-invalid='true']:focus-visible {
+  border-color: var(--frasto-danger);
+}
+
+[data-frasto-checkbox][data-invalid='true'] [data-frasto-checkbox-input]:hover,
+[data-frasto-checkbox][data-invalid='true'] [data-frasto-checkbox-input]:checked {
+  border-color: var(--frasto-danger);
+}
+
+[data-frasto-checkbox][data-invalid='true'] [data-frasto-checkbox-input]:checked {
+  background: var(--frasto-danger);
+}
+
+[data-frasto-radio][data-invalid='true'] [data-frasto-radio-input],
+[data-frasto-radio][data-invalid='true'] [data-frasto-radio-input]:hover,
+[data-frasto-radio][data-invalid='true'] [data-frasto-radio-input]:checked {
+  border-color: var(--frasto-danger);
+}
+
+[data-frasto-radio][data-invalid='true'] [data-frasto-radio-indicator] {
+  background: var(--frasto-danger);
+}
+
+.frasto-switch-track {
+  --frasto-switch-travel: 12px;
+}
+
+[data-frasto-switch][data-size='md'] .frasto-switch-track {
+  --frasto-switch-travel: 16px;
+}
+
+[data-frasto-switch-input]:checked + .frasto-switch-track .frasto-switch-thumb {
+  transform: translateX(var(--frasto-switch-travel));
+  background: var(--frasto-bg);
+}
+
+[data-frasto-switch][data-invalid='true'] .frasto-switch-track,
+[data-frasto-switch][data-invalid='true'] [data-frasto-switch-input]:checked + .frasto-switch-track {
+  border-color: var(--frasto-danger);
+}
+
+[data-frasto-switch][data-invalid='true'] [data-frasto-switch-input]:checked + .frasto-switch-track {
+  background: var(--frasto-danger);
+}
+
+:where(.frasto-number, .frasto-date, .frasto-id) {
   font-variant-numeric: tabular-nums;
 }
 
+@keyframes frasto-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+[data-frasto-spinner] {
+  border-block-start-color: transparent;
+  animation: frasto-spinner-spin 720ms linear infinite;
+}
+
+.frasto-badge {
+  --frasto-badge-tone: var(--frasto-ink-muted);
+}
+
+.frasto-badge[data-tone='positive'] {
+  --frasto-badge-tone: var(--frasto-positive);
+}
+
+.frasto-badge[data-tone='warning'] {
+  --frasto-badge-tone: var(--frasto-warning);
+}
+
+.frasto-badge[data-tone='danger'] {
+  --frasto-badge-tone: var(--frasto-danger);
+}
+
+.frasto-badge[data-tone='info'] {
+  --frasto-badge-tone: var(--frasto-info);
+}
+
+.frasto-badge[data-variant='subtle'] {
+  color: var(--frasto-badge-tone);
+  background: var(--frasto-surface-subtle);
+  border-color: var(--frasto-border);
+}
+
+@supports (background: color-mix(in srgb, black 10%, transparent)) {
+  .frasto-badge[data-variant='subtle'] {
+    background: color-mix(in srgb, var(--frasto-badge-tone) 9%, transparent);
+    border-color: color-mix(in srgb, var(--frasto-badge-tone) 32%, transparent);
+  }
+}
+
+.frasto-badge[data-variant='outline'] {
+  color: var(--frasto-badge-tone);
+  background: transparent;
+  border-color: var(--frasto-badge-tone);
+}
+
+.frasto-badge[data-variant='solid'] {
+  color: var(--frasto-bg);
+  background: var(--frasto-badge-tone);
+  border-color: var(--frasto-badge-tone);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  :where([data-ui-root]) *,
-  :where([data-ui-root]) *::before,
-  :where([data-ui-root]) *::after {
+  :where([data-frasto-root]) *,
+  :where([data-frasto-root]) *::before,
+  :where([data-frasto-root]) *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  [data-frasto-spinner] {
+    animation: none;
+    border-block-start-color: currentColor;
+    opacity: 0.55;
+  }
+
+  [data-frasto-skeleton][data-animation='pulse'] {
+    animation: none;
+    opacity: 0.72;
   }
 }

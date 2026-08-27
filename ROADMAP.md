@@ -6,9 +6,14 @@
 - [x] Freightpx design principles
 - [x] Documentation workspace
 - [x] Initial design tokens
-- [ ] Final product name
-- [ ] Public GitHub repository under Freightpx
-- [ ] Package naming decision
+- [x] Final product name
+- [x] Public GitHub repository under Freightpx
+- [x] Package naming decision
+- [x] Unified website, documentation, and demo routes
+- [x] Tailwind CSS package build pipeline
+- [x] Self-hosted Inter and Inter Tight web fonts
+- [x] Lucide icon foundation
+- [x] Automatic package stylesheet import
 - [ ] CI hardening
 
 ## Phase 1 — Documentation-first system definition
@@ -21,36 +26,44 @@
 - [x] Motion principles
 - [x] Accessibility baseline
 - [x] Server-first architecture
-- [ ] Component API specification
-- [ ] Responsive behavior specification
-- [ ] Content/copy guidelines
-- [ ] Iconography specification
+- [x] Complete documentation navigation
+- [x] Frasto documentation visual system
+- [x] Component API specification
+- [x] Responsive behavior specification
+- [x] Content/copy guidelines
+- [x] Iconography specification
+- [x] Technical architecture policies
+- [x] Component inventory and status model
+- [x] Application component specifications
+- [x] SaaS pattern specifications
+- [x] Recipe and guide structure
+- [x] Contribution and governance documentation
 
 ## Phase 2 — First primitives
 
-- [ ] Button
-- [ ] IconButton
-- [ ] Input
-- [ ] Textarea
-- [ ] Checkbox
-- [ ] Radio
-- [ ] Switch
-- [ ] Badge
-- [ ] Avatar
-- [ ] Separator
-- [ ] Surface
-- [ ] Skeleton
-- [ ] Spinner
+- [x] Button
+- [x] IconButton
+- [x] Input
+- [x] Textarea
+- [x] Checkbox
+- [x] Radio
+- [x] Switch
+- [x] Badge
+- [x] Avatar
+- [x] Separator
+- [x] Surface
+- [x] Skeleton
+- [x] Spinner
 
 ## Phase 3 — Interactions
 
-- [ ] Tooltip
-- [ ] Select
-- [ ] Dropdown
-- [ ] Dialog
-- [ ] Drawer
-- [ ] Popover
-- [ ] Tabs
+- [x] Tooltip
+- [x] Select
+- [x] Dropdown
+- [x] Dialog
+- [x] Drawer
+- [x] Popover
+- [x] Tabs
 
 ## Phase 4 — SaaS components
 

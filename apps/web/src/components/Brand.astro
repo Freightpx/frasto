@@ -1,0 +1,63 @@
+---
+import frastoLogo from '../../../../logo/frastro_logo.svg';
+
+interface Props {
+  class?: string;
+  size?: 'sm' | 'md';
+  suffix?: string;
+}
+
+const {
+  class: className,
+  size = 'md',
+  suffix = 'UI',
+} = Astro.props;
+---
+
+<span class:list={['brand-lockup', className]} data-size={size}>
+  <img src={frastoLogo.src} width={frastoLogo.width} height={frastoLogo.height} alt="" />
+  <span class="brand-name">Frasto</span>
+  {suffix && <span class="brand-suffix">{suffix}</span>}
+</span>
+
+<style>
+  .brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+    font-family: var(--frasto-font-display, "Inter Tight", Inter, sans-serif);
+    color: var(--site-ink, var(--frasto-ink, #111));
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+  }
+
+  .brand-name {
+    font-weight: 750;
+    letter-spacing: -0.04em;
+  }
+
+  .brand-suffix {
+    color: var(--site-muted, var(--frasto-ink-muted, #66645f));
+    font-family: var(--frasto-font-sans, Inter, sans-serif);
+    font-size: 0.625rem;
+    font-weight: 650;
+    letter-spacing: 0.1em;
+  }
+
+  [data-size='sm'] {
+    gap: 0.3rem;
+    font-size: 0.875rem;
+  }
+
+  [data-size='sm'] img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+</style>

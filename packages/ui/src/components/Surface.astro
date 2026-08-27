@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  surfaceBase,
+  surfacePaddings,
+  surfaceVariants,
+  type SurfaceElement,
+  type SurfacePadding,
+  type SurfaceVariant,
+} from './surface-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  as?: SurfaceElement;
+  class?: string;
+  padding?: SurfacePadding;
+  variant?: SurfaceVariant;
+};
+
+const {
+  as: Element = 'div',
+  class: className,
+  padding = 'md',
+  variant = 'plain',
+  ...rest
+} = Astro.props;
+---
+
+<Element
+  {...rest}
+  class:list={[surfaceBase, surfaceVariants[variant], surfacePaddings[padding], className]}
+  data-frasto-surface
+  data-padding={padding}
+  data-variant={variant}
+>
+  <slot />
+</Element>

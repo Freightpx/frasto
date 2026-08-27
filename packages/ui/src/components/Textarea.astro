@@ -1,0 +1,53 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { InputSize } from './input-styles';
+import {
+  textareaBase,
+  textareaResize,
+  textareaSizes,
+  type TextareaResize,
+} from './textarea-styles';
+
+type Props = Omit<HTMLAttributes<'textarea'>, 'class' | 'value'> & {
+  class?: string;
+  fullWidth?: boolean;
+  invalid?: boolean;
+  resize?: TextareaResize;
+  size?: InputSize;
+  value?: string | number;
+};
+
+const {
+  'aria-invalid': ariaInvalid,
+  class: className,
+  disabled = false,
+  fullWidth = true,
+  invalid = false,
+  resize = 'vertical',
+  rows = 4,
+  size = 'md',
+  value,
+  ...rest
+} = Astro.props;
+
+const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false && ariaInvalid !== 'false');
+---
+
+<textarea
+  {...rest}
+  class:list={[
+    textareaBase,
+    textareaSizes[size],
+    textareaResize[resize],
+    fullWidth ? 'w-full' : 'w-auto',
+    isInvalid && 'border-[var(--frasto-danger)] focus-visible:border-[var(--frasto-danger)]',
+    className,
+  ]}
+  disabled={disabled}
+  rows={rows}
+  aria-invalid={invalid ? 'true' : ariaInvalid}
+  data-frasto-textarea
+  data-invalid={isInvalid ? 'true' : undefined}
+  data-resize={resize}
+  data-size={size}
+>{value !== undefined ? value : <slot />}</textarea>

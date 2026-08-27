@@ -1,0 +1,41 @@
+---
+import '../styles/site.css';
+import frastoLogo from '../../../../logo/frastro_logo.svg';
+import Brand from '../components/Brand.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={frastoLogo.src} />
+    <title>{title}</title>
+  </head>
+  <body data-frasto-root>
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-label="Frasto home"><Brand /></a>
+      <nav aria-label="Primary navigation">
+        <a href="/docs/">Docs</a>
+        <a href="/demo/">Demo</a>
+        <a href="https://github.com/Freightpx/frasto">GitHub</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <Brand size="sm" />
+      <span>Clarity first. Craft throughout.</span>
+      <span>Built by Freightpx</span>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+---
+title: Surface
+description: A flat semantic background and optional boundary for meaningful interface regions.
+---
+
+import { Surface } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Surface` gives a meaningful interface region a shared background, boundary, and spacing rule. It stays flat and square by design: there is no elevation, shadow, or rounded-card treatment.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <Surface as="section" variant="outlined" aria-label="Account summary" style="width:100%;">
+    <p style="margin:0 0 .5rem; font-size:.6875rem; letter-spacing:.12em; color:var(--frasto-ink-muted);">01 / ACCOUNT</p>
+    <strong>Northstar Goods</strong>
+    <p style="margin:.5rem 0 0; color:var(--frasto-ink-muted);">Active customer · Updated today</p>
+  </Surface>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Surface } from '@freightpx/frasto';
+---
+
+<Surface as="section" variant="outlined" aria-labelledby="account-heading">
+  <h2 id="account-heading">Account</h2>
+  <p>Customer and billing details.</p>
+</Surface>
+```
+
+Use `Surface` when a background or boundary communicates a real region. Plain spacing, a heading, or a `Separator` is often enough when the relationship is already clear.
+
+## Variants
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <div style="display:grid; gap:1rem; width:100%;">
+    <Surface variant="plain">Plain surface</Surface>
+    <Surface variant="subtle">Subtle surface</Surface>
+    <Surface variant="outlined">Outlined surface</Surface>
+  </div>
+</div>
+
+- `plain` uses the primary surface color without a border.
+- `subtle` uses the quiet surface token without introducing semantic color.
+- `outlined` adds the standard one-pixel structural border.
+
+All variants remain square and shadowless.
+
+## Padding
+
+Padding follows Frasto's spacing scale. Use `none` when the child layout owns its spacing, such as an application shell or a table region.
+
+```astro
+<Surface padding="none">...</Surface>
+<Surface padding="sm">...</Surface>
+<Surface padding="md">...</Surface>
+<Surface padding="lg">...</Surface>
+```
+
+## Semantic element
+
+Choose an element that reflects the content relationship rather than its appearance.
+
+```astro
+<Surface as="article">...</Surface>
+<Surface as="aside" aria-label="Account context">...</Surface>
+<Surface as="section" aria-labelledby="billing-heading">...</Surface>
+```
+
+The supported elements are `div`, `section`, `article`, and `aside`. `Surface` does not add a landmark role or accessible name automatically.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `as` | `'div' \| 'section' \| 'article' \| 'aside'` | `'div'` | rendered semantic element |
+| `variant` | `'plain' \| 'subtle' \| 'outlined'` | `'plain'` | background and boundary treatment |
+| `padding` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | internal spacing |
+| `class` | `string` | — | adds a consumer class |
+
+Native global HTML attributes are forwarded.
+
+## Accessibility
+
+- Give a semantic `section` or `aside` an accessible heading or label when it represents a landmark.
+- Do not choose `article` unless the content can stand on its own.
+- Visual boundaries do not replace headings or document structure.
+- Surface variants are structural, not status indicators.
+
+## Responsive behavior
+
+`Surface` fills the available inline space as a block and does not impose a width, height, or layout mode on its children. Consumer layouts remain responsible for responsive padding overrides, overflow, and child arrangement.
+
+## Restraint
+
+Avoid nesting surfaces only to create visual depth. Prefer typography, whitespace, and separators for subdivisions inside an existing surface. Use a new surface when the boundary remains meaningful after the surrounding page decoration is removed.

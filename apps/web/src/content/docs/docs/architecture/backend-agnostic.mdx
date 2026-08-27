@@ -1,0 +1,41 @@
+---
+title: Backend independence
+description: Frasto renders application data without prescribing transport, storage, authentication, or state.
+---
+
+Frasto is a UI library. The consuming application owns how data is loaded, authorized, mutated, cached, and persisted.
+
+## Preferred boundary
+
+```astro
+<ResourceTable rows={customers} columns={columns} />
+```
+
+Avoid a core API that owns transport:
+
+```astro
+<ResourceTable endpoint="/api/customers" />
+```
+
+## Compatible approaches
+
+The same component contract should work with Astro Actions, REST, GraphQL, Supabase, Appwrite, Firebase, a server database query, or a custom external API.
+
+## What Frasto may define
+
+- display-oriented TypeScript contracts
+- events for interaction intent
+- loading, empty, error, and partial states
+- form markup and accessible feedback structure
+
+## What Frasto does not define
+
+- database schema or ORM entities
+- authentication provider
+- authorization policy
+- API client
+- request caching
+- optimistic update strategy
+- server error taxonomy
+
+Integration examples belong in guides and recipes, not as core component requirements.

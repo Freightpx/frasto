@@ -1,0 +1,52 @@
+---
+title: Drawer
+description: A native modal edge panel for contextual navigation or focused secondary tasks.
+---
+
+import { Button, Drawer } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Drawer` uses native modal dialog behavior while attaching its square surface to the left or right viewport edge. It is appropriate for contextual detail, compact task panels, and mobile navigation.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <Drawer title="Customer details" description="Northstar Goods account context" size="sm">
+    <Button slot="trigger" variant="outline">View customer</Button>
+    <p><strong>Status</strong><br />Active</p>
+    <p><strong>Owner</strong><br />Commercial team</p>
+  </Drawer>
+</div>
+
+## Usage
+
+```astro
+<Drawer title="Customer details" side="right" size="md">
+  <Button slot="trigger">View details</Button>
+  <p>Contextual customer information.</p>
+  <Button slot="footer" data-frasto-drawer-close>Done</Button>
+</Drawer>
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `title` | `string` | required | visible and accessible drawer title |
+| `description` | `string` | — | visible supporting context |
+| `side` | `'left' \| 'right'` | `'right'` | attached viewport edge |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | panel width |
+| `dismissible` | `boolean` | `true` | permits Escape and backdrop dismissal |
+| `closeLabel` | `string` | `'Close drawer'` | close-control accessible name |
+| `class`, `dialogClass`, `panelClass` | `string` | — | composition styling hooks |
+
+Slots are `trigger`, default content, and `footer`. Add `data-frasto-drawer-close` to a footer control that closes the drawer.
+
+## Accessibility and responsive behavior
+
+- Drawer traps focus through native modal dialog behavior and returns focus on close.
+- The trigger relationship and expanded state are managed automatically.
+- On narrow screens, every size remains within a 24px viewport remainder.
+- Content scrolls inside the panel while its heading and optional footer remain visible.
+- Use Dialog for centered decisions and Popover for non-modal context.

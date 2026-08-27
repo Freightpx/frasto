@@ -1,0 +1,96 @@
+---
+title: Badge
+description: Compact square metadata and status text with restrained semantic tones.
+---
+
+import { Badge } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Badge` identifies a category, state, or small piece of metadata. It is deliberately non-interactive, uses square geometry, and keeps semantic color subordinate to its visible text.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <Badge>Invited</Badge>
+  <Badge tone="positive">Active</Badge>
+  <Badge tone="warning">Review</Badge>
+  <Badge tone="danger">Blocked</Badge>
+  <Badge tone="info">New</Badge>
+</div>
+
+## Basic usage
+
+```astro
+---
+import { Badge } from '@freightpx/frasto';
+---
+
+<Badge tone="positive">Active</Badge>
+```
+
+The application assigns domain meaning. Frasto does not assume that words such as `pending` or `review` always represent the same tone.
+
+## Variants
+
+<div class="frasto-preview" data-frasto-root>
+  <Badge tone="positive" variant="subtle">Subtle</Badge>
+  <Badge tone="positive" variant="outline">Outline</Badge>
+  <Badge tone="positive" variant="solid">Solid</Badge>
+</div>
+
+- `subtle` is the default for dense tables and metadata.
+- `outline` increases definition without adding surface weight.
+- `solid` is reserved for states that must remain prominent in a compact area.
+
+All variants have a one-pixel border, no shadow, and no radius.
+
+## Tones
+
+| Tone | Intended meaning |
+| --- | --- |
+| `neutral` | unassigned, inactive, invited, or ordinary metadata |
+| `positive` | healthy, active, complete, or successful |
+| `warning` | attention or review required |
+| `danger` | blocked, failed, destructive, or high-risk |
+| `info` | new or informational state |
+
+Tone is supplemental. Keep the text explicit enough to communicate the state without color.
+
+## Sizes
+
+<div class="frasto-preview" data-frasto-root>
+  <Badge size="sm">Small · 20px</Badge>
+  <Badge size="md">Medium · 24px</Badge>
+</div>
+
+Use `sm` in tables and dense metadata rows. Use `md` when the badge appears beside standard body text or controls.
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `tone` | `'neutral' \| 'positive' \| 'warning' \| 'danger' \| 'info'` | `'neutral'` | semantic color treatment |
+| `variant` | `'subtle' \| 'outline' \| 'solid'` | `'subtle'` | visual emphasis |
+| `size` | `'sm' \| 'md'` | `'sm'` | badge height and spacing |
+| `class` | `string` | — | adds a consumer class |
+
+Native span attributes, including `role`, `aria-live`, and `data-*`, are forwarded.
+
+## Slots
+
+| Slot | Purpose |
+| --- | --- |
+| default | visible badge text |
+| `icon-start` | optional decorative leading icon |
+
+## Accessibility
+
+- Do not rely on tone alone; use precise visible text.
+- `Badge` does not add `role="status"` automatically because most badges describe static data.
+- Add `role="status"` or an appropriate live region only when the badge changes in response to an operation and must be announced.
+- Do not use a badge as a button or link. Compose an actual interactive primitive when activation is required.
+
+## Responsive behavior
+
+Badges retain their intrinsic width and never stretch automatically. In constrained tables, keep the state column visible or provide the same state in the row's mobile representation.

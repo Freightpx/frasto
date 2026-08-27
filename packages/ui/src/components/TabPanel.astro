@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tabPanelBase } from './tabs-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'role'> & {
+  class?: string;
+  value: string;
+};
+
+const {
+  class: className,
+  value,
+  ...rest
+} = Astro.props;
+---
+
+<div
+  {...rest}
+  class:list={[tabPanelBase, className]}
+  role="tabpanel"
+  tabindex="0"
+  data-frasto-tab-panel
+  data-value={value}
+>
+  <slot />
+</div>
