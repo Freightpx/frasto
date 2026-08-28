@@ -1,0 +1,52 @@
+---
+import { ChevronRight } from '@lucide/astro';
+import type { HTMLAttributes } from 'astro/types';
+import {
+  breadcrumbCurrent,
+  breadcrumbItem,
+  breadcrumbLink,
+  breadcrumbSeparator,
+  breadcrumbText,
+} from './breadcrumb-styles';
+
+type BreadcrumbLinkAttributes = Omit<HTMLAttributes<'a'>, 'aria-current' | 'class' | 'href'>;
+
+type Props = Omit<HTMLAttributes<'li'>, 'class'> & {
+  class?: string;
+  current?: boolean;
+  href?: string;
+  linkAttributes?: BreadcrumbLinkAttributes;
+  linkClass?: string;
+};
+
+const {
+  class: className,
+  current = false,
+  href,
+  linkAttributes = {},
+  linkClass,
+  ...rest
+} = Astro.props;
+
+const hasCustomSeparator = Astro.slots.has('separator');
+---
+
+<li {...rest} class:list={[breadcrumbItem, className]} data-frasto-breadcrumb-item>
+  <span class:list={breadcrumbSeparator} aria-hidden="true" data-frasto-breadcrumb-separator>
+    {hasCustomSeparator ? <slot name="separator" /> : <ChevronRight size={14} stroke-width={1.25} />}
+  </span>
+  {current ? (
+    <span class:list={[breadcrumbCurrent, linkClass]} aria-current="page" data-frasto-breadcrumb-current>
+      <slot />
+    </span>
+  ) : href ? (
+    <a {...linkAttributes} class:list={[breadcrumbLink, linkClass]} href={href} data-frasto-breadcrumb-link>
+      <slot />
+    </a>
+  ) : (
+    <span class:list={[breadcrumbText, linkClass]} data-frasto-breadcrumb-text>
+      <slot />
+    </span>
+  )}
+</li>
+

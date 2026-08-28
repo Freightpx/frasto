@@ -28,6 +28,10 @@
   outline-offset: 0;
 }
 
+:where([data-frasto-breadcrumb-item]:first-child) > [data-frasto-breadcrumb-separator] {
+  display: none;
+}
+
 :where([data-frasto-button], [data-frasto-icon-button], [data-frasto-input] > input, [data-frasto-select] > select, [data-frasto-textarea]) {
   font: inherit;
 }

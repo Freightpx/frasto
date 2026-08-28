@@ -49,8 +49,39 @@
   --sl-color-black: #11110f;
 }
 
-html {
-  scrollbar-color: var(--freight-border-strong) var(--freight-bg);
+html,
+* {
+  scrollbar-color: var(--freight-border-strong) transparent;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 2.5rem;
+  border-radius: 0;
+  background: var(--freight-border-strong);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--freight-muted);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 body {
@@ -90,6 +121,10 @@ header.header {
 }
 
 button[aria-label='Search'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--frasto-control-height);
   min-height: 2.25rem;
   border: 1px solid var(--freight-border);
   background: var(--freight-surface);
@@ -105,6 +140,72 @@ button[aria-label='Search'] kbd {
   border-color: var(--freight-border);
   background: transparent;
   box-shadow: none;
+}
+
+button[aria-label='Menu'] {
+  align-items: center;
+  justify-content: center;
+  top: calc((var(--sl-nav-height) - var(--frasto-control-height)) / 2);
+  width: var(--frasto-control-height);
+  height: var(--frasto-control-height);
+  min-height: var(--frasto-control-height);
+  padding: 0;
+  color: var(--freight-ink);
+  border: 1px solid var(--freight-border);
+  background: var(--freight-surface);
+  box-shadow: none;
+}
+
+button[aria-label='Menu']:hover {
+  border-color: var(--freight-border-strong);
+  background: var(--freight-surface-subtle);
+}
+
+/* Mobile page index */
+
+mobile-starlight-toc nav {
+  border-top: 0;
+  background: var(--freight-bg);
+}
+
+mobile-starlight-toc summary {
+  gap: 0;
+  padding: 0 1rem;
+  border-bottom-color: var(--freight-border);
+}
+
+mobile-starlight-toc .toggle {
+  gap: 0.5rem;
+  align-items: center;
+  height: var(--frasto-control-height);
+  padding: 0 0.625rem;
+  color: var(--freight-ink);
+  font-weight: 600;
+  border-color: var(--freight-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+mobile-starlight-toc details .toggle:hover,
+mobile-starlight-toc details[open] .toggle {
+  color: var(--freight-ink);
+  border-color: var(--freight-border-strong);
+  background: var(--freight-surface-subtle);
+}
+
+mobile-starlight-toc .display-current {
+  padding-inline-start: 0.75rem;
+  color: var(--freight-muted);
+}
+
+mobile-starlight-toc .dropdown {
+  border-color: var(--freight-border);
+  background: var(--freight-bg);
+  box-shadow: none;
+}
+
+.frasto-avatar-artwork {
+  background: #f4f1ea;
 }
 
 /* Navigation */
@@ -335,6 +436,169 @@ main h1#_top::before {
   line-height: 1;
 }
 
+/* Starlight adds vertical prose rhythm between sibling elements. Frasto
+   components own their dimensions, so documentation must not offset them. */
+
+[data-frasto-root] :where(
+  [data-frasto-avatar],
+  [data-frasto-badge],
+  [data-frasto-breadcrumb],
+  [data-frasto-breadcrumb-item],
+  [data-frasto-button],
+  [data-frasto-checkbox],
+  [data-frasto-dropdown-item],
+  [data-frasto-form-description],
+  [data-frasto-form-error],
+  [data-frasto-form-field],
+  [data-frasto-form-label],
+  [data-frasto-icon-button],
+  [data-frasto-input],
+  [data-frasto-radio],
+  [data-frasto-select],
+  [data-frasto-skeleton],
+  [data-frasto-spinner],
+  [data-frasto-status],
+  [data-frasto-switch],
+  [data-frasto-tab],
+  [data-frasto-tab-panel],
+  [data-frasto-textarea]
+) {
+  margin-block: 0 !important;
+}
+
+.sl-markdown-content :where(a[data-frasto-button], a[data-frasto-icon-button]) {
+  text-decoration: none;
+}
+
+.sl-markdown-content :where(a[data-frasto-button], a[data-frasto-icon-button])[data-variant='solid'] {
+  color: var(--frasto-bg);
+}
+
+.frasto-preview > :where(*) {
+  margin-block: 0 !important;
+}
+
+/* Documentation home dogfoods the package rather than Starlight showcase UI. */
+
+.frasto-docs-home {
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+main:has(.frasto-docs-home) .content-panel:first-of-type {
+  display: none;
+}
+
+.frasto-docs-hero {
+  padding-block: clamp(4rem, 10vw, 8rem);
+  border-bottom: 1px solid var(--freight-border);
+}
+
+.frasto-docs-kicker {
+  margin: 0 0 1.5rem !important;
+  color: var(--freight-soft);
+  font-size: 0.65625rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.frasto-docs-hero h1 {
+  max-width: 11ch;
+  margin: 0;
+  color: var(--freight-ink);
+  font-family: var(--frasto-font-display);
+  font-size: clamp(3.75rem, 9vw, 7.5rem);
+  font-weight: 620;
+  letter-spacing: -0.065em;
+  line-height: 0.86;
+}
+
+.frasto-docs-lede {
+  max-width: 44rem;
+  margin: 1.75rem 0 0 !important;
+  color: var(--freight-muted);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.frasto-docs-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.frasto-docs-section {
+  padding-block: clamp(3rem, 7vw, 5rem);
+  border-bottom: 1px solid var(--freight-border);
+}
+
+.frasto-docs-section-heading {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.45fr) minmax(0, 1.55fr);
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+
+.frasto-docs-section-heading h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--freight-ink);
+  font-family: var(--frasto-font-display);
+  font-size: clamp(2rem, 4vw, 3.75rem);
+  font-weight: 620;
+  letter-spacing: -0.05em;
+  line-height: 0.96;
+}
+
+.frasto-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  padding: 1px;
+  background: var(--freight-border);
+}
+
+.frasto-docs-grid > [data-frasto-surface] {
+  height: 100%;
+  margin: 0 !important;
+  border: 0;
+}
+
+.frasto-docs-grid h3 {
+  margin: 0;
+  color: var(--freight-ink);
+  font-family: var(--frasto-font-display);
+  font-size: 1.125rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.frasto-docs-grid p {
+  margin: 0.7rem 0 0;
+  color: var(--freight-muted);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.frasto-docs-grid [data-frasto-button] {
+  margin-top: 1.25rem !important;
+}
+
+.frasto-color-swatch {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-inline-end: 0.45rem;
+  border: 1px solid var(--freight-border-strong);
+  background: var(--swatch);
+  vertical-align: -0.08em;
+}
+
 /* Tables stay structural, never card-like. */
 
 .sl-markdown-content table {
@@ -466,7 +730,36 @@ main h1#_top::before {
   text-transform: uppercase;
 }
 
+@media (max-width: 49.999rem) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .page {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .main-frame {
+    position: fixed;
+    inset: var(--sl-nav-height) 0 0;
+    padding-top: var(--sl-mobile-toc-height);
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+}
+
 @media (max-width: 50rem) {
+  header.header button[aria-label='Search'] {
+    width: var(--frasto-control-height);
+    height: var(--frasto-control-height);
+    min-width: var(--frasto-control-height);
+    min-height: var(--frasto-control-height);
+    padding: 0;
+  }
+
   main .content-panel:first-of-type {
     padding-block: 2.5rem 2rem;
   }
@@ -485,6 +778,15 @@ main h1#_top::before {
 
   .sl-markdown-content .sl-heading-wrapper.level-h2 {
     margin-top: 3.25rem;
+  }
+
+  .frasto-docs-section-heading,
+  .frasto-docs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .frasto-docs-hero h1 {
+    font-size: clamp(3.25rem, 18vw, 5rem);
   }
 }
 

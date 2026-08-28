@@ -1,0 +1,15 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { formDescriptionBase } from './form-field-styles';
+
+type Props = Omit<HTMLAttributes<'p'>, 'class'> & {
+  class?: string;
+};
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<p {...rest} class:list={[formDescriptionBase, className]} data-frasto-form-description>
+  <slot />
+</p>
+

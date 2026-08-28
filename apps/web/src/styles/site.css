@@ -13,6 +13,23 @@
   background: var(--site-canvas);
 }
 
+html,
+* {
+  scrollbar-color: var(--frasto-border-strong, #b9b5ac) transparent;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+::-webkit-scrollbar-thumb { border-radius: 0; background: var(--frasto-border-strong, #b9b5ac); }
+::-webkit-scrollbar-thumb:hover { background: var(--site-muted); }
+::-webkit-scrollbar-corner { background: transparent; }
+
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--site-canvas); color: var(--site-ink); }
 a { color: inherit; }
@@ -64,6 +81,7 @@ button, input, textarea { font: inherit; }
 .demo-sidebar a { padding: .55rem .65rem; border-radius: var(--frasto-radius); color: var(--site-muted); font-size: .875rem; text-decoration: none; }
 .demo-sidebar a.is-active { color: var(--site-ink); background: var(--site-canvas); }
 .demo-workspace { min-width: 0; padding: clamp(1.5rem, 4vw, 3rem); }
+.demo-breadcrumb { margin-bottom: 2rem; }
 .demo-title-row { display: flex; justify-content: space-between; gap: 2rem; align-items: start; }
 .demo-title-row h2 { margin: 0; font-family: var(--frasto-font-display, "Inter Tight", Inter, sans-serif); font-size: 2.5rem; letter-spacing: -.04em; }
 .demo-title-row p { margin: .4rem 0 0; color: var(--site-muted); }
@@ -79,6 +97,7 @@ button, input, textarea { font: inherit; }
 .demo-table-wrap th { color: var(--site-muted); font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase; }
 .demo-table-wrap th, .demo-table-wrap td { padding: .85rem .5rem; border-bottom: 1px solid var(--site-border); font-size: .875rem; white-space: nowrap; }
 .demo-customer { display: inline-flex; align-items: center; gap: .75rem; }
+.frasto-avatar-artwork { background: #f4f1ea; }
 .demo-customer-trigger { display: inline-flex; align-items: center; gap: .75rem; padding: 0; border: 0; background: transparent; color: inherit; cursor: pointer; text-align: left; }
 .demo-customer-trigger:hover span:last-child { text-decoration: underline; text-underline-offset: .2rem; }
 .demo-loading-row [data-frasto-skeleton] { max-width: 100%; }

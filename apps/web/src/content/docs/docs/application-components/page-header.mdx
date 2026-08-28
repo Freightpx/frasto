@@ -38,3 +38,7 @@ Actions wrap or stack below the title at narrow widths. Preserve the title and p
 ## Accessibility
 
 Breadcrumbs use navigation semantics, the title participates in a logical heading order, and icon-only actions have accessible names.
+
+## Composition boundary
+
+PageHeader accepts authored [Breadcrumb](/docs/components/breadcrumb/) content in its context region. It does not parse routes, generate breadcrumb links, or reproduce Breadcrumb's separator and overflow behavior.

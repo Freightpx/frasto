@@ -1,0 +1,124 @@
+---
+title: Breadcrumb
+description: A server-rendered location trail with native links and current-page semantics.
+---
+
+import { Breadcrumb, BreadcrumbItem, Icon, SlashIcon } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Breadcrumb` communicates the current page's position inside an application hierarchy. It is a navigation landmark, not a router, history control, or substitute for the page title.
+
+## Ownership boundary
+
+- The application owns labels, URLs, route matching, and which item is current.
+- `Breadcrumb` owns the labelled navigation landmark, ordered-list structure, spacing, and narrow overflow.
+- `BreadcrumbItem` owns one linked or current item and its separator presentation.
+- Neither component reads the URL, imports a router, or generates a hierarchy from route segments.
+
+## Anatomy
+
+1. labelled `nav` landmark
+2. ordered list
+3. ordinary linked ancestors
+4. decorative separators
+5. one current item with `aria-current="page"`
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <Breadcrumb label="Customer location">
+    <BreadcrumbItem href="/demo/">Workspace</BreadcrumbItem>
+    <BreadcrumbItem href="/demo/">Customers</BreadcrumbItem>
+    <BreadcrumbItem current>Northstar Goods</BreadcrumbItem>
+  </Breadcrumb>
+</div>
+
+## Usage
+
+```astro
+---
+import { Breadcrumb, BreadcrumbItem } from '@freightpx/frasto';
+---
+
+<Breadcrumb label="Customer location">
+  <BreadcrumbItem href="/app">Workspace</BreadcrumbItem>
+  <BreadcrumbItem href="/app/customers">Customers</BreadcrumbItem>
+  <BreadcrumbItem current>Northstar Goods</BreadcrumbItem>
+</Breadcrumb>
+```
+
+## API
+
+### Breadcrumb
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `label` | `string` | `"Breadcrumb"` | accessible landmark name |
+| `class` | `string` | — | styles the navigation root |
+| `listClass` | `string` | — | styles the ordered list |
+
+The default slot accepts authored `BreadcrumbItem` children. Native navigation attributes pass through to the `nav` element.
+
+### BreadcrumbItem
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `href` | `string` | — | renders the item as an ordinary link |
+| `current` | `boolean` | `false` | renders non-linked current-page semantics |
+| `class` | `string` | — | styles the list item |
+| `linkClass` | `string` | — | styles the link or current text |
+| `linkAttributes` | native anchor attributes | `{}` | passes `rel`, `target`, and other attributes to linked items |
+
+The default slot supplies the visible label. A named `separator` slot can replace the built-in Lucide chevron for that boundary. Separator content is decorative and hidden from assistive technology.
+
+## Custom separators
+
+Supply a separator on each boundary that needs an override. The first item's separator is hidden automatically.
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <Breadcrumb label="Settings location">
+    <BreadcrumbItem href="/demo/">Workspace</BreadcrumbItem>
+    <BreadcrumbItem href="/demo/"><Icon icon={SlashIcon} slot="separator" />Settings</BreadcrumbItem>
+    <BreadcrumbItem current><Icon icon={SlashIcon} slot="separator" />Billing</BreadcrumbItem>
+  </Breadcrumb>
+</div>
+
+```astro
+<BreadcrumbItem href="/settings">
+  <Icon icon={SlashIcon} slot="separator" />
+  Settings
+</BreadcrumbItem>
+```
+
+## Contract rules
+
+- Exactly one terminal item should use `current`.
+- A current item does not render as a link, even if `href` is provided.
+- Non-current items should provide `href`; plain non-current text is allowed only when a hierarchy level has no destination.
+- Labels remain concise and meaningful outside surrounding page copy.
+- `PageHeader` composes Breadcrumb through authored content; it does not duplicate this API or infer routes.
+
+## Accessibility
+
+The root is a named `nav`, items use an ordered list, ancestors are native anchors, and the current item uses `aria-current="page"`. Separators never enter the accessibility tree. Multiple breadcrumb landmarks on one page require distinct `label` values.
+
+## Responsive and long-content behavior
+
+The trail stays on one line and scrolls horizontally at narrow widths. The current item remains fully authored rather than being replaced with an unexplained ellipsis. Applications may shorten intermediate labels, but Frasto does not hide location information or open an overflow menu without an explicit product requirement.
+
+## States to verify
+
+- two-item and deeply nested paths
+- current page and unavailable non-linked ancestor
+- long localized labels
+- narrow horizontal overflow
+- light and dark themes
+- link hover, active, and focus-visible states
+
+## Best practices
+
+- Use breadcrumbs for meaningful hierarchy, especially detail and settings routes.
+- Keep the visible page title outside Breadcrumb.
+- Prefer stable destination links over click handlers.
+- Do not use breadcrumbs as tabs, progress steps, or browser history.

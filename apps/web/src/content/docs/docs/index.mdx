@@ -2,79 +2,94 @@
 title: Frasto UI
 description: Astro-first UI foundations and application patterns for serious SaaS products.
 template: splash
-hero:
-  tagline: Build serious SaaS applications with Astro. Server-first components, application patterns, and production-ready layouts.
-  actions:
-    - text: Get started
-      link: /docs/getting-started/introduction/
-      icon: right-arrow
-    - text: Explore foundations
-      link: /docs/foundations/design-principles/
-      variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { ArrowUpRightIcon, Button, Icon, Surface } from '@freightpx/frasto';
 
-## 01 — Built for application work
+<div class="frasto-docs-home" data-frasto-root>
+  <section class="frasto-docs-hero">
+    <p class="frasto-docs-kicker">FRASTO / DOCUMENTATION</p>
+    <h1>Serious application UI.</h1>
+    <p class="frasto-docs-lede">
+      Build dashboards, CRM, CMS, ERP, and operational software with an Astro-first,
+      server-first component system.
+    </p>
+    <div class="frasto-docs-actions">
+      <Button href="/docs/getting-started/introduction/">
+        Get started <Icon icon={ArrowUpRightIcon} slot="icon-end" />
+      </Button>
+      <Button href="/docs/foundations/design-principles/" variant="ghost">
+        Explore foundations
+      </Button>
+    </div>
+  </section>
 
-Frasto UI is intentionally more application-oriented than a generic primitive library. The goal is to make recurring SaaS structures—resource lists, settings, detail screens, navigation, filters, data states, and actions—feel coherent from the beginning.
+  <section class="frasto-docs-section" aria-labelledby="application-work-heading">
+    <div class="frasto-docs-section-heading">
+      <p class="frasto-docs-kicker">01 / FOUNDATION</p>
+      <h2 id="application-work-heading">Built for application work.</h2>
+    </div>
+    <div class="frasto-docs-grid">
+      <Surface as="article" padding="lg">
+        <h3>Astro first</h3>
+        <p>Render useful HTML on the server. Add client behavior only when the interaction needs it.</p>
+      </Surface>
+      <Surface as="article" padding="lg">
+        <h3>SaaS patterns</h3>
+        <p>Treat application shells, resource tables, filters, detail views, and settings as product primitives.</p>
+      </Surface>
+      <Surface as="article" padding="lg">
+        <h3>Backend agnostic</h3>
+        <p>Bring data from Astro Actions, REST, GraphQL, Supabase, Appwrite, or your own API.</p>
+      </Surface>
+      <Surface as="article" padding="lg">
+        <h3>Designed for daily use</h3>
+        <p>Clear hierarchy, restrained color, quiet borders, compact density, and accessible states.</p>
+      </Surface>
+    </div>
+  </section>
 
-<CardGrid>
-  <Card title="Astro first">
-    Render useful HTML on the server. Add client behavior only when the interaction needs it.
-  </Card>
-  <Card title="SaaS patterns">
-    Treat AppShell, ResourceTable, FilterBar, DetailLayout, and SettingsLayout as first-class product primitives.
-  </Card>
-  <Card title="Backend agnostic">
-    Bring data from Astro Actions, REST, GraphQL, Supabase, Appwrite, your own API, or anything else.
-  </Card>
-  <Card title="Designed for daily use">
-    Clear hierarchy, restrained color, quiet borders, compact density, and accessible states.
-  </Card>
-</CardGrid>
+  <section class="frasto-docs-section" aria-labelledby="documentation-map-heading">
+    <div class="frasto-docs-section-heading">
+      <p class="frasto-docs-kicker">02 / DOCUMENTATION MAP</p>
+      <h2 id="documentation-map-heading">One application language.</h2>
+    </div>
+    <div class="frasto-docs-grid">
+      <Surface as="article" padding="lg">
+        <h3>Foundations</h3>
+        <p>Color, type, spacing, layout, motion, accessibility, themes, and content rules.</p>
+        <Button href="/docs/foundations/design-principles/" variant="ghost" size="sm">View foundations</Button>
+      </Surface>
+      <Surface as="article" padding="lg">
+        <h3>Architecture</h3>
+        <p>Rendering, interaction, dependencies, APIs, TypeScript, and data contracts.</p>
+        <Button href="/docs/architecture/astro-first/" variant="ghost" size="sm">View architecture</Button>
+      </Surface>
+      <Surface as="article" padding="lg">
+        <h3>Application components</h3>
+        <p>Planned contracts for shells, tables, filters, detail views, settings, and activity.</p>
+        <Button href="/docs/application-components/overview/" variant="ghost" size="sm">View components</Button>
+      </Surface>
+      <Surface as="article" padding="lg">
+        <h3>Patterns</h3>
+        <p>Repeatable structures for dashboards, resources, settings, CRUD, and data states.</p>
+        <Button href="/docs/patterns/overview/" variant="ghost" size="sm">View patterns</Button>
+      </Surface>
+    </div>
+  </section>
 
-## 02 — One application language
-
-```text
-Foundations
-    ↓
-Core components
-    ↓
-Application components
-    ↓
-Patterns
-    ↓
-Complete recipes
-```
-
-The layers are designed together. A `ResourceTable` should use the same density, focus treatment, content rules, and responsive principles as the controls around it.
-
-## 03 — Freightpx direction
-
-The default visual language is editorial and neutral: warm surfaces, near-black primary actions, thin dividers, strict square geometry, minimal shadow, and typography doing most of the hierarchy work.
-
-> **Clarity first. Craft throughout.**
-
-## 04 — Documentation map
-
-<CardGrid>
-  <Card title="Foundations" icon="open-book" link="/docs/foundations/design-principles/">
-    Color, type, spacing, layout, motion, accessibility, themes, and content rules.
-  </Card>
-  <Card title="Architecture" icon="setting" link="/docs/architecture/astro-first/">
-    Rendering, interaction, dependencies, APIs, TypeScript, and data contracts.
-  </Card>
-  <Card title="Application components" icon="puzzle" link="/docs/application-components/overview/">
-    Planned contracts for shells, tables, filters, detail views, settings, and activity.
-  </Card>
-  <Card title="Patterns" icon="seti:folder" link="/docs/patterns/overview/">
-    Repeatable structures for dashboards, resources, settings, CRUD, and data states.
-  </Card>
-</CardGrid>
-
-## 05 — Current status
-
-The project is in its documentation-first foundation phase. We are defining the design language, component contracts, architecture, and contribution rules before implementing the first public component set.
-
-[See project status →](/docs/getting-started/status/)
+  <section class="frasto-docs-section" aria-labelledby="direction-heading">
+    <div class="frasto-docs-section-heading">
+      <p class="frasto-docs-kicker">03 / DIRECTION</p>
+      <h2 id="direction-heading">Clarity first. Craft throughout.</h2>
+    </div>
+    <p class="frasto-docs-lede">
+      Frasto uses warm surfaces, near-black actions, strict square geometry,
+      thin structural lines, minimal shadow, and typography-led hierarchy.
+    </p>
+    <div class="frasto-docs-actions">
+      <Button href="/docs/getting-started/status/" variant="outline">See project status</Button>
+      <Button href="/docs/components/roadmap/" variant="ghost">Component roadmap</Button>
+    </div>
+  </section>
+</div>

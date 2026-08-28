@@ -4,6 +4,13 @@ description: A square identity primitive for images and explicit text fallbacks.
 ---
 
 import { Avatar } from '@freightpx/frasto';
+import avatar01 from '../../../../../../../avatars/frasto_avatar-01.svg';
+import avatar02 from '../../../../../../../avatars/frasto_avatar-02.svg';
+import avatar03 from '../../../../../../../avatars/frasto_avatar-03.svg';
+import avatar04 from '../../../../../../../avatars/frasto_avatar-04.svg';
+import avatar05 from '../../../../../../../avatars/frasto_avatar-05.svg';
+import avatar06 from '../../../../../../../avatars/frasto_avatar-06.svg';
+import avatar07 from '../../../../../../../avatars/frasto_avatar-07.svg';
 
 **Status: Experimental**
 
@@ -12,9 +19,9 @@ import { Avatar } from '@freightpx/frasto';
 ## Preview
 
 <div class="frasto-preview" data-frasto-root>
-  <Avatar fallback="MC" label="Maya Chen" />
-  <Avatar fallback="AY" label="Arman Yusuf" />
-  <Avatar fallback="SP" label="Studio Porto" />
+  <Avatar src={avatar01} alt="Maya Chen" imageClass="frasto-avatar-artwork" />
+  <Avatar src={avatar02} alt="Arman Yusuf" imageClass="frasto-avatar-artwork" />
+  <Avatar src={avatar03} alt="Elena Rossi" imageClass="frasto-avatar-artwork" />
 </div>
 
 ## Basic usage
@@ -33,6 +40,14 @@ Fallback text is explicit rather than inferred. This keeps abbreviations, organi
 
 `src` accepts a URL string or imported Astro image metadata.
 
+Frasto's documentation and demo use the project SVG avatar set. The component itself remains source-agnostic, so applications can provide these assets, photographs, or their own identity artwork.
+
+<div class="frasto-preview" data-frasto-root>
+  <Avatar src={avatar01} alt="Maya Chen" imageClass="frasto-avatar-artwork" />
+  <Avatar src={avatar02} alt="Arman Yusuf" imageClass="frasto-avatar-artwork" />
+  <Avatar src={avatar03} alt="Elena Rossi" imageClass="frasto-avatar-artwork" />
+</div>
+
 ```astro
 ---
 import mayaImage from '../assets/maya.jpg';
@@ -49,10 +64,10 @@ The server-rendered component does not replace a failed remote image automatical
 ## Sizes
 
 <div class="frasto-preview" data-frasto-root>
-  <Avatar size="xs" fallback="XS" label="Extra small avatar" />
-  <Avatar size="sm" fallback="SM" label="Small avatar" />
-  <Avatar size="md" fallback="MD" label="Medium avatar" />
-  <Avatar size="lg" fallback="LG" label="Large avatar" />
+  <Avatar size="xs" src={avatar04} alt="Extra small avatar" imageClass="frasto-avatar-artwork" />
+  <Avatar size="sm" src={avatar05} alt="Small avatar" imageClass="frasto-avatar-artwork" />
+  <Avatar size="md" src={avatar06} alt="Medium avatar" imageClass="frasto-avatar-artwork" />
+  <Avatar size="lg" src={avatar07} alt="Large avatar" imageClass="frasto-avatar-artwork" />
 </div>
 
 | Size | Dimensions | Typical use |

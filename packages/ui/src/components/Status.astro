@@ -1,0 +1,34 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  statusBase,
+  statusMarker,
+  statusTones,
+  type StatusTone,
+} from './status-styles';
+
+type Props = Omit<HTMLAttributes<'span'>, 'class'> & {
+  class?: string;
+  marker?: boolean;
+  tone?: StatusTone;
+};
+
+const {
+  class: className,
+  marker = true,
+  tone = 'neutral',
+  ...rest
+} = Astro.props;
+---
+
+<span
+  {...rest}
+  class:list={[statusBase, statusTones[tone], className]}
+  data-frasto-status
+  data-marker={marker ? 'true' : 'false'}
+  data-tone={tone}
+>
+  {marker && <span class:list={statusMarker} aria-hidden="true" data-frasto-status-marker></span>}
+  <span data-frasto-status-label><slot /></span>
+</span>
+

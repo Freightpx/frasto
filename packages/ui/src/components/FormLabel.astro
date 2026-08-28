@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { formLabelBase, formRequiredMarker } from './form-field-styles';
+
+type Props = Omit<HTMLAttributes<'label'>, 'class'> & {
+  class?: string;
+  required?: boolean;
+};
+
+const {
+  class: className,
+  required = false,
+  ...rest
+} = Astro.props;
+---
+
+<label {...rest} class:list={[formLabelBase, className]} data-frasto-form-label>
+  <slot />
+  {required && <span class:list={formRequiredMarker} aria-hidden="true">*</span>}
+</label>
+

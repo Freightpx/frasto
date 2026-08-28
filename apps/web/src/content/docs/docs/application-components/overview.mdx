@@ -18,6 +18,7 @@ These pages define expected behavior and design boundaries. They do not represen
 | PageHeader | page context, heading, metadata, actions |
 | Stat | compact quantitative summary |
 | SearchInput | clearable search intent |
+| Table | semantic, presentational table structure |
 | ResourceTable | real business data and row operations |
 | FilterBar | search, filters, active criteria, clear action |
 | Pagination | page navigation and result context |
@@ -29,6 +30,8 @@ These pages define expected behavior and design boundaries. They do not represen
 ## Design rule
 
 Application components compose with ordinary HTML and core primitives. They do not fetch their own records or require a product to adopt a Frasto backend architecture.
+
+`Table` owns native table structure, density, alignment, and overflow presentation. `ResourceTable` owns the typed row-and-column abstraction and composes `Table`; neither component fetches, sorts, paginates, or mutates application data.
 
 ## Definition before build
 

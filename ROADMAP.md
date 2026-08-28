@@ -65,18 +65,45 @@
 - [x] Popover
 - [x] Tabs
 
+## Phase 3.5 — SaaS bridge components
+
+### Milestone 3.5A — Readiness documentation
+
+- [x] Breadcrumb specification and navigation entry
+- [x] FormField family specification and navigation entry
+- [x] Status specification and navigation entry
+- [x] Table specification and application-component navigation entry
+- [x] Phase 4 composition boundaries and dependencies
+
+### Milestone 3.5B — Bridge implementation
+
+- [x] Breadcrumb
+- [x] Status
+- [x] FormField family
+
 ## Phase 4 — SaaS components
 
-- [ ] AppShell
-- [ ] Sidebar
+### Milestone 4A — Application essentials
+
 - [ ] PageHeader
 - [ ] Stat
 - [ ] SearchInput
 - [ ] Table
-- [ ] ResourceTable
-- [ ] FilterBar
 - [ ] Pagination
 - [ ] EmptyState
+
+### Milestone 4B — Application shell
+
+- [ ] Sidebar
+- [ ] AppShell
+
+### Milestone 4C — Resource workflows
+
+- [ ] ResourceTable
+- [ ] FilterBar
+
+### Milestone 4D — Product layouts
+
 - [ ] ActivityFeed
 - [ ] DetailLayout
 - [ ] SettingsLayout

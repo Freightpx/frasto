@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { formFieldBase, type FormFieldElement } from './form-field-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  as?: FormFieldElement;
+  class?: string;
+  disabled?: boolean;
+  invalid?: boolean;
+};
+
+const {
+  as: Element = 'div',
+  class: className,
+  disabled = false,
+  invalid = false,
+  ...rest
+} = Astro.props;
+---
+
+<Element
+  {...rest}
+  class:list={[formFieldBase, disabled && 'opacity-50', className]}
+  disabled={Element === 'fieldset' && disabled ? true : undefined}
+  data-disabled={disabled ? 'true' : undefined}
+  data-frasto-form-field
+  data-invalid={invalid ? 'true' : undefined}
+>
+  <slot />
+</Element>
+

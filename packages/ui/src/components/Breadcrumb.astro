@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { breadcrumbList, breadcrumbRoot } from './breadcrumb-styles';
+
+type Props = Omit<HTMLAttributes<'nav'>, 'aria-label' | 'class'> & {
+  class?: string;
+  label?: string;
+  listClass?: string;
+};
+
+const {
+  class: className,
+  label = 'Breadcrumb',
+  listClass,
+  ...rest
+} = Astro.props;
+---
+
+<nav
+  {...rest}
+  class:list={[breadcrumbRoot, className]}
+  aria-label={label}
+  data-frasto-breadcrumb
+>
+  <ol class:list={[breadcrumbList, listClass]} data-frasto-breadcrumb-list>
+    <slot />
+  </ol>
+</nav>
+

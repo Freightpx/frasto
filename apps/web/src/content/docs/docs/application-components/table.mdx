@@ -1,0 +1,75 @@
+---
+title: Table
+description: Designing semantic, presentational table structure without data ownership.
+---
+
+**Status: Designing**
+
+`Table` provides native table structure, Frasto density, structural row dividers, alignment hooks, and a narrow overflow boundary. It is the presentational foundation composed by `ResourceTable`.
+
+## Ownership boundary
+
+| Table owns | Application or ResourceTable owns |
+| --- | --- |
+| native `table` element and caption position | records and column definitions |
+| structural header and row styling | sorting state and execution |
+| compact/default density | selection state and scope |
+| numeric alignment hooks | pagination and URL state |
+| horizontal overflow container | loading, empty, partial, and error orchestration |
+| fixed or automatic table layout | fetching, mutation, persistence, and permissions |
+
+`Table` never accepts `rows`, `columns`, an endpoint, or callbacks for data operations. Authors provide native `thead`, `tbody`, `tr`, `th`, and `td` content directly.
+
+## Proposed API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `caption` | `string` | — | visible native caption text |
+| `captionClass` | `string` | — | styles the caption |
+| `density` | `"compact" \| "default"` | `"default"` | controls cell block padding |
+| `layout` | `"auto" \| "fixed"` | `"auto"` | chooses the native table layout algorithm |
+| `minWidth` | `string` | — | establishes intentional horizontal overflow |
+| `class` | `string` | — | styles the table element |
+| `containerClass` | `string` | — | styles the overflow container |
+
+The default slot accepts native table sections and rows. Native table attributes pass through to the table element. Applications needing a visually hidden caption can style `captionClass`; omitting an accessible name is appropriate only when nearby context already identifies the table unambiguously.
+
+## Structural contract
+
+```astro
+<Table caption="Customers" minWidth="42rem">
+  <thead>
+    <tr>
+      <th scope="col">Customer</th>
+      <th scope="col">Status</th>
+      <th scope="col" class="frasto-number">Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- application-authored rows -->
+  </tbody>
+</Table>
+```
+
+- Prefer column and row headers with explicit `scope` where relationships benefit from it.
+- Use native table semantics only for genuinely tabular information.
+- Rows use continuous structural dividers; they do not become separated cards.
+- Numeric, date, and identifier cells may use Frasto's tabular-number hooks.
+- Row actions need record-specific accessible names.
+
+## Responsive and long-content behavior
+
+The default narrow strategy is horizontal scrolling around the table, not changing table descendants into invalid display roles. Authors set a meaningful `minWidth` when columns cannot compress safely. Wrapping, truncation, priority columns, and access to full values remain deliberate application decisions.
+
+`ResourceTable` may later provide higher-level responsive modes, but it still composes this semantic foundation and must preserve record identity and actions.
+
+## States to verify
+
+- compact and default density
+- short, long, empty, partial, and loading bodies
+- numeric and text alignment
+- long headings and localized values
+- keyboard access to interactive cells
+- narrow horizontal overflow
+- light and dark themes
+

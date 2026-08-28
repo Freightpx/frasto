@@ -1,0 +1,87 @@
+---
+title: Status
+description: Restrained, text-first operational state communication.
+---
+
+import { Status } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Status` communicates a current operational or domain state with visible text and an optional restrained marker. It is distinct from `Badge`: Badge labels or categorizes content, while Status answers a state question such as active, delayed, failed, or pending review.
+
+## Ownership boundary
+
+- The application maps domain values to a human-readable label and semantic tone.
+- `Status` owns compact alignment, marker treatment, and tone presentation.
+- The component does not translate backend enums, choose business meaning, poll for updates, or announce changes by default.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <Status>Invited</Status>
+  <Status tone="positive">Active</Status>
+  <Status tone="warning">Needs review</Status>
+  <Status tone="danger">Failed</Status>
+  <Status tone="info">Syncing</Status>
+</div>
+
+## Usage
+
+```astro
+---
+import { Status } from '@freightpx/frasto';
+---
+
+<Status tone="positive">Active</Status>
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `tone` | `"neutral" \| "positive" \| "warning" \| "danger" \| "info"` | `"neutral"` | semantic state tone |
+| `marker` | `boolean` | `true` | shows a small square state marker |
+| `class` | `string` | — | styles the root |
+
+The default slot supplies the required visible state label. Native span attributes pass through.
+
+## Marker
+
+The square marker is decorative and shown by default. Remove it where surrounding content already provides sufficient differentiation.
+
+<div class="frasto-preview" data-frasto-root>
+  <Status tone="positive">Marker shown</Status>
+  <Status tone="positive" marker={false}>Text only</Status>
+</div>
+
+## Contract rules
+
+- Always render meaningful text; never communicate state with the marker or color alone.
+- Use neutral when a state has no success, risk, warning, or informational meaning.
+- Use semantic colors only for the state they communicate.
+- Keep Status flat and square. It is not a pill, chip, action, or filter token.
+- Use Badge for categories, roles, plans, counts, or labels that are not current operational state.
+- If a live state change must be announced, the application owns an appropriately scoped live region.
+
+## Accessibility
+
+The label is ordinary readable text. The marker is decorative and hidden from assistive technology. Tone does not change the accessible name. Applications must avoid vague labels such as “Good” when “Payment current” or “Sync complete” conveys the actual state.
+
+## Responsive behavior
+
+Status stays inline and allows the visible label to wrap when its container is constrained. Tables may opt into no-wrap where horizontal overflow already preserves the column. Long localized labels must not be truncated without another way to access the full state.
+
+## States to verify
+
+- all five tones with and without markers
+- long and localized labels
+- table cells, detail headers, and activity events
+- light and dark themes
+- surrounding high-contrast and muted content
+
+## Best practices
+
+- Map domain values to clear product language before rendering Status.
+- Keep state labels stable across tables, detail headers, and activity events.
+- Use Badge for categories, roles, plans, or counts.
+- Do not add `role="status"` to static values; live announcements belong to the updating application region.

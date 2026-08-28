@@ -1,0 +1,107 @@
+---
+title: FormField
+description: Explicit label, description, error, and native-control relationships.
+---
+
+import { FormDescription, FormError, FormField, FormLabel, Input } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+The FormField family standardizes the vertical structure around a native form control without owning form state, validation, submission, or control values.
+
+## Family and ownership
+
+- `FormField` groups one field's visible support content and exposes invalid and disabled styling context.
+- `FormLabel` renders a native `label` and preserves its required `for` relationship.
+- `FormDescription` renders supporting text with an authored `id`.
+- `FormError` renders visible error text with an authored `id`.
+- Input, Textarea, Select, Checkbox, Radio, Switch, or an application-owned native control remains responsible for its own `id`, `aria-describedby`, `aria-invalid`, and native attributes.
+
+This explicit contract survives server rendering and ordinary form submission. The family does not use context, generated IDs, a validation library, or client JavaScript to rewrite slotted controls.
+
+## Preview
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <FormField style="width:min(24rem, 100%);">
+    <FormLabel for="profile-email" required>Email</FormLabel>
+    <FormDescription id="profile-email-help">Used for account notices.</FormDescription>
+    <Input id="profile-email" name="email" type="email" value="maya@example.com" aria-describedby="profile-email-help" />
+  </FormField>
+  <FormField invalid style="width:min(24rem, 100%);">
+    <FormLabel for="billing-email" required>Billing email</FormLabel>
+    <Input id="billing-email" name="billing-email" type="email" value="invalid-address" invalid aria-describedby="billing-email-error" />
+    <FormError id="billing-email-error">Enter a valid email address.</FormError>
+  </FormField>
+</div>
+
+## API
+
+### FormField
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `as` | `"div" \| "fieldset"` | `"div"` | chooses ordinary field or grouped-control semantics |
+| `invalid` | `boolean` | `false` | exposes visual invalid context; does not replace `aria-invalid` |
+| `disabled` | `boolean` | `false` | exposes visual disabled context; does not disable descendants |
+| `class` | `string` | — | styles the root |
+
+When `as="fieldset"`, authors use a native `legend` for the group name rather than `FormLabel`.
+
+### FormLabel
+
+Extends native `label` attributes. `for` remains authored and required whenever the label targets a labelable control. The default slot is the label text; an optional `required` prop adds a visible, non-verbal marker while the control still owns native `required` and `aria-required` behavior.
+
+### FormDescription
+
+Extends native paragraph attributes. Authors provide a stable `id` and reference it from the control's `aria-describedby`.
+
+### FormError
+
+Extends native paragraph attributes. Authors provide a stable `id` and include it in the invalid control's `aria-describedby`. An optional `announce` prop adds `role="alert"` only for an error inserted or changed after submission; server-rendered initial errors should not announce automatically.
+
+## Usage
+
+```astro
+<FormField invalid={Boolean(errors.email)}>
+  <FormLabel for="email" required>Email</FormLabel>
+  <FormDescription id="email-help">Used for account notices.</FormDescription>
+  <Input
+    id="email"
+    name="email"
+    type="email"
+    required
+    invalid={Boolean(errors.email)}
+    aria-describedby={errors.email ? 'email-help email-error' : 'email-help'}
+  />
+  {errors.email && <FormError id="email-error">Enter a valid email address.</FormError>}
+</FormField>
+```
+
+## Contract rules
+
+- Do not infer IDs from label text or field names.
+- Do not overwrite `aria-describedby`; preserve every relevant description and error ID as a space-separated list.
+- `invalid` styling never replaces `aria-invalid="true"` on the control.
+- `disabled` styling never replaces the control's native `disabled` attribute.
+- Render errors near their control and describe how to resolve the problem.
+- Use `fieldset` and `legend` for a related checkbox or radio group.
+
+## Responsive behavior
+
+The default family is a compact vertical stack. Long labels, descriptions, and errors wrap without overlapping controls. Horizontal application layouts may position the label column separately, but DOM order remains label, description/control context, control, then error.
+
+## States to verify
+
+- default, required, disabled, read-only, and invalid controls
+- description only, error only, and description plus error
+- long and localized content
+- grouped radio and checkbox controls
+- server-rendered errors and dynamically announced errors
+- light and dark themes
+
+## Best practices
+
+- Keep a field's support content adjacent in the DOM and visually grouped.
+- Write descriptions as guidance and errors as actionable corrections.
+- Use native `required`, `disabled`, and `readonly` behavior on the actual control.
+- Do not render an asterisk as the only required-field explanation; establish the form-level convention in nearby copy.

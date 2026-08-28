@@ -1,0 +1,28 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { formErrorBase } from './form-field-styles';
+
+type Props = Omit<HTMLAttributes<'p'>, 'class' | 'role'> & {
+  announce?: boolean;
+  class?: string;
+  role?: HTMLAttributes<'p'>['role'];
+};
+
+const {
+  announce = false,
+  class: className,
+  role,
+  ...rest
+} = Astro.props;
+---
+
+<p
+  {...rest}
+  class:list={[formErrorBase, className]}
+  role={announce ? 'alert' : role}
+  data-announce={announce ? 'true' : undefined}
+  data-frasto-form-error
+>
+  <slot />
+</p>
+
