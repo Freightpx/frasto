@@ -1,0 +1,55 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  tableBase,
+  tableCaption,
+  tableContainer,
+  tableLayouts,
+  type TableDensity,
+  type TableLayout,
+} from './table-styles';
+
+type Props = Omit<HTMLAttributes<'table'>, 'class'> & {
+  caption?: string;
+  captionClass?: string;
+  captionHidden?: boolean;
+  class?: string;
+  containerClass?: string;
+  density?: TableDensity;
+  layout?: TableLayout;
+  minWidth?: string;
+};
+
+const {
+  caption,
+  captionClass,
+  captionHidden = false,
+  class: className,
+  containerClass,
+  density = 'default',
+  layout = 'auto',
+  minWidth,
+  ...rest
+} = Astro.props;
+---
+
+<div
+  class:list={[tableContainer, containerClass]}
+  style={minWidth ? `--frasto-table-min-width: ${minWidth};` : undefined}
+  data-frasto-table-container
+>
+  <table
+    {...rest}
+    class:list={[tableBase, tableLayouts[layout], className]}
+    data-frasto-table
+    data-density={density}
+    data-layout={layout}
+  >
+    {caption && (
+      <caption class:list={[tableCaption, captionHidden && 'sr-only', captionClass]}>
+        {caption}
+      </caption>
+    )}
+    <slot />
+  </table>
+</div>

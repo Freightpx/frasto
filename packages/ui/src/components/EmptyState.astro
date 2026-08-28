@@ -1,0 +1,76 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  emptyStateActionAlignments,
+  emptyStateActions,
+  emptyStateAlignments,
+  emptyStateContent,
+  emptyStateDescription,
+  emptyStateFooter,
+  emptyStateIcon,
+  emptyStateRoot,
+  emptyStateTitle,
+  type EmptyStateAlign,
+  type EmptyStateElement,
+  type EmptyStateHeadingLevel,
+} from './empty-state-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  align?: EmptyStateAlign;
+  as?: EmptyStateElement;
+  class?: string;
+  description?: string;
+  headingLevel?: EmptyStateHeadingLevel;
+  title: string;
+};
+
+const {
+  align = 'start',
+  as: Element = 'div',
+  class: className,
+  description,
+  headingLevel = 2,
+  title,
+  ...rest
+} = Astro.props;
+
+const Heading = `h${headingLevel}`;
+const hasActions = Astro.slots.has('actions');
+const hasFooter = Astro.slots.has('footer');
+const hasIcon = Astro.slots.has('icon');
+---
+
+<Element
+  {...rest}
+  class:list={[emptyStateRoot, emptyStateAlignments[align], className]}
+  data-align={align}
+  data-frasto-empty-state
+>
+  {hasIcon && (
+    <div class:list={emptyStateIcon} aria-hidden="true" data-frasto-empty-state-icon>
+      <slot name="icon" />
+    </div>
+  )}
+
+  <div class:list={emptyStateContent} data-frasto-empty-state-content>
+    <Heading class:list={emptyStateTitle} data-frasto-empty-state-title>{title}</Heading>
+    {description && (
+      <p class:list={emptyStateDescription} data-frasto-empty-state-description>{description}</p>
+    )}
+  </div>
+
+  {hasActions && (
+    <div
+      class:list={[emptyStateActions, emptyStateActionAlignments[align]]}
+      data-frasto-empty-state-actions
+    >
+      <slot name="actions" />
+    </div>
+  )}
+
+  {hasFooter && (
+    <div class:list={emptyStateFooter} data-frasto-empty-state-footer>
+      <slot name="footer" />
+    </div>
+  )}
+</Element>

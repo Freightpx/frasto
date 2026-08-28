@@ -2,7 +2,7 @@
 @import "@fontsource-variable/inter-tight";
 @import "@freightpx/frasto/tokens.css";
 
-/* Frasto documentation: editorial structure with compact SaaS density. */
+/* Frasto documentation: editorial structure with compact interface density. */
 
 :root {
   --freight-bg: var(--frasto-bg);
@@ -447,13 +447,26 @@ main h1#_top::before {
   [data-frasto-button],
   [data-frasto-checkbox],
   [data-frasto-dropdown-item],
+  [data-frasto-empty-state],
+  [data-frasto-empty-state-actions],
+  [data-frasto-empty-state-description],
+  [data-frasto-empty-state-footer],
+  [data-frasto-empty-state-title],
   [data-frasto-form-description],
   [data-frasto-form-error],
   [data-frasto-form-field],
   [data-frasto-form-label],
   [data-frasto-icon-button],
   [data-frasto-input],
+  [data-frasto-page-header],
+  [data-frasto-page-header-actions],
+  [data-frasto-page-header-description],
+  [data-frasto-page-header-eyebrow],
+  [data-frasto-page-header-metadata],
+  [data-frasto-page-header-title],
   [data-frasto-radio],
+  [data-frasto-search-input],
+  [data-frasto-search-input-label],
   [data-frasto-select],
   [data-frasto-skeleton],
   [data-frasto-spinner],
@@ -461,6 +474,8 @@ main h1#_top::before {
   [data-frasto-switch],
   [data-frasto-tab],
   [data-frasto-tab-panel],
+  [data-frasto-table],
+  [data-frasto-table-container],
   [data-frasto-textarea]
 ) {
   margin-block: 0 !important;
@@ -601,7 +616,7 @@ main:has(.frasto-docs-home) .content-panel:first-of-type {
 
 /* Tables stay structural, never card-like. */
 
-.sl-markdown-content table {
+.sl-markdown-content table:not([data-frasto-table]) {
   width: 100%;
   border-block: 1px solid var(--freight-border);
   border-inline: 0;
@@ -611,7 +626,7 @@ main:has(.frasto-docs-home) .content-panel:first-of-type {
   overflow-y: hidden;
 }
 
-.sl-markdown-content th {
+.sl-markdown-content table:not([data-frasto-table]) th {
   color: var(--freight-soft);
   background: var(--freight-surface-subtle);
   font-size: 0.65625rem;
@@ -620,19 +635,19 @@ main:has(.frasto-docs-home) .content-panel:first-of-type {
   text-transform: uppercase;
 }
 
-.sl-markdown-content th,
-.sl-markdown-content td {
+.sl-markdown-content table:not([data-frasto-table]) th,
+.sl-markdown-content table:not([data-frasto-table]) td {
   padding: 0.7rem 0.8rem;
   border-inline: 0;
   border-bottom: 1px solid var(--freight-border);
   border-color: var(--freight-border);
 }
 
-.sl-markdown-content tbody tr:last-child td {
+.sl-markdown-content table:not([data-frasto-table]) tbody tr:last-child td {
   border-bottom: 0;
 }
 
-.sl-markdown-content tbody tr:hover {
+.sl-markdown-content table:not([data-frasto-table]) tbody tr:hover {
   background: color-mix(in srgb, var(--freight-surface-subtle) 60%, transparent);
 }
 
@@ -786,7 +801,7 @@ main:has(.frasto-docs-home) .content-panel:first-of-type {
   }
 
   .frasto-docs-hero h1 {
-    font-size: clamp(3.25rem, 18vw, 5rem);
+    font-size: clamp(3.25rem, 16vw, 5rem);
   }
 }
 

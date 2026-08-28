@@ -1,0 +1,32 @@
+---
+title: Display inventory
+description: Planned primitives for identity, state, progress, and compact supporting information.
+---
+
+**Status: In progress**
+
+Display components communicate information without owning application data.
+
+## Inventory
+
+| Component | Purpose | Key states |
+| --- | --- | --- |
+| [Badge](/docs/components/badge/) | compact category or metadata — Experimental | neutral and semantic tones |
+| [Avatar](/docs/components/avatar/) | person or organization identity — Experimental | image and explicit fallback |
+| AvatarGroup | compact group identity | overflow count, accessible list |
+| [Status](/docs/components/status/) | current operational state — Experimental | text cue beyond color |
+| [Separator](/docs/components/separator/) | semantic or decorative division — Experimental | orientation and structural tone |
+| [Skeleton](/docs/components/skeleton/) | reserved loading shape — Experimental | pulse, static, reduced motion |
+| Progress | known completion | determinate/indeterminate semantics |
+| [Spinner](/docs/components/spinner/) | short indeterminate wait — Experimental | contextual or component-owned label |
+| [Stat](../planned-components/stat.md) | quantitative summary — Designing | value, context, trend meaning |
+| DescriptionList | structured term/value information | semantic grouping, long content |
+| Kbd / Code | compact technical notation | contrast and readable overflow |
+
+## Data integrity
+
+Display primitives do not infer domain meaning. The application decides whether `pending` is warning, neutral, or positive in its workflow.
+
+## Accessible status
+
+Color is supplemental. Text, shape, icon, or accessible naming must preserve meaning. Animated loading indicators respect reduced motion and avoid announcing continuously.

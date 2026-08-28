@@ -1,33 +1,137 @@
 ---
 title: EmptyState
-description: Planned guidance for absent resources, filtered results, and unavailable content.
+description: Clear guidance for absent resources, filtered results, and unavailable content.
 ---
 
-**Status: Planned**
+import { Button, EmptyState, FileTextIcon, Icon } from '@freightpx/frasto';
 
-`EmptyState` explains why useful content is absent and what action, if any, makes sense next.
+**Status: Experimental**
+
+`EmptyState` explains why useful content is absent and what action, if any, makes sense next. It preserves surrounding page context and remains distinct from loading and error presentation.
+
+## Preview
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <EmptyState
+    as="section"
+    align="center"
+    title="No invoices yet"
+    description="Invoices will appear here after the first billing cycle. You can also create one manually."
+    headingLevel={3}
+    style="width:100%;"
+  >
+    <Icon slot="icon" icon={FileTextIcon} size={20} />
+    <Button slot="actions">Create invoice</Button>
+    <Button slot="actions" variant="ghost">View billing guide</Button>
+    <span slot="footer">Billing access is managed by workspace administrators.</span>
+  </EmptyState>
+</div>
+
+## Usage
+
+```astro
+---
+import { Button, EmptyState } from '@freightpx/frasto';
+---
+
+<EmptyState
+  title="No invoices yet"
+  description="Invoices will appear here after the first billing cycle."
+  headingLevel={3}
+>
+  <Button slot="actions">Create invoice</Button>
+  <Button slot="actions" variant="ghost">View billing guide</Button>
+</EmptyState>
+```
+
+## Ownership boundary
+
+- The application decides why content is absent and writes the title, description, and actions.
+- EmptyState owns readable measure, spacing, alignment, and action composition.
+- EmptyState does not inspect data, infer an empty type, fetch content, retry requests, or announce dynamic replacement automatically.
 
 ## Empty types
+
+Types are content guidance, not visual variants.
 
 | Type | Message focus | Typical action |
 | --- | --- | --- |
 | first use | what will appear here | create or import |
-| no results | active search/filter context | clear or adjust filters |
+| no results | active search or filter context | clear or adjust filters |
 | no permission | access boundary | request access or return |
-| unavailable | temporary/system context | retry or view status |
+| unavailable | temporary or system context | retry or view status |
 
-## Anatomy
+## API
 
-- direct title
-- short explanation
-- one primary relevant action
-- optional secondary help
-- optional restrained icon or illustration
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `title` | `string` | required | direct explanation of the absent content |
+| `description` | `string` | — | concise context or next-step guidance |
+| `headingLevel` | `2 \| 3 \| 4 \| 5 \| 6` | `2` | preserves surrounding heading order |
+| `align` | `"start" \| "center"` | `"start"` | controls content alignment without changing semantics |
+| `as` | `"div" \| "section"` | `"div"` | chooses structural participation |
+| `class` | `string` | — | styles the root |
 
-## Rules
+Native attributes pass through to the selected root.
 
-Do not celebrate missing business data with vague copy. Preserve surrounding page context and distinguish empty from loading or error.
+## Slots
+
+| Slot | Purpose |
+| --- | --- |
+| `icon` | optional restrained decorative icon or illustration |
+| `actions` | one primary action and an optional secondary action |
+| `footer` | optional low-emphasis help or status link |
+
+The icon wrapper is decorative. Meaningful information belongs in the title or description rather than only in artwork.
+
+## Composition contract
+
+```astro
+<EmptyState
+  title="No invoices yet"
+  description="Invoices will appear here after the first billing cycle."
+  headingLevel={3}
+>
+  <Button slot="actions">Create invoice</Button>
+  <Button slot="actions" variant="ghost">View billing guide</Button>
+</EmptyState>
+```
+
+- Prefer one relevant primary action.
+- Do not celebrate missing business data with vague copy.
+- Do not use EmptyState for loading placeholders or request failures that require dedicated error treatment.
+- Keep surrounding filters and page context visible when no results are caused by active criteria.
 
 ## Accessibility
 
-The state participates in heading order, actions use descriptive labels, and dynamic replacement of a previously populated view is announced when necessary.
+The title participates in heading order. Actions retain native control semantics and descriptive labels. When a populated region changes dynamically to empty, the application owns the appropriately scoped live-region announcement.
+
+## Responsive behavior
+
+Content keeps a readable line length. Actions wrap and then stack at narrow widths while preserving authored order. Center alignment remains restrained and does not vertically center the state in a way that hides surrounding context.
+
+## States to verify
+
+- all four content situations
+- title only and title plus long description
+- no action, one action, and two actions
+- icon and no icon
+- start and center alignment
+- narrow stacked actions
+- light and dark themes
+
+## Best practices
+
+- Name the absent resource directly and explain what changes the state.
+- Keep the most likely next step primary; avoid competing calls to action.
+- Preserve search and filter context around a no-results state so people can recover.
+- Use the icon slot as supporting decoration only; put all meaning in text.
+- Let the application announce dynamic state changes and own retry or navigation behavior.
+
+## Implementation constraints
+
+- Render no client JavaScript.
+- Keep title and description as plain strings so heading structure and readable measure remain predictable.
+- Preserve authored action order and native control behavior.
+- Hide the optional icon wrapper from assistive technology.
+- Preserve consumer classes and native root attributes.

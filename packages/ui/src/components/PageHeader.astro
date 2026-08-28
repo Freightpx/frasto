@@ -1,0 +1,68 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  pageHeaderActions,
+  pageHeaderBreadcrumb,
+  pageHeaderContent,
+  pageHeaderDescription,
+  pageHeaderEyebrow,
+  pageHeaderMain,
+  pageHeaderMetadata,
+  pageHeaderRoot,
+  pageHeaderTitle,
+  type PageHeaderHeadingLevel,
+} from './page-header-styles';
+
+type Props = Omit<HTMLAttributes<'header'>, 'class'> & {
+  actionsClass?: string;
+  class?: string;
+  contentClass?: string;
+  description?: string;
+  eyebrow?: string;
+  headingLevel?: PageHeaderHeadingLevel;
+  title: string;
+};
+
+const {
+  actionsClass,
+  class: className,
+  contentClass,
+  description,
+  eyebrow,
+  headingLevel = 1,
+  title,
+  ...rest
+} = Astro.props;
+
+const Heading = `h${headingLevel}`;
+const hasActions = Astro.slots.has('actions');
+const hasBreadcrumb = Astro.slots.has('breadcrumb');
+const hasMetadata = Astro.slots.has('metadata');
+---
+
+<header {...rest} class:list={[pageHeaderRoot, className]} data-frasto-page-header>
+  {hasBreadcrumb && (
+    <div class:list={pageHeaderBreadcrumb} data-frasto-page-header-breadcrumb>
+      <slot name="breadcrumb" />
+    </div>
+  )}
+
+  <div class:list={pageHeaderMain} data-frasto-page-header-main>
+    <div class:list={[pageHeaderContent, contentClass]} data-frasto-page-header-content>
+      {eyebrow && <p class:list={pageHeaderEyebrow} data-frasto-page-header-eyebrow>{eyebrow}</p>}
+      <Heading class:list={pageHeaderTitle} data-frasto-page-header-title>{title}</Heading>
+      {description && <p class:list={pageHeaderDescription} data-frasto-page-header-description>{description}</p>}
+      {hasMetadata && (
+        <div class:list={pageHeaderMetadata} data-frasto-page-header-metadata>
+          <slot name="metadata" />
+        </div>
+      )}
+    </div>
+
+    {hasActions && (
+      <div class:list={[pageHeaderActions, actionsClass]} data-frasto-page-header-actions>
+        <slot name="actions" />
+      </div>
+    )}
+  </div>
+</header>

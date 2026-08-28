@@ -1,7 +1,7 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import Brand from '../../components/Brand.astro';
-import { Avatar, Breadcrumb, BreadcrumbItem, Button, Checkbox, Dialog, Drawer, Dropdown, DropdownItem, FormDescription, FormField, FormLabel, Icon, IconButton, Input, MenuIcon, PlusIcon, Popover, Radio, SearchIcon, Select, Separator, Skeleton, Spinner, Status, Surface, Switch, Tab, TabPanel, Tabs, Textarea, Tooltip } from '@freightpx/frasto';
+import { Avatar, Breadcrumb, BreadcrumbItem, Button, Checkbox, Dialog, Drawer, Dropdown, DropdownItem, EmptyState, FileTextIcon, FormDescription, FormField, FormLabel, Icon, IconButton, Input, MenuIcon, PageHeader, PlusIcon, Popover, Radio, SearchInput, Select, Separator, Skeleton, Spinner, Status, Surface, Switch, Tab, Table, TabPanel, Tabs, Textarea, Tooltip } from '@freightpx/frasto';
 import avatar01 from '../../../../../avatars/frasto_avatar-01.svg';
 import avatar02 from '../../../../../avatars/frasto_avatar-02.svg';
 import avatar03 from '../../../../../avatars/frasto_avatar-03.svg';
@@ -28,54 +28,48 @@ import avatar03 from '../../../../../avatars/frasto_avatar-03.svg';
       </nav>
     </aside>
     <div class="demo-workspace">
-      <Breadcrumb class="demo-breadcrumb" label="Customer workspace">
-        <BreadcrumbItem href="#">Workspace</BreadcrumbItem>
-        <BreadcrumbItem current>Customers</BreadcrumbItem>
-      </Breadcrumb>
-      <div class="demo-title-row">
-        <div>
-          <h2>Customers</h2>
-          <p>Manage customer records and account status.</p>
-        </div>
-        <div class="demo-title-actions">
-          <Dropdown label="Customer actions">
-            <Tooltip slot="trigger" content="More customer actions" placement="bottom">
-              <IconButton icon={MenuIcon} label="Open customer actions" variant="outline" />
-            </Tooltip>
-            <DropdownItem>Export customer list</DropdownItem>
-            <DropdownItem>Import customers</DropdownItem>
-            <DropdownItem disabled>Archive selected</DropdownItem>
-          </Dropdown>
-          <Dialog title="Add customer" description="Create a customer record for the account workspace.">
-            <Button slot="trigger"><Icon icon={PlusIcon} slot="icon-start" /> Add customer</Button>
-            <form class="demo-overlay-form">
-              <FormField>
-                <FormLabel for="new-customer-name" required>Customer name</FormLabel>
-                <Input id="new-customer-name" name="name" autocomplete="name" required />
-              </FormField>
-              <FormField>
-                <FormLabel for="new-customer-status">Initial status</FormLabel>
-                <Select id="new-customer-status" name="status">
-                  <option value="active">Active</option>
-                  <option value="invited">Invited</option>
-                  <option value="inactive">Inactive</option>
-                </Select>
-              </FormField>
-            </form>
-            <Button slot="footer" variant="outline" data-frasto-dialog-close>Cancel</Button>
-            <Button slot="footer" type="button">Create customer</Button>
-          </Dialog>
-        </div>
-      </div>
+      <PageHeader title="Customers" description="Manage customer records and account status." headingLevel={2}>
+        <Breadcrumb slot="breadcrumb" label="Customer workspace">
+          <BreadcrumbItem href="#">Workspace</BreadcrumbItem>
+          <BreadcrumbItem current>Customers</BreadcrumbItem>
+        </Breadcrumb>
+        <span slot="metadata">128 customer records · Updated today</span>
+        <Dropdown slot="actions" label="Customer actions">
+          <Tooltip slot="trigger" content="More customer actions" placement="bottom">
+            <IconButton icon={MenuIcon} label="Open customer actions" variant="outline" />
+          </Tooltip>
+          <DropdownItem>Export customer list</DropdownItem>
+          <DropdownItem>Import customers</DropdownItem>
+          <DropdownItem disabled>Archive selected</DropdownItem>
+        </Dropdown>
+        <Dialog slot="actions" title="Add customer" description="Create a customer record for the account workspace.">
+          <Button slot="trigger"><Icon icon={PlusIcon} slot="icon-start" /> Add customer</Button>
+          <form class="demo-overlay-form">
+            <FormField>
+              <FormLabel for="new-customer-name" required>Customer name</FormLabel>
+              <Input id="new-customer-name" name="name" autocomplete="name" required />
+            </FormField>
+            <FormField>
+              <FormLabel for="new-customer-status">Initial status</FormLabel>
+              <Select id="new-customer-status" name="status">
+                <option value="active">Active</option>
+                <option value="invited">Invited</option>
+                <option value="inactive">Inactive</option>
+              </Select>
+            </FormField>
+          </form>
+          <Button slot="footer" variant="outline" data-frasto-dialog-close>Cancel</Button>
+          <Button slot="footer" type="button">Create customer</Button>
+        </Dialog>
+      </PageHeader>
       <Tabs class="demo-tabs" label="Customer sections" defaultValue="overview">
         <Tab slot="tab" value="overview">Overview</Tab>
         <Tab slot="tab" value="invoices">Invoices</Tab>
         <TabPanel slot="panel" value="overview" class="demo-tab-panel">
           <div class="demo-toolbar">
-            <label class="sr-only" for="customer-search">Search customers</label>
-            <Input id="customer-search" class="demo-search" type="search" placeholder="Search customers…">
-              <Icon icon={SearchIcon} slot="icon-start" />
-            </Input>
+            <form class="demo-search" action="/demo/" method="get" role="search">
+              <SearchInput id="customer-search" name="query" label="Search customers" placeholder="Search customers…" />
+            </form>
             <Popover label="Customer refresh status" placement="bottom-end">
               <Button slot="trigger" size="sm" variant="ghost"><Spinner size="sm" slot="icon-start" /> Refreshing 128 records</Button>
               <p class="demo-popover-label">LIVE DATA</p>
@@ -83,9 +77,8 @@ import avatar03 from '../../../../../avatars/frasto_avatar-03.svg';
               <p class="demo-popover-copy">Three records are current. The next result is still loading.</p>
             </Popover>
           </div>
-          <div class="demo-table-wrap">
-            <table>
-              <thead><tr><th>Customer</th><th>Company</th><th>Status</th><th>Updated</th></tr></thead>
+          <Table caption="Customers" captionHidden minWidth="42rem">
+              <thead><tr><th scope="col">Customer</th><th scope="col">Company</th><th scope="col">Status</th><th scope="col">Updated</th></tr></thead>
               <tbody>
                 <tr>
                   <td>
@@ -115,8 +108,7 @@ import avatar03 from '../../../../../avatars/frasto_avatar-03.svg';
                   <td><Skeleton style="width:3.5rem;" /></td>
                 </tr>
               </tbody>
-            </table>
-          </div>
+          </Table>
           <Separator class="demo-section-separator" />
           <section class="demo-editor" aria-labelledby="customer-note-title">
             <div>
@@ -152,11 +144,16 @@ import avatar03 from '../../../../../avatars/frasto_avatar-03.svg';
           </section>
         </TabPanel>
         <TabPanel slot="panel" value="invoices" class="demo-tab-panel">
-          <div class="demo-empty-tab">
-            <p class="index-label">02 / INVOICES</p>
-            <h3>No invoices in this preview.</h3>
-            <p>The invoice workspace will arrive with the SaaS component phase.</p>
-          </div>
+          <EmptyState
+            title="No invoices yet"
+            description="Invoices will appear here after the first billing cycle. You can also create one manually."
+            headingLevel={3}
+          >
+            <Icon slot="icon" icon={FileTextIcon} size={20} />
+            <Button slot="actions" size="sm"><Icon icon={PlusIcon} slot="icon-start" /> Create invoice</Button>
+            <Button slot="actions" size="sm" variant="ghost">View billing guide</Button>
+            <span slot="footer">Billing access is managed by workspace administrators.</span>
+          </EmptyState>
         </TabPanel>
       </Tabs>
     </div>

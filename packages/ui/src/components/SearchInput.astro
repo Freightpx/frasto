@@ -1,0 +1,148 @@
+---
+import { Search, X } from '@lucide/astro';
+import type { HTMLAttributes } from 'astro/types';
+import Icon from './Icon.astro';
+import IconButton from './IconButton.astro';
+import Input from './Input.astro';
+import Spinner from './Spinner.astro';
+import type { InputSize } from './input-styles';
+import {
+  searchInputClear,
+  searchInputControl,
+  searchInputEndControls,
+  searchInputLabel,
+  searchInputPadding,
+  searchInputRoot,
+} from './search-input-styles';
+
+type Props = Omit<HTMLAttributes<'input'>, 'class' | 'disabled' | 'size' | 'type'> & {
+  class?: string;
+  clearable?: boolean;
+  clearLabel?: string;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  inputClass?: string;
+  invalid?: boolean;
+  label: string;
+  labelVisible?: boolean;
+  loading?: boolean;
+  size?: InputSize;
+};
+
+const {
+  class: className,
+  clearable = true,
+  clearLabel = 'Clear search',
+  disabled = false,
+  fullWidth = true,
+  id,
+  inputClass,
+  invalid = false,
+  label,
+  labelVisible = false,
+  loading = false,
+  size = 'md',
+  ...inputAttributes
+} = Astro.props;
+
+const inputId = id ?? `frasto-search-${crypto.randomUUID()}`;
+const endControlCount = Number(clearable) + Number(loading);
+const endPadding = endControlCount === 2
+  ? searchInputPadding[size].two
+  : endControlCount === 1
+    ? searchInputPadding[size].one
+    : undefined;
+const resolvedInputClass = [endPadding, inputClass].filter(Boolean).join(' ');
+---
+
+<frasto-search-input
+  class:list={[searchInputRoot, fullWidth ? 'w-full' : 'w-auto', className]}
+  data-clearable={clearable ? 'true' : 'false'}
+  data-disabled={disabled ? 'true' : undefined}
+  data-frasto-search-input
+  data-invalid={invalid ? 'true' : undefined}
+  data-loading={loading ? 'true' : undefined}
+  data-populated="false"
+>
+  <label class:list={[searchInputLabel, !labelVisible && 'sr-only']} for={inputId} data-frasto-search-input-label>
+    {label}
+  </label>
+
+  <div class:list={searchInputControl} data-frasto-search-input-control>
+    <Input
+      {...inputAttributes}
+      id={inputId}
+      type="search"
+      disabled={disabled}
+      fullWidth
+      inputClass={resolvedInputClass}
+      invalid={invalid}
+      size={size}
+      data-frasto-search-input-field
+    >
+      <Icon icon={Search} slot="icon-start" />
+    </Input>
+
+    {endControlCount > 0 && (
+      <span class:list={searchInputEndControls} data-frasto-search-input-end>
+        {loading && <Spinner size="sm" />}
+        {clearable && (
+          <IconButton
+            class={searchInputClear}
+            icon={X}
+            label={clearLabel}
+            size="sm"
+            type="button"
+            disabled={disabled}
+            hidden
+            data-frasto-search-clear
+          />
+        )}
+      </span>
+    )}
+  </div>
+</frasto-search-input>
+
+<script>
+  class FrastoSearchInput extends HTMLElement {
+    private clearButton: HTMLButtonElement | null = null;
+    private input: HTMLInputElement | null = null;
+
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      this.input = this.querySelector<HTMLInputElement>('[data-frasto-search-input-field]');
+      this.clearButton = this.querySelector<HTMLButtonElement>('[data-frasto-search-clear]');
+      this.input?.addEventListener('input', this.syncPopulatedState);
+      this.clearButton?.addEventListener('click', this.handleClear);
+      this.syncPopulatedState();
+    }
+
+    disconnectedCallback() {
+      this.input?.removeEventListener('input', this.syncPopulatedState);
+      this.clearButton?.removeEventListener('click', this.handleClear);
+      this.input = null;
+      this.clearButton = null;
+      delete this.dataset.initialized;
+    }
+
+    private syncPopulatedState = () => {
+      if (!this.input || !this.clearButton) return;
+      const populated = this.input.value.length > 0;
+      this.dataset.populated = populated ? 'true' : 'false';
+      this.clearButton.hidden = !populated;
+    };
+
+    private handleClear = () => {
+      if (!this.input || this.input.disabled) return;
+      this.input.value = '';
+      this.input.focus();
+      this.input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      this.dispatchEvent(new CustomEvent('frasto:search-clear', { bubbles: true }));
+    };
+  }
+
+  if (!customElements.get('frasto-search-input')) {
+    customElements.define('frasto-search-input', FrastoSearchInput);
+  }
+</script>

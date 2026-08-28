@@ -1,32 +1,131 @@
 ---
 title: SearchInput
-description: Planned search control with clear intent, reset behavior, and submission flexibility.
+description: A labeled search control with native submission and a focused clear enhancement.
 ---
 
-**Status: Planned**
+import { SearchInput } from '@freightpx/frasto';
 
-`SearchInput` is a labeled search field that can support native form submission or application-controlled filtering.
+**Status: Experimental**
 
-## Anatomy
+`SearchInput` is a native search field that works with ordinary form submission and optionally enhances populated-value clearing. It does not own filtering strategy or query state.
 
-- visible or accessible label
-- search input
-- optional search icon
-- clear control when a value exists
-- optional shortcut or loading indicator
+## Preview
 
-## Behavior
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <form action="/docs/application-components/search-input/" method="get" role="search" style="width:100%;max-width:28rem;">
+    <SearchInput
+      id="customer-search-preview"
+      name="query"
+      label="Search customers"
+      labelVisible
+      placeholder="Name, company, or email"
+      value="Northstar"
+      loading
+    />
+  </form>
+</div>
 
-The component does not decide between submit-on-enter, debounced search, or immediate local filtering. That behavior is explicit in the consuming pattern.
+## Usage
 
-## Keyboard
+```astro
+---
+import { SearchInput } from '@freightpx/frasto';
+---
 
-The clear control is keyboard reachable when present and returns focus predictably. Escape-to-clear, if supported, must be documented and must not interfere with a surrounding overlay.
+<form action="/customers" method="get" role="search">
+  <SearchInput
+    id="customer-search"
+    name="query"
+    label="Search customers"
+    placeholder="Name, company, or email"
+    value={Astro.url.searchParams.get('query') ?? ''}
+  />
+</form>
+```
 
-## States
+## Ownership boundary
 
-Default, focus-visible, populated, loading, disabled, and invalid where search validation exists.
+- The application owns the surrounding form, query parameter, URL synchronization, debounce policy, result updates, and persistence.
+- SearchInput owns the label, search affordance, populated state, loading presentation, and clear interaction.
+- SearchInput does not submit automatically, debounce input, fetch results, or decide between local and remote filtering.
 
-## Content
+## API
 
-Placeholder text may suggest searchable fields, but it does not replace the label. Search scope should be clear from nearby context.
+SearchInput forwards relevant native input attributes—including `id`, `name`, `value`, `required`, `disabled`, `autocomplete`, and `aria-describedby`—to its internal `type="search"` input.
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `label` | `string` | required | accessible and optionally visible field label |
+| `labelVisible` | `boolean` | `false` | displays the label above the control |
+| `clearable` | `boolean` | `true` | enables the progressive clear control |
+| `clearLabel` | `string` | `"Clear search"` | accessible clear-button name |
+| `loading` | `boolean` | `false` | shows a restrained loading indicator without changing input ownership |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | matches Input sizing |
+| `fullWidth` | `boolean` | `true` | controls root width behavior |
+| `invalid` | `boolean` | `false` | applies invalid treatment and forwards `aria-invalid` |
+| `class` | `string` | — | styles the component root |
+| `inputClass` | `string` | — | styles the internal native input |
+
+## Enhancement contract
+
+- Without JavaScript, the native search input remains usable and submits normally.
+- The clear control is visible and keyboard reachable only when `clearable` is true and the input has a value.
+- Activating clear empties the input, restores focus to it, dispatches a bubbling native `input` event, and emits `frasto:search-clear`.
+- Input events keep clear-button visibility synchronized for uncontrolled typing.
+- `loading` is presentational and does not disable or mark results busy. The application applies `aria-busy` to the result region it actually updates.
+- Escape-to-clear is deferred so SearchInput does not conflict with dialogs, drawers, popovers, or application shortcuts.
+
+## Composition contract
+
+```astro
+<form action="/customers" method="get" role="search">
+  <SearchInput
+    id="customer-search"
+    name="query"
+    label="Search customers"
+    placeholder="Name, company, or email"
+    value={Astro.url.searchParams.get('query') ?? ''}
+  />
+</form>
+```
+
+The component composes existing Input, IconButton, Icon, and Spinner primitives. It does not introduce a second control styling system.
+
+## Accessibility and keyboard behavior
+
+- Placeholder text never replaces the required `label`.
+- The clear button is keyboard reachable only while available.
+- Clear restores focus predictably to the search input.
+- Disabled and invalid semantics remain on the native input.
+- Loading indicators are decorative unless the application supplies separate result-status messaging.
+
+## Responsive behavior
+
+The control can fill its available width and never assumes a fixed toolbar size. Visible labels and long localized placeholders wrap or clip according to native input behavior without moving the clear control outside the control boundary.
+
+## States to verify
+
+- empty and populated values
+- clearable and non-clearable modes
+- loading with empty and populated values
+- disabled and invalid
+- visible and visually hidden labels
+- server submission without JavaScript
+- clear-button mouse and keyboard activation
+- narrow toolbar, light theme, and dark theme
+
+## Best practices
+
+- Put SearchInput in a native GET form when the query belongs in the URL.
+- Keep labels specific to the result set; placeholder examples should supplement, not repeat, the label.
+- Choose debounce and live-result policy in the application according to request cost and result behavior.
+- Pair `loading` with application-owned result status messaging when updates are asynchronous.
+- Listen for native `input` for query changes; use `frasto:search-clear` only when clear-specific behavior matters.
+
+## Implementation constraints
+
+- Preserve useful server submission without client JavaScript.
+- Keep the enhancement local to clear-button visibility, focus restoration, and event dispatch.
+- Compose existing Input, IconButton, Icon, and Spinner primitives.
+- Do not add Escape-to-clear, debounce, result fetching, or URL synchronization.
+- Preserve native input attributes, consumer classes, disabled state, and invalid state.

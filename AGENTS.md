@@ -8,13 +8,13 @@
 
 ## Visual direction
 
-- Use a warm off-white canvas, near-black typography, strong editorial hierarchy, thin structural lines, restrained flat surfaces, and compact SaaS data density.
+- Use a warm off-white canvas, near-black typography, strong editorial hierarchy, thin structural lines, restrained flat surfaces, and compact application density.
 - Prefer typography, spacing, dividers, and grid alignment over nested cards.
 - Use concise headings with small contextual or indexed labels such as `01 / CUSTOMERS` where the information architecture benefits from them.
 - Use semantic colors only for status, feedback, risk, and information.
 - Keep default components shadow-free. Reserve elevation for overlays or genuinely overlapping surfaces.
 - Use square geometry throughout the product UI. Do not round controls, surfaces, badges, checkboxes, slider parts, icon buttons, menus, or dialogs.
-- Avoid generic blue SaaS styling, glassmorphism, gradients, decorative animation, and card-like table rows.
+- Avoid generic blue application styling, glassmorphism, gradients, decorative animation, and card-like table rows.
 
 ## Styling anchors
 

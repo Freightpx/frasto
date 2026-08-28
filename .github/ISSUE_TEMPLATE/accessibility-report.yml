@@ -1,0 +1,54 @@
+name: Accessibility report
+description: Report a barrier in a component, documentation page, or example.
+title: "[Accessibility]: "
+labels:
+  - accessibility
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping make Frasto usable by more people.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - UI package
+        - Documentation
+        - Demo or example
+        - Repository workflow
+    validations:
+      required: true
+  - type: textarea
+    id: barrier
+    attributes:
+      label: Barrier
+      description: Explain what prevents or makes it difficult to complete the task.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the component or page, input method, browser, and assistive technology when relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add screenshots, recordings, reduced examples, or standards references when useful.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I searched existing issues for the same barrier.
+          required: true
+        - label: This report does not contain sensitive personal information.
+          required: true

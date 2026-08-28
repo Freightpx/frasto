@@ -1,0 +1,60 @@
+name: Bug report
+description: Report a reproducible problem in Frasto UI.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve Frasto. Do not report security vulnerabilities here; use the Security tab.
+  - type: input
+    id: component
+    attributes:
+      label: Component or area
+      placeholder: Button, documentation, package setup, and so on
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem
+      description: Explain what happened and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide code, a repository, or exact steps that reproduce the problem.
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      placeholder: Frasto, Astro, Node, and browser versions
+    validations:
+      required: true
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact area
+      options:
+        - Rendering or styling
+        - Accessibility or keyboard behavior
+        - TypeScript or component API
+        - Server rendering or hydration
+        - Documentation
+        - Build or installation
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched for an existing issue.
+          required: true
+        - label: This report does not contain private vulnerability details.
+          required: true

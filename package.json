@@ -2,6 +2,10 @@
   "name": "frasto-workspace",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=11"
+  },
   "scripts": {
     "dev": "pnpm --filter @freightpx/frasto-web dev",
     "build": "pnpm -r build",

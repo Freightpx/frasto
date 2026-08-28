@@ -1,54 +1,86 @@
 # Frasto UI
 
-> An Astro-first design system for SaaS dashboards, admin panels, CRM, CMS, ERP-style interfaces, and internal tools.
+[![CI](https://github.com/Freightpx/frasto/actions/workflows/docs.yml/badge.svg)](https://github.com/Freightpx/frasto/actions/workflows/docs.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-111111.svg)](./LICENSE)
 
-Built by Freightpx around one principle: **Clarity first. Craft throughout.**
+An Astro-first open-source UI component library and design system for modern websites and applications.
 
-## Status
+Frasto combines reusable Astro components with warm neutral surfaces, near-black typography, thin structural lines, square geometry, compact controls, accessible states, and purposeful interaction.
 
-The project is in documentation-first foundation work. APIs are not stable and the package is not ready for production use yet.
+> **Pre-alpha:** Frasto is under active development, is not yet published for production use, and may make breaking API changes.
 
-## Why this exists
+## Why Frasto
 
-Astro already makes it easy to build fast websites. Application UI is different: dashboards repeatedly need the same shell, resource lists, filters, detail views, settings layouts, data states, and accessible interactions. Frasto UI aims to make those patterns reusable without requiring React, Vue, or Svelte as the foundation.
+- Astro-first and server-rendered by default
+- useful without client-side JavaScript unless interaction requires it
+- semantic HTML and accessible interaction contracts
+- TypeScript-safe, composable component APIs
+- backend and data-layer independent
+- semantic design tokens with light and dark themes
+- no React, Vue, Svelte, or Tailwind requirement for consumers
 
-## Product direction
+## Current component coverage
 
-- Astro-first and server-first
-- Minimal client JavaScript
-- Backend agnostic
-- Accessible by default
-- Designed for repeated daily use
-- SaaS patterns are first-class, not an afterthought
-- Themeable through semantic design tokens
-- Freightpx-inspired editorial clarity rather than generic blue dashboard styling
+Experimental components currently cover actions, forms, display, feedback, navigation, overlays, data presentation, and layout. See the [public component documentation](https://frasto.freightpx.com/docs/components/overview/) for the available inventory.
 
-## Workspace
+Planned APIs and future application-layer research are intentionally kept out of the consumer documentation.
+
+## Repository
 
 ```text
 apps/
-  web/           Website, Starlight documentation, and demo
+  web/                 Public website, consumer documentation, and demo
 packages/
-  ui/            Published as @freightpx/frasto
+  ui/                  @freightpx/frasto package source
+docs/
+  project/             Product direction and roadmap
+  development/         Architecture, design, testing, and release guidance
+  specifications/      Unreleased component and pattern research
+  archive/             Superseded historical documents
 ```
 
 ## Local development
+
+Requirements:
+
+- Node.js 22 or later
+- pnpm 11
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-## Documentation source of truth
+Useful checks:
 
-The structured documentation lives in [`apps/web/src/content/docs/docs`](./apps/web/src/content/docs/docs). Start with:
+```bash
+pnpm check
+pnpm build
+```
 
-- [Frasto documentation](https://frasto.freightpx.com/docs)
-- [`DESIGN.md`](./DESIGN.md)
-- [`ARCHITECTURE.md`](./ARCHITECTURE.md)
-- [`ROADMAP.md`](./ROADMAP.md)
-- [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+## Documentation boundaries
+
+- [Public documentation](https://frasto.freightpx.com/docs) explains how to evaluate and use implemented Frasto components.
+- [Development documentation](./docs/README.md) explains how Frasto itself is designed and maintained.
+- [Implementation ideas](./IMPLEMENTATION_IDEAS.md) is a lightweight parking lot, not a roadmap commitment.
+- [Development roadmap](./docs/project/roadmap.md) contains accepted project milestones.
+
+## Contributing
+
+Contributions to documentation, accessibility, browser behavior, tests, component quality, and broadly reusable component proposals are welcome.
+
+Read [CONTRIBUTING.md](./CONTRIBUTING.md), the [Code of Conduct](./CODE_OF_CONDUCT.md), and the [component standards](./docs/development/component-standards.md) before starting substantial work.
+
+For help and reporting guidance, see [SUPPORT.md](./SUPPORT.md) and [SECURITY.md](./SECURITY.md).
+
+## Project links
+
+- Website: [frasto.freightpx.com](https://frasto.freightpx.com)
+- Documentation: [frasto.freightpx.com/docs](https://frasto.freightpx.com/docs)
+- Repository: [github.com/Freightpx/frasto](https://github.com/Freightpx/frasto)
+- Package name: `@freightpx/frasto`
+- Organization: Freightpx
 
 ## License
 
-MIT.
+Frasto UI is available under the [MIT License](./LICENSE).

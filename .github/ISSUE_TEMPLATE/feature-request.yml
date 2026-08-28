@@ -1,0 +1,34 @@
+name: Feature request
+description: Propose an improvement to an existing Frasto capability.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Interface problem
+      description: Describe the repeated user or developer problem, not only the desired implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+      description: Explain the desired outcome and how it fits existing Frasto APIs.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Could native HTML or an existing component already solve this?
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This is broadly reusable beyond one screen or product.
+          required: true
+        - label: I understand that an accepted idea is not automatically a roadmap commitment.
+          required: true

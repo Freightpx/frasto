@@ -1,6 +1,6 @@
 ---
 title: Architecture overview
-description: How foundations become components, patterns, and complete application recipes.
+description: How foundations become components, patterns, and real-world interface examples.
 ---
 
 Frasto uses one layered system rather than a collection of unrelated snippets.
@@ -8,37 +8,35 @@ Frasto uses one layered system rather than a collection of unrelated snippets.
 ```text
 01 Foundations
       ↓
-02 Core components
+02 Components
       ↓
-03 Application components
+03 Patterns
       ↓
-04 Patterns
-      ↓
-05 Recipes
+04 Guides and recipes
 ```
 
 ## Foundations
 
 Semantic tokens, typography, spacing, layout, interaction states, accessibility, responsive behavior, and content rules form the shared language.
 
-## Core components
+## Components
 
-Small reusable controls and display elements: actions, forms, feedback, navigation, containers, and overlays.
-
-## Application components
-
-Higher-level structures that encode recurring SaaS needs, such as resource tables, filter toolbars, page headers, sidebars, settings layouts, and activity feeds.
+Reusable interface building blocks span actions, forms, display, feedback, navigation, overlays, data, and layout. Components remain backend-agnostic and useful outside any one application type.
 
 ## Patterns
 
-Patterns specify how components cooperate across an entire task: resource list, resource detail, dashboard, settings, CRUD, filtering, bulk actions, and data states.
+Patterns specify how components cooperate across complete tasks: search and filtering, resource lists, dashboards, settings, CRUD, bulk actions, and loading, empty, and error states.
 
-## Recipes
+## Guides and recipes
 
-Complete realistic applications validate the system under production-like density. Recipes are examples, not hidden framework requirements.
+Guides teach focused implementation decisions. Recipes pressure-test the system in realistic interfaces. Dashboard, CRM, settings, and Acme Cloud material remain valid examples without defining the library's identity.
+
+## Future ecosystem layers
+
+Mature UI foundations may later support Frasto Icons, Blocks, Pages, and SaaS. These are separate layers built from evidence gathered through real use.
 
 ## Package boundary
 
-V1 uses one package, `@freightpx/frasto`. Package splitting requires evidence from real usage, not speculation.
+The current library uses one package, `@freightpx/frasto`. Package splitting requires evidence from adoption and maintenance, not speculation.
 
 [Read the technical architecture →](/docs/architecture/astro-first/)

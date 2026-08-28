@@ -50,18 +50,18 @@ export const iconSizes: Record<ButtonSize, number> = {
 export const buttonTreatments: Record<ButtonTone, Record<ButtonVariant, string>> = {
   neutral: {
     solid:
-      'border-[var(--frasto-ink)] bg-[var(--frasto-ink)] text-[var(--frasto-bg)] hover:border-[var(--frasto-ink-muted)] hover:bg-[var(--frasto-ink-muted)]',
+      'border-[var(--frasto-ink)] bg-[var(--frasto-ink)] text-[color:var(--frasto-bg)] hover:border-[var(--frasto-ink-muted)] hover:bg-[var(--frasto-ink-muted)]',
     outline:
-      'border-[var(--frasto-border-strong)] bg-transparent text-[var(--frasto-ink)] hover:border-[var(--frasto-ink)] hover:bg-[var(--frasto-surface-subtle)]',
+      'border-[var(--frasto-border-strong)] bg-transparent text-[color:var(--frasto-ink)] hover:border-[var(--frasto-ink)] hover:bg-[var(--frasto-surface-subtle)]',
     ghost:
-      'border-transparent bg-transparent text-[var(--frasto-ink)] hover:bg-[var(--frasto-surface-subtle)]',
+      'border-transparent bg-transparent text-[color:var(--frasto-ink)] hover:bg-[var(--frasto-surface-subtle)]',
   },
   danger: {
     solid:
-      'border-[var(--frasto-danger)] bg-[var(--frasto-danger)] text-[var(--frasto-bg)] hover:brightness-90',
+      'border-[var(--frasto-danger)] bg-[var(--frasto-danger)] text-[color:var(--frasto-bg)] hover:brightness-90',
     outline:
-      'border-[var(--frasto-danger)] bg-transparent text-[var(--frasto-danger)] hover:bg-[var(--frasto-surface-subtle)]',
+      'border-[var(--frasto-danger)] bg-transparent text-[color:var(--frasto-danger)] hover:bg-[var(--frasto-surface-subtle)]',
     ghost:
-      'border-transparent bg-transparent text-[var(--frasto-danger)] hover:bg-[var(--frasto-surface-subtle)]',
+      'border-transparent bg-transparent text-[color:var(--frasto-danger)] hover:bg-[var(--frasto-surface-subtle)]',
   },
 };

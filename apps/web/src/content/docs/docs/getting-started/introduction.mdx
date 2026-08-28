@@ -1,42 +1,42 @@
 ---
 title: Introduction
-description: What Frasto UI is, who it is for, and what it intentionally does not own.
+description: What Frasto UI is, who it serves, and what it intentionally does not own.
 ---
 
-Frasto UI is an **Astro-first design system for business applications**: SaaS dashboards, admin panels, CRM, CMS, ERP-style interfaces, and internal tools.
+Frasto UI is an **Astro-first open-source UI component library and design system for modern websites and applications**.
 
-It is designed to sit between a primitive component library and a full application framework.
+It combines reusable components, semantic design tokens, accessible interaction contracts, and practical composition guidance without turning an Astro project into a client-rendered application.
 
 ```text
-Generic primitives
-Button / Input / Badge
+Frasto foundations
+Tokens / typography / layout / accessibility
         ↓
-Frasto UI
-Components / Layouts / SaaS Patterns
+Frasto components
+Actions / forms / display / feedback / navigation / overlays / data / layout
         ↓
-Your application
-CRM / CMS / Admin / SaaS / Internal Tool
+Your interface
+Website / product / dashboard / CMS / store / internal tool
 ```
 
 ## What we optimize for
 
-- server-rendered HTML by default
-- minimal client JavaScript
-- accessible interaction
-- compact business interfaces
-- repeatable SaaS patterns
-- easy theming through semantic tokens
-- backend independence
-- predictable component APIs
+- useful server-rendered HTML by default
+- minimal, focused client JavaScript
+- accessible and predictable interaction
+- broad reusable component coverage
+- theming through semantic tokens
+- backend and data-layer independence
+- documented, TypeScript-safe APIs
+- real-world quality proven in varied interfaces
 
 ## What we do not own
 
-The core library will not define your database, ORM, authentication system, billing provider, API client, or application state architecture.
+The core library does not define your database, framework state, authentication, billing, content source, API client, or deployment model.
 
-A table component should receive rows and columns. It should not require your data to live in a specific database.
+A table should receive rows and columns. A form control should work in ordinary HTML forms. Neither should require a particular backend.
 
-## Why documentation comes first
+## How the project grows
 
-A design system becomes expensive when visual rules and component contracts are decided separately screen by screen. The first phase therefore defines the shared language before a large component set exists.
+Frasto expands from a strong UI library through real-world use and feedback. Future ecosystem layers—Icons, Blocks, Pages, and SaaS—build on that mature core rather than defining the core product.
 
-This lets implementation answer a simple question: **is this component following the system, or creating a new one?**
+[See the ecosystem direction on GitHub →](https://github.com/Freightpx/frasto/blob/main/docs/project/ecosystem-direction.md)

@@ -154,6 +154,47 @@
   font-variant-numeric: tabular-nums;
 }
 
+[data-frasto-table] {
+  min-width: var(--frasto-table-min-width, 100%);
+}
+
+[data-frasto-table] :where(th, td) {
+  border-block-end: 1px solid var(--frasto-border);
+  vertical-align: top;
+}
+
+[data-frasto-table][data-density='compact'] :where(th, td) {
+  padding: var(--frasto-space-2);
+}
+
+[data-frasto-table][data-density='default'] :where(th, td) {
+  padding: var(--frasto-space-3);
+}
+
+[data-frasto-table] :where(thead th) {
+  color: var(--frasto-ink-muted);
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[data-frasto-table] :where(tbody th) {
+  font-weight: 600;
+}
+
+[data-frasto-table] :where(tbody tr:last-child > *) {
+  border-block-end: 0;
+}
+
+[data-frasto-table] :where(.frasto-number) {
+  text-align: end;
+}
+
+[data-frasto-search-clear][hidden] {
+  display: none;
+}
+
 @keyframes frasto-spinner-spin {
   to {
     transform: rotate(360deg);

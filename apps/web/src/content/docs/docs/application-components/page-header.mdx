@@ -1,44 +1,136 @@
 ---
 title: PageHeader
-description: Planned page context, hierarchy, metadata, and actions.
+description: Page context, hierarchy, metadata, and actions.
 ---
 
-**Status: Planned**
+import { Breadcrumb, BreadcrumbItem, Button, PageHeader, Status } from '@freightpx/frasto';
 
-`PageHeader` gives every application view a clear name, context, purpose, and action hierarchy.
+**Status: Experimental**
+
+`PageHeader` gives a page or application view a clear name, context, purpose, and action hierarchy. It is static, server-rendered structure and does not own navigation or action behavior.
+
+## Preview
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <PageHeader
+    title="Customers"
+    description="Manage customer relationships and account activity."
+    eyebrow="CRM / CUSTOMERS"
+    headingLevel={2}
+    style="width:100%;"
+  >
+    <Breadcrumb slot="breadcrumb" label="Customer workspace">
+      <BreadcrumbItem href="/demo/">Workspace</BreadcrumbItem>
+      <BreadcrumbItem current>Customers</BreadcrumbItem>
+    </Breadcrumb>
+    <Status slot="metadata" tone="positive">128 active records</Status>
+    <Button slot="actions" variant="outline">Import</Button>
+    <Button slot="actions">Add customer</Button>
+  </PageHeader>
+</div>
+
+## Usage
+
+```astro
+---
+import { Breadcrumb, BreadcrumbItem, Button, PageHeader } from '@freightpx/frasto';
+---
+
+<PageHeader
+  title="Customers"
+  description="Manage customer relationships and account activity."
+  headingLevel={1}
+>
+  <Breadcrumb slot="breadcrumb" label="Customer workspace">
+    <BreadcrumbItem href="/app">Workspace</BreadcrumbItem>
+    <BreadcrumbItem current>Customers</BreadcrumbItem>
+  </Breadcrumb>
+  <span slot="metadata">128 customer records</span>
+  <Button slot="actions">Add customer</Button>
+</PageHeader>
+```
+
+## Ownership boundary
+
+- The consuming project owns route labels, Breadcrumb content, action behavior, permissions, and loading state.
+- PageHeader owns heading hierarchy, content/action layout, spacing, and narrow stacking.
+- PageHeader does not parse routes, choose the primary action, render a global toolbar, or fetch page metadata.
 
 ## Anatomy
 
-1. optional breadcrumb
-2. optional eyebrow or context label
+1. optional authored breadcrumb
+2. optional eyebrow or contextual label
 3. one page title
-4. concise description
+4. optional concise description
 5. optional metadata
-6. primary and secondary actions
+6. optional primary and secondary actions
 
-```text
-CUSTOMERS / CRM
+## API
 
-Customers
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `title` | `string` | required | visible page title |
+| `description` | `string` | — | concise supporting copy |
+| `eyebrow` | `string` | — | short contextual label above the title |
+| `headingLevel` | `1 \| 2 \| 3 \| 4 \| 5 \| 6` | `1` | preserves the surrounding heading order |
+| `class` | `string` | — | styles the root header |
+| `contentClass` | `string` | — | styles the title and supporting-content region |
+| `actionsClass` | `string` | — | styles the actions region |
 
-Manage customer relationships and account activity.      [Import] [+ Customer]
+Native header attributes pass through to the root.
+
+## Slots
+
+| Slot | Purpose |
+| --- | --- |
+| `breadcrumb` | authored `Breadcrumb` placed before the title row |
+| `metadata` | secondary page facts placed after the description |
+| `actions` | consumer-owned buttons, links, menus, or dialogs |
+
+The title and description remain string props so the component can guarantee one heading and predictable text hierarchy. Rich supporting content belongs in `metadata`.
+
+## Composition contract
+
+```astro
+<PageHeader
+  title="Customers"
+  description="Manage customer relationships and account activity."
+  eyebrow="CRM / CUSTOMERS"
+>
+  <Breadcrumb slot="breadcrumb" label="Customer workspace">...</Breadcrumb>
+  <span slot="metadata">128 customer records</span>
+  <Button slot="actions" variant="outline">Import</Button>
+  <Button slot="actions">Add customer</Button>
+</PageHeader>
 ```
-
-## Rules
 
 - Keep one dominant page action.
 - Do not repeat navigation context in a long title.
 - Metadata supports the page; it does not compete with the title.
-- Heading level is configurable when the component appears below another page heading.
-
-## Responsive behavior
-
-Actions wrap or stack below the title at narrow widths. Preserve the title and primary action before lower-priority metadata.
+- Actions retain authored order. The application decides which action is primary.
+- PageHeader composes [Breadcrumb](/docs/components/breadcrumb/) rather than reproducing its routing, separator, current-item, or overflow behavior.
 
 ## Accessibility
 
-Breadcrumbs use navigation semantics, the title participates in a logical heading order, and icon-only actions have accessible names.
+The title participates in a logical heading order through `headingLevel`. Breadcrumb remains its own named navigation landmark. Icon-only actions require accessible names from their underlying controls. Metadata remains ordinary text unless its content requires stronger semantics.
 
-## Composition boundary
+## Responsive behavior
 
-PageHeader accepts authored [Breadcrumb](/docs/components/breadcrumb/) content in its context region. It does not parse routes, generate breadcrumb links, or reproduce Breadcrumb's separator and overflow behavior.
+The title and supporting content occupy the primary column. Actions wrap at intermediate widths and move below the content at narrow widths while preserving authored order. Breadcrumb scroll behavior remains owned by Breadcrumb. Long titles and localized descriptions wrap without clipping.
+
+## States to verify
+
+- title only
+- breadcrumb, eyebrow, description, metadata, and multiple actions
+- one very long title and localized description
+- no actions and permission-reduced actions
+- action wrapping at tablet width
+- narrow stacked layout
+- light and dark themes
+
+## Best practices
+
+- Use one PageHeader for the primary application view, not for every nested section.
+- Keep the title concise and put operational context in description or metadata.
+- Preserve action order when permissions remove an unavailable action.
+- Do not place tabs inside PageHeader; position them as the next structural region.

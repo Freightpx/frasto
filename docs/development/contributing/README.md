@@ -1,0 +1,38 @@
+---
+title: Contributing notes
+description: How design and engineering changes should enter the system.
+---
+
+The project welcomes contributions, but a design system benefits from deliberate consistency more than component count.
+
+## Good contribution areas
+
+- documentation and examples
+- accessibility and keyboard behavior
+- browser and responsive fixes
+- design token consistency
+- focused component proposals
+- tests for meaningful behavior
+- realistic recipes that expose system gaps
+
+## Before implementation
+
+For a new component, document:
+
+1. the repeatable use case
+2. why an existing component/native element is insufficient
+3. required states
+4. keyboard behavior
+5. responsive behavior
+6. theming needs
+7. expected composition API
+
+## Review standard
+
+A contribution should preserve the system's core principles: neutral, structured, accessible, server-first, and application-oriented.
+
+See the repository's [contribution guide](../../../CONTRIBUTING.md) and [design system direction](../design-system.md) for the full working rules.
+
+## Focus
+
+Keep changes reviewable and tied to one product problem. Avoid broad refactors, new dependencies, or component implementation before expected behavior is documented.

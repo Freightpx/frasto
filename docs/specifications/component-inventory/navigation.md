@@ -1,0 +1,73 @@
+---
+title: Navigation inventory
+description: Primitives for location, view switching, page movement, and application structure.
+---
+
+**Status: In progress**
+
+Navigation helps people understand location and move between destinations or views.
+
+## Inventory
+
+| Component | Purpose |
+| --- | --- |
+| [Breadcrumb](/docs/components/breadcrumb/) | hierarchical location — Experimental |
+| [Tabs](/docs/components/tabs/) | related client-side views within one context — Experimental |
+| [Pagination](../planned-components/pagination.md) | movement through result pages — Designing |
+| NavigationMenu | site or product destination groups — Planned |
+| Stepper | ordered progress through a multi-step task — Planned |
+| LinkGroup | related destination list with consistent hierarchy — Planned |
+
+Higher-level application navigation such as Sidebar remains in the future application layer rather than the active component milestone.
+
+## Destination vs action
+
+Use links for navigation. A button that changes client state without changing location remains an action even if it looks like a tab.
+
+## Current state
+
+Active location is communicated to assistive technology (`aria-current` where applicable) and through more than color alone.
+
+## Tab presentation
+
+Tabs use a quiet underline model:
+
+- the tab list has one thin bottom border
+- individual tabs have no surrounding box, background, or border
+- the active tab uses stronger text and a short bottom rule
+- inactive tabs use muted text
+- hover does not introduce a card or filled pill
+- focus-visible remains visible independently of the active underline
+
+```css
+.tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--frasto-border);
+}
+
+.tab {
+  position: relative;
+  padding-block: 12px;
+  border: 0;
+  background: transparent;
+}
+
+.tab[aria-current='page']::after,
+.tab[aria-selected='true']::after {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px;
+  height: 2px;
+  background: currentColor;
+  content: '';
+}
+```
+
+## Keyboard behavior
+
+Plain link collections follow normal document tab order. Composite widgets such as client-side tabs define arrow-key and focus behavior according to their role.
+
+## Responsive behavior
+
+Navigation may transform, but the information architecture should remain recognizable. Mobile drawers require focus management, close behavior, and a reliable return target.

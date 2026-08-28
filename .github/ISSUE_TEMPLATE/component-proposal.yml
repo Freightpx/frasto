@@ -1,0 +1,49 @@
+name: Component proposal
+description: Propose a broadly reusable component for Frasto UI.
+title: "[Component]: "
+labels:
+  - component-proposal
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Proposed component name
+    validations:
+      required: true
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Repeated use cases
+      description: Provide examples across more than one interface or product type.
+    validations:
+      required: true
+  - type: textarea
+    id: native-gap
+    attributes:
+      label: Existing and native alternatives
+      description: Explain why native HTML or current Frasto components are insufficient.
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: Proposed contract
+      description: Outline anatomy, composition, API intent, states, and ownership boundaries.
+    validations:
+      required: true
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility and responsive behavior
+      description: Describe semantics, keyboard and focus behavior, announcements, long content, and narrow layouts.
+    validations:
+      required: true
+  - type: checkboxes
+    id: principles
+    attributes:
+      label: Principles
+      options:
+        - label: The component can remain server-rendered unless its interaction requires JavaScript.
+          required: true
+        - label: The component does not own fetching, persistence, or a backend integration.
+          required: true
