@@ -8,13 +8,29 @@ Frasto is a UI library. The consuming application owns how data is loaded, autho
 ## Preferred boundary
 
 ```astro
-<ResourceTable rows={customers} columns={columns} />
+---
+import { Status, Table } from '@freightpx/frasto';
+---
+
+<Table caption="Customers">
+  <thead>
+    <tr><th scope="col">Customer</th><th scope="col">Status</th></tr>
+  </thead>
+  <tbody>
+    {customers.map((customer) => (
+      <tr>
+        <th scope="row">{customer.name}</th>
+        <td><Status tone={customer.tone}>{customer.status}</Status></td>
+      </tr>
+    ))}
+  </tbody>
+</Table>
 ```
 
-Avoid a core API that owns transport:
+The page or endpoint loads `customers`; `Table` only owns semantic presentation. Avoid a component API that owns transport:
 
 ```astro
-<ResourceTable endpoint="/api/customers" />
+<CustomerTable endpoint="/api/customers" />
 ```
 
 ## Compatible approaches
@@ -25,7 +41,7 @@ The same component contract should work with Astro Actions, REST, GraphQL, Supab
 
 - display-oriented TypeScript contracts
 - events for interaction intent
-- loading, empty, error, and partial states
+- presentation contracts for loading, empty, error, and partial states
 - form markup and accessible feedback structure
 
 ## What Frasto does not define

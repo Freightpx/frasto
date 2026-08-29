@@ -1,7 +1,4 @@
----
-title: Content & copy
-description: Direct, calm interface language for routine professional work.
----
+# Content and Copy
 
 Frasto copy is concise, specific, and operational. It helps people understand where they are, what changed, and what they can do next.
 
@@ -46,4 +43,4 @@ Name the affected object and consequence. Confirmation language should distingui
 
 ## Localization
 
-Avoid composing sentences from separate fragments. Allow labels to grow, keep date/number formatting out of component internals, and do not encode meaning through English-specific capitalization.
+Avoid composing sentences from separate fragments. Allow labels to grow, keep date and number formatting out of component internals, and do not encode meaning through English-specific capitalization.

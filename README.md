@@ -65,13 +65,18 @@ pnpm build
 - [Implementation ideas](./IMPLEMENTATION_IDEAS.md) is a lightweight parking lot, not a roadmap commitment.
 - [Development roadmap](./docs/project/roadmap.md) contains accepted project milestones.
 
+## Get help
+
+- Start with the [public documentation](https://frasto.freightpx.com/docs/).
+- Use the repository's issue forms for bugs, accessibility barriers, support questions, feature requests, and component proposals.
+- Read [SUPPORT.md](./SUPPORT.md) for scope and the information needed for an answerable report.
+- Report vulnerabilities privately using the process in [SECURITY.md](./SECURITY.md).
+
 ## Contributing
 
 Contributions to documentation, accessibility, browser behavior, tests, component quality, and broadly reusable component proposals are welcome.
 
 Read [CONTRIBUTING.md](./CONTRIBUTING.md), the [Code of Conduct](./CODE_OF_CONDUCT.md), and the [component standards](./docs/development/component-standards.md) before starting substantial work.
-
-For help and reporting guidance, see [SUPPORT.md](./SUPPORT.md) and [SECURITY.md](./SECURITY.md).
 
 ## Project links
 

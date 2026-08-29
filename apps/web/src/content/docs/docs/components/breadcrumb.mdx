@@ -9,7 +9,7 @@ import { Breadcrumb, BreadcrumbItem, Icon, SlashIcon } from '@freightpx/frasto';
 
 `Breadcrumb` communicates the current page's position inside an application hierarchy. It is a navigation landmark, not a router, history control, or substitute for the page title.
 
-## Ownership boundary
+## Responsibilities
 
 - The application owns labels, URLs, route matching, and which item is current.
 - `Breadcrumb` owns the labelled navigation landmark, ordered-list structure, spacing, and narrow overflow.
@@ -91,7 +91,7 @@ Supply a separator on each boundary that needs an override. The first item's sep
 </BreadcrumbItem>
 ```
 
-## Contract rules
+## Usage rules
 
 - Exactly one terminal item should use `current`.
 - A current item does not render as a link, even if `href` is provided.
@@ -107,7 +107,7 @@ The root is a named `nav`, items use an ordered list, ancestors are native ancho
 
 The trail stays on one line and scrolls horizontally at narrow widths. The current item remains fully authored rather than being replaced with an unexplained ellipsis. Applications may shorten intermediate labels, but Frasto does not hide location information or open an overflow menu without an explicit product requirement.
 
-## States to verify
+## States and edge cases
 
 - two-item and deeply nested paths
 - current page and unavailable non-linked ancestor

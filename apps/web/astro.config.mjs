@@ -4,6 +4,13 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://frasto.freightpx.com',
+  redirects: {
+    '/docs/getting-started/why-frasto': '/docs/getting-started/introduction',
+    '/docs/getting-started/principles': '/docs/getting-started/introduction',
+    '/docs/getting-started/architecture': '/docs/architecture/astro-first',
+    '/docs/foundations/content-copy': '/docs/foundations/design-principles',
+    '/docs/foundations/iconography': '/docs/getting-started/icons',
+  },
   vite: {
     plugins: [tailwindcss()],
   },
@@ -32,17 +39,9 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: 'Introduction',
-          items: [
-            { label: 'Overview', slug: 'docs/getting-started/introduction' },
-            { label: 'Why Frasto', slug: 'docs/getting-started/why-frasto' },
-            { label: 'Principles', slug: 'docs/getting-started/principles' },
-            { label: 'Project status', slug: 'docs/getting-started/status' },
-          ],
-        },
-        {
           label: 'Getting Started',
           items: [
+            { label: 'Overview', slug: 'docs/getting-started/introduction' },
             { label: 'Installation', slug: 'docs/getting-started/installation' },
             { label: 'Quick start', slug: 'docs/getting-started/quick-start' },
             { label: 'Project setup', slug: 'docs/getting-started/project-setup' },
@@ -50,33 +49,7 @@ export default defineConfig({
             { label: 'Themes', slug: 'docs/getting-started/themes' },
             { label: 'Icons', slug: 'docs/getting-started/icons' },
             { label: 'TypeScript', slug: 'docs/getting-started/typescript' },
-          ],
-        },
-        {
-          label: 'Foundations',
-          collapsed: true,
-          items: [
-            { label: 'Design principles', slug: 'docs/foundations/design-principles' },
-            { label: 'Color', slug: 'docs/foundations/color' },
-            { label: 'Typography', slug: 'docs/foundations/typography' },
-            { label: 'Spacing & layout', slug: 'docs/foundations/spacing-layout' },
-            { label: 'Responsive design', slug: 'docs/foundations/responsive-design' },
-            { label: 'Motion', slug: 'docs/foundations/motion' },
-            { label: 'Accessibility', slug: 'docs/foundations/accessibility' },
-            { label: 'Theme tokens', slug: 'docs/foundations/themes' },
-            { label: 'Iconography', slug: 'docs/foundations/iconography' },
-            { label: 'Content & copy', slug: 'docs/foundations/content-copy' },
-          ],
-        },
-        {
-          label: 'How Frasto Works',
-          collapsed: true,
-          items: [
-            { label: 'Astro first', slug: 'docs/architecture/astro-first' },
-            { label: 'Server-first', slug: 'docs/architecture/server-first' },
-            { label: 'Progressive interactivity', slug: 'docs/architecture/progressive-interactivity' },
-            { label: 'Backend independence', slug: 'docs/architecture/backend-agnostic' },
-            { label: 'Theming contract', slug: 'docs/architecture/theming' },
+            { label: 'Project status', slug: 'docs/getting-started/status' },
           ],
         },
         {
@@ -150,6 +123,31 @@ export default defineConfig({
                 { label: 'PageHeader', slug: 'docs/application-components/page-header' },
               ],
             },
+          ],
+        },
+        {
+          label: 'Foundations',
+          collapsed: true,
+          items: [
+            { label: 'Design principles', slug: 'docs/foundations/design-principles' },
+            { label: 'Color', slug: 'docs/foundations/color' },
+            { label: 'Typography', slug: 'docs/foundations/typography' },
+            { label: 'Spacing & layout', slug: 'docs/foundations/spacing-layout' },
+            { label: 'Responsive design', slug: 'docs/foundations/responsive-design' },
+            { label: 'Motion', slug: 'docs/foundations/motion' },
+            { label: 'Accessibility', slug: 'docs/foundations/accessibility' },
+            { label: 'Theme tokens', slug: 'docs/foundations/themes' },
+          ],
+        },
+        {
+          label: 'Core Concepts',
+          collapsed: true,
+          items: [
+            { label: 'Astro first', slug: 'docs/architecture/astro-first' },
+            { label: 'Server-first', slug: 'docs/architecture/server-first' },
+            { label: 'Progressive interactivity', slug: 'docs/architecture/progressive-interactivity' },
+            { label: 'Backend independence', slug: 'docs/architecture/backend-agnostic' },
+            { label: 'Theming contract', slug: 'docs/architecture/theming' },
           ],
         },
         {

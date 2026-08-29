@@ -50,7 +50,7 @@ import { Breadcrumb, BreadcrumbItem, Button, PageHeader } from '@freightpx/frast
 </PageHeader>
 ```
 
-## Ownership boundary
+## Responsibilities
 
 - The consuming project owns route labels, Breadcrumb content, action behavior, permissions, and loading state.
 - PageHeader owns heading hierarchy, content/action layout, spacing, and narrow stacking.
@@ -89,7 +89,7 @@ Native header attributes pass through to the root.
 
 The title and description remain string props so the component can guarantee one heading and predictable text hierarchy. Rich supporting content belongs in `metadata`.
 
-## Composition contract
+## Composition
 
 ```astro
 <PageHeader
@@ -118,7 +118,7 @@ The title participates in a logical heading order through `headingLevel`. Breadc
 
 The title and supporting content occupy the primary column. Actions wrap at intermediate widths and move below the content at narrow widths while preserving authored order. Breadcrumb scroll behavior remains owned by Breadcrumb. Long titles and localized descriptions wrap without clipping.
 
-## States to verify
+## States and edge cases
 
 - title only
 - breadcrumb, eyebrow, description, metadata, and multiple actions

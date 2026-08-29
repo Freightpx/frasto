@@ -1,40 +1,52 @@
 ---
 title: Quick start
-description: The intended minimal Frasto setup once the public package is available.
+description: Render an implemented Frasto interface in an Astro page.
 ---
 
-:::note[Planned workflow]
-This page defines the target developer experience. It is not a claim that these components are implemented today.
+:::caution[Pre-alpha]
+Frasto is not yet published for production use. This example uses components available in the repository today, but their APIs remain Experimental.
 :::
 
-## 1. Import the system
+## 1. Import implemented components
 
 ```astro
 ---
-import { AppShell, PageHeader } from '@freightpx/frasto';
+import { Button, Input, PageHeader, Surface } from '@freightpx/frasto';
 ---
 ```
 
 ## 2. Render server-first UI
 
 ```astro
-<AppShell>
-  <PageHeader
-    eyebrow="Customers / CRM"
-    title="Customers"
-    description="Manage relationships and account activity."
-  />
+<PageHeader
+  eyebrow="Account"
+  title="Profile"
+  description="Update the name shown to other workspace members."
+>
+  <Button slot="actions" type="submit" form="profile-form">Save changes</Button>
+</PageHeader>
 
-  <slot />
-</AppShell>
+<Surface as="section" padding="lg">
+  <form id="profile-form" method="post">
+    <label for="display-name">Display name</label>
+    <Input id="display-name" name="displayName" autocomplete="name" />
+  </form>
+</Surface>
 ```
 
-## 3. Bring application data
+The page renders useful HTML and CSS on the server. `Button`, `Input`, `PageHeader`, and `Surface` do not require a client framework.
 
-Frasto components receive your data. They do not fetch from a prescribed endpoint or infer a database schema.
+## 3. Keep data application-owned
+
+Load and validate data in your Astro page, action, or endpoint. Pass display values and native form attributes into Frasto components; the UI package does not prescribe transport or persistence.
 
 ```astro
-<ResourceTable rows={customers} columns={columns} />
+<Input
+  id="display-name"
+  name="displayName"
+  value={profile.displayName}
+  aria-invalid={errors.displayName ? 'true' : undefined}
+/>
 ```
 
 ## 4. Customize semantic tokens
@@ -48,3 +60,5 @@ Frasto components receive your data. They do not fetch from a prescribed endpoin
 ```
 
 Your overrides describe the product theme; component source remains unchanged.
+
+Continue with [component setup](/docs/getting-started/project-setup/) or [browse available components](/docs/components/overview/).

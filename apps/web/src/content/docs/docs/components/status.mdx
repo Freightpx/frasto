@@ -9,7 +9,7 @@ import { Status } from '@freightpx/frasto';
 
 `Status` communicates a current operational or domain state with visible text and an optional restrained marker. It is distinct from `Badge`: Badge labels or categorizes content, while Status answers a state question such as active, delayed, failed, or pending review.
 
-## Ownership boundary
+## Responsibilities
 
 - The application maps domain values to a human-readable label and semantic tone.
 - `Status` owns compact alignment, marker treatment, and tone presentation.
@@ -54,7 +54,7 @@ The square marker is decorative and shown by default. Remove it where surroundin
   <Status tone="positive" marker={false}>Text only</Status>
 </div>
 
-## Contract rules
+## Usage rules
 
 - Always render meaningful text; never communicate state with the marker or color alone.
 - Use neutral when a state has no success, risk, warning, or informational meaning.
@@ -71,7 +71,7 @@ The label is ordinary readable text. The marker is decorative and hidden from as
 
 Status stays inline and allows the visible label to wrap when its container is constrained. Tables may opt into no-wrap where horizontal overflow already preserves the column. Long localized labels must not be truncated without another way to access the full state.
 
-## States to verify
+## States and edge cases
 
 - all five tones with and without markers
 - long and localized labels

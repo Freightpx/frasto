@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Frasto documentation
+    url: https://frasto.freightpx.com/docs/
+    about: Check installation, component APIs, accessibility, and project status before opening an issue.
   - name: Security vulnerability
     url: https://github.com/Freightpx/frasto/security
     about: Report vulnerabilities privately through GitHub's Security tab.

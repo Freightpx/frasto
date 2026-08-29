@@ -1,0 +1,56 @@
+name: Support question
+description: Ask for help using an implemented Frasto component or documented workflow.
+title: "[Question]: "
+labels:
+  - question
+body:
+  - type: markdown
+    attributes:
+      value: Frasto is pre-alpha and support is community-based. Please use this form only for implemented components and documented workflows.
+  - type: input
+    id: component
+    attributes:
+      label: Component or documentation page
+      placeholder: SearchInput, installation, themes, and so on
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to build?
+      description: Describe the intended interface outcome and the specific point where you need help.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Minimal example
+      description: Include a small Astro example, reproduction link, or relevant markup.
+      render: astro
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      placeholder: Frasto, Astro, Node, and browser versions
+    validations:
+      required: true
+  - type: textarea
+    id: attempts
+    attributes:
+      label: What have you tried?
+      description: Link the documentation you followed and explain the result.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I searched the documentation and existing issues.
+          required: true
+        - label: This question is about an implemented Frasto capability, not a planned component.
+          required: true
+        - label: This report does not contain private vulnerability details.
+          required: true

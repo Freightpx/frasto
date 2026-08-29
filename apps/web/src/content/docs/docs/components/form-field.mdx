@@ -77,7 +77,7 @@ Extends native paragraph attributes. Authors provide a stable `id` and include i
 </FormField>
 ```
 
-## Contract rules
+## Usage rules
 
 - Do not infer IDs from label text or field names.
 - Do not overwrite `aria-describedby`; preserve every relevant description and error ID as a space-separated list.
@@ -90,7 +90,7 @@ Extends native paragraph attributes. Authors provide a stable `id` and include i
 
 The default family is a compact vertical stack. Long labels, descriptions, and errors wrap without overlapping controls. Horizontal application layouts may position the label column separately, but DOM order remains label, description/control context, control, then error.
 
-## States to verify
+## States and errors
 
 - default, required, disabled, read-only, and invalid controls
 - description only, error only, and description plus error

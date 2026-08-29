@@ -9,87 +9,65 @@ import { ArrowUpRightIcon, Button, Icon, Surface } from '@freightpx/frasto';
 <div class="frasto-docs-home" data-frasto-root>
   <section class="frasto-docs-hero">
     <p class="frasto-docs-kicker">FRASTO / DOCUMENTATION</p>
-    <h1>Astro-first interface components.</h1>
+    <h1>Build with Frasto UI.</h1>
     <p class="frasto-docs-lede">
-      Build modern websites and applications with an open-source, server-first component
-      library backed by a coherent design system.
+      Install the Astro-first component library, render your first interface, and use
+      only the browser behavior your components actually need.
     </p>
     <div class="frasto-docs-actions">
-      <Button href="/docs/getting-started/introduction/">
-        Get started <Icon icon={ArrowUpRightIcon} slot="icon-end" />
+      <Button href="/docs/getting-started/installation/">
+        Installation <Icon icon={ArrowUpRightIcon} slot="icon-end" />
       </Button>
-      <Button href="/docs/foundations/design-principles/" variant="ghost">
-        Explore foundations
+      <Button href="/docs/components/overview/" variant="ghost">
+        Browse components
       </Button>
     </div>
   </section>
 
-  <section class="frasto-docs-section" aria-labelledby="application-work-heading">
+  <section class="frasto-docs-section" aria-labelledby="start-heading">
     <div class="frasto-docs-section-heading">
-      <p class="frasto-docs-kicker">01 / FOUNDATION</p>
-      <h2 id="application-work-heading">Built for real interface work.</h2>
+      <p class="frasto-docs-kicker">01 / START HERE</p>
+      <h2 id="start-heading">Choose your next step.</h2>
     </div>
     <div class="frasto-docs-grid">
       <Surface as="article" padding="lg">
-        <h3>Astro first</h3>
-        <p>Render useful HTML on the server. Add client behavior only when the interaction needs it.</p>
+        <h3>Install Frasto</h3>
+        <p>Review the current pre-alpha package status, requirements, and repository setup.</p>
+        <Button href="/docs/getting-started/installation/" variant="ghost" size="sm">Installation</Button>
       </Surface>
       <Surface as="article" padding="lg">
-        <h3>Broad components</h3>
-        <p>Compose actions, forms, feedback, navigation, overlays, data, and layout without changing frameworks.</p>
+        <h3>Render your first UI</h3>
+        <p>Use implemented components in a small server-rendered Astro example.</p>
+        <Button href="/docs/getting-started/quick-start/" variant="ghost" size="sm">Quick start</Button>
       </Surface>
       <Surface as="article" padding="lg">
-        <h3>Backend agnostic</h3>
-        <p>Bring data from Astro Actions, REST, GraphQL, Supabase, Appwrite, or your own API.</p>
+        <h3>Find a component</h3>
+        <p>Browse the available Experimental actions, forms, overlays, data, and layout components.</p>
+        <Button href="/docs/components/overview/" variant="ghost" size="sm">Components</Button>
       </Surface>
       <Surface as="article" padding="lg">
-        <h3>Designed for daily use</h3>
-        <p>Clear hierarchy, restrained color, quiet borders, compact density, and accessible states.</p>
+        <h3>Check maturity</h3>
+        <p>Understand what Experimental means and whether Frasto is appropriate to evaluate.</p>
+        <Button href="/docs/getting-started/status/" variant="ghost" size="sm">Project status</Button>
       </Surface>
     </div>
   </section>
 
-  <section class="frasto-docs-section" aria-labelledby="documentation-map-heading">
+  <section class="frasto-docs-section" aria-labelledby="scope-heading">
     <div class="frasto-docs-section-heading">
-      <p class="frasto-docs-kicker">02 / DOCUMENTATION MAP</p>
-      <h2 id="documentation-map-heading">One interface language.</h2>
+      <p class="frasto-docs-kicker">02 / CURRENT SCOPE</p>
+      <h2 id="scope-heading">Evaluate before production.</h2>
     </div>
-    <div class="frasto-docs-grid">
-      <Surface as="article" padding="lg">
-        <h3>Foundations</h3>
-        <p>Color, type, spacing, layout, motion, accessibility, themes, and content rules.</p>
-        <Button href="/docs/foundations/design-principles/" variant="ghost" size="sm">View foundations</Button>
-      </Surface>
-      <Surface as="article" padding="lg">
-        <h3>Architecture</h3>
-        <p>Rendering, interaction, dependencies, APIs, TypeScript, and data contracts.</p>
-        <Button href="/docs/architecture/astro-first/" variant="ghost" size="sm">View architecture</Button>
-      </Surface>
-      <Surface as="article" padding="lg">
-        <h3>Components</h3>
-        <p>Documented controls and application-ready structures with intentional APIs, states, and semantics.</p>
-        <Button href="/docs/components/overview/" variant="ghost" size="sm">View components</Button>
-      </Surface>
-      <Surface as="article" padding="lg">
-        <h3>Project status</h3>
-        <p>See what is available today, what Experimental means, and when Frasto is appropriate to evaluate.</p>
-        <Button href="/docs/getting-started/status/" variant="ghost" size="sm">View status</Button>
-      </Surface>
-    </div>
-  </section>
-
-  <section class="frasto-docs-section" aria-labelledby="direction-heading">
-    <div class="frasto-docs-section-heading">
-      <p class="frasto-docs-kicker">03 / DIRECTION</p>
-      <h2 id="direction-heading">Clarity first. Craft throughout.</h2>
-    </div>
-    <p class="frasto-docs-lede">
-      Frasto uses warm surfaces, near-black actions, strict square geometry,
-      thin structural lines, minimal shadow, and typography-led hierarchy.
-    </p>
+    <Surface as="article" padding="lg">
+      <h3>Frasto is currently pre-alpha.</h3>
+      <p>
+        Every available component is Experimental. APIs may change, automated quality coverage
+        is still being built, and the package is not yet recommended for production use.
+      </p>
+    </Surface>
     <div class="frasto-docs-actions">
-      <Button href="/docs/getting-started/status/" variant="outline">See project status</Button>
-      <Button href="/docs/components/overview/" variant="ghost">Browse components</Button>
+      <Button href="/docs/getting-started/status/" variant="outline">Read project status</Button>
+      <Button href="https://github.com/Freightpx/frasto/blob/main/SUPPORT.md" variant="ghost">Get support</Button>
     </div>
   </section>
 </div>

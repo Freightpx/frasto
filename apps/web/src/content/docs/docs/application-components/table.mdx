@@ -69,9 +69,9 @@ import { Status, Table } from '@freightpx/frasto';
 </Table>
 ```
 
-## Ownership boundary
+## Responsibilities
 
-| Table owns | Application or ResourceTable owns |
+| Table owns | Application owns |
 | --- | --- |
 | native `table` element and caption position | records and column definitions |
 | structural header and row styling | sorting state and execution |
@@ -99,7 +99,7 @@ The default slot accepts native table sections and rows. Native table attributes
 
 `minWidth` is applied through the overflow container, so a consumer-authored native `style` attribute remains untouched on the table.
 
-## Structural contract
+## Markup structure
 
 ```astro
 <Table caption="Customers" minWidth="42rem">
@@ -126,9 +126,7 @@ The default slot accepts native table sections and rows. Native table attributes
 
 The default narrow strategy is horizontal scrolling around the table, not changing table descendants into invalid display roles. Authors set a meaningful `minWidth` when columns cannot compress safely. Wrapping, truncation, priority columns, and access to full values remain deliberate application decisions.
 
-`ResourceTable` may later provide higher-level responsive modes, but it still composes this semantic foundation and must preserve record identity and actions.
-
-## States to verify
+## Data states
 
 - compact and default density
 - short, long, empty, partial, and loading bodies
@@ -145,11 +143,3 @@ The default narrow strategy is horizontal scrolling around the table, not changi
 - Apply `frasto-number` to numeric headers and cells for end alignment and tabular figures.
 - Choose `fixed` layout only when the application also controls intentional column widths and overflow.
 - Put loading, empty, partial, and error messaging in authored table content or a higher-level composition; Table does not infer those states.
-
-## Implementation constraints
-
-- Render no client JavaScript.
-- Do not introduce row, column, sorting, selection, or pagination TypeScript contracts.
-- Keep `thead`, `tbody`, `tfoot`, `tr`, `th`, `td`, and `caption` native in the output.
-- Apply density and alignment through structural selectors without requiring a class on every cell.
-- Preserve consumer classes and native table attributes.

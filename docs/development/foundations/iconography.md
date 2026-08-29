@@ -1,7 +1,4 @@
----
-title: Iconography
-description: A restrained Lucide-based icon language focused on meaning, alignment, and accessibility.
----
+# Iconography
 
 Icons support recognition and compact actions. They should not become a second visual language competing with content.
 

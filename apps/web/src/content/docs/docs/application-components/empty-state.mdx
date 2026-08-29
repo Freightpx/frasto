@@ -44,7 +44,7 @@ import { Button, EmptyState } from '@freightpx/frasto';
 </EmptyState>
 ```
 
-## Ownership boundary
+## Responsibilities
 
 - The application decides why content is absent and writes the title, description, and actions.
 - EmptyState owns readable measure, spacing, alignment, and action composition.
@@ -84,7 +84,7 @@ Native attributes pass through to the selected root.
 
 The icon wrapper is decorative. Meaningful information belongs in the title or description rather than only in artwork.
 
-## Composition contract
+## Composition
 
 ```astro
 <EmptyState
@@ -110,7 +110,7 @@ The title participates in heading order. Actions retain native control semantics
 
 Content keeps a readable line length. Actions wrap and then stack at narrow widths while preserving authored order. Center alignment remains restrained and does not vertically center the state in a way that hides surrounding context.
 
-## States to verify
+## States and content
 
 - all four content situations
 - title only and title plus long description
@@ -127,11 +127,3 @@ Content keeps a readable line length. Actions wrap and then stack at narrow widt
 - Preserve search and filter context around a no-results state so people can recover.
 - Use the icon slot as supporting decoration only; put all meaning in text.
 - Let the application announce dynamic state changes and own retry or navigation behavior.
-
-## Implementation constraints
-
-- Render no client JavaScript.
-- Keep title and description as plain strings so heading structure and readable measure remain predictable.
-- Preserve authored action order and native control behavior.
-- Hide the optional icon wrapper from assistive technology.
-- Preserve consumer classes and native root attributes.
