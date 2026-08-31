@@ -1,0 +1,60 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  statBody,
+  statChange,
+  statContext,
+  statDescription,
+  statLabel,
+  statRoot,
+  statTones,
+  statValue,
+  statVisual,
+  type StatTone,
+} from './stat-styles';
+
+type Props = Omit<HTMLAttributes<'dl'>, 'class'> & {
+  change?: string;
+  changeTone?: StatTone;
+  class?: string;
+  description?: string;
+  label: string;
+  value: string;
+  valueClass?: string;
+};
+
+const {
+  change,
+  changeTone = 'neutral',
+  class: className,
+  description,
+  label,
+  value,
+  valueClass,
+  ...rest
+} = Astro.props;
+
+const hasVisual = Astro.slots.has('visual');
+---
+
+<dl {...rest} class:list={[statRoot, className]} data-frasto-stat data-tone={changeTone}>
+  <div class:list={statBody} data-frasto-stat-body>
+    <dt class:list={statLabel} data-frasto-stat-label>{label}</dt>
+    <dd class:list={[statValue, valueClass]} data-frasto-stat-value>{value}</dd>
+    {(change || description) && (
+      <dd class:list={statContext} data-frasto-stat-context>
+        {change && (
+          <span class:list={[statChange, statTones[changeTone]]} data-frasto-stat-change>{change}</span>
+        )}
+        {description && (
+          <span class:list={statDescription} data-frasto-stat-description>{description}</span>
+        )}
+      </dd>
+    )}
+    {hasVisual && (
+      <dd class:list={statVisual} data-frasto-stat-visual>
+        <slot name="visual" />
+      </dd>
+    )}
+  </div>
+</dl>

@@ -13,10 +13,13 @@ Navigation helps people understand location and move between destinations or vie
 | --- | --- |
 | [Breadcrumb](/docs/components/breadcrumb/) | hierarchical location — Experimental |
 | [Tabs](/docs/components/tabs/) | related client-side views within one context — Experimental |
-| [Pagination](../planned-components/pagination.md) | movement through result pages — Designing |
-| NavigationMenu | site or product destination groups — Planned |
+| [Pagination](/docs/components/pagination/) | movement through result pages — Experimental |
+| NavigationMenu | site or product destination groups — Phase 7 |
 | Stepper | ordered progress through a multi-step task — Planned |
-| LinkGroup | related destination list with consistent hierarchy — Planned |
+| LinkGroup | related destination list with consistent hierarchy — Phase 7 |
+| Command | searchable action or destination collection — Phase 7 |
+
+NavigationMenu remains behind complete pointer, keyboard, focus, dismissal, and responsive contracts.
 
 Higher-level application navigation such as Sidebar remains in the future application layer rather than the active component milestone.
 

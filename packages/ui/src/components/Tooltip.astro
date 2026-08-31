@@ -31,6 +31,7 @@ const contentId = id ?? `frasto-tooltip-${Math.random().toString(36).slice(2)}`;
   {...rest}
   class:list={[tooltipRoot, className]}
   data-delay={delay}
+  data-frasto-tooltip
   data-placement={placement}
 >
   <span class="inline-flex" data-frasto-tooltip-trigger><slot /></span>
@@ -51,6 +52,8 @@ const contentId = id ?? `frasto-tooltip-${Math.random().toString(36).slice(2)}`;
 
   class FrastoTooltip extends HTMLElement {
     private content: HTMLElement | null = null;
+    private focusInside = false;
+    private pointerInside = false;
     private trigger: HTMLElement | null = null;
     private timer: number | undefined;
 
@@ -88,16 +91,26 @@ const contentId = id ?? `frasto-tooltip-${Math.random().toString(36).slice(2)}`;
 
     private handlePointerEnter = () => {
       if (!window.matchMedia('(hover: hover)').matches) return;
+      this.pointerInside = true;
+      window.clearTimeout(this.timer);
       this.timer = window.setTimeout(this.show, Number(this.dataset.delay ?? 400));
     };
 
     private handlePointerLeave = () => {
+      this.pointerInside = false;
       window.clearTimeout(this.timer);
-      this.hide();
+      if (!this.focusInside) this.hide();
     };
 
-    private handleFocus = () => this.show();
-    private handleBlur = () => this.hide();
+    private handleFocus = () => {
+      this.focusInside = true;
+      window.clearTimeout(this.timer);
+      this.show();
+    };
+    private handleBlur = () => {
+      this.focusInside = false;
+      if (!this.pointerInside) this.hide();
+    };
     private handleKeydown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') this.hide();
     };
@@ -110,6 +123,7 @@ const contentId = id ?? `frasto-tooltip-${Math.random().toString(36).slice(2)}`;
     };
 
     private hide = () => {
+      window.clearTimeout(this.timer);
       if (!this.content) return;
       this.content.hidden = true;
       delete this.dataset.open;

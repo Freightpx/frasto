@@ -3,19 +3,20 @@ title: Project status
 description: The current public maturity of Frasto UI.
 ---
 
-Frasto UI is in **active pre-alpha development**.
+Frasto UI is at the **public-alpha release-candidate stage**, targeting `0.1.0-alpha.1` on npm's `next` channel.
 
-The package contains an Experimental set of actions, form controls, display components, feedback, navigation, overlays, data presentation, and layout components. The design tokens, documentation site, and server-first package foundation are also active.
+The package contains 33 Experimental component families across actions, forms, display, feedback, disclosure, navigation, overlays, data presentation, and layout. Phase 5 hardening now includes rendered semantic contracts, Chromium/Firefox/WebKit behavior checks, automated accessibility scans, narrow and touch-oriented evidence, overlay collision and scroll checks, and a packed-package consumer that renders every public family.
 
 ## What Experimental means
 
 - implementations are available for evaluation
 - APIs may change without migration support
 - accessibility and responsive behavior are still being hardened
-- the package is not yet recommended for production use
+- manual assistive-technology and real-project evidence is not complete
+- the package is not recommended for production-critical use
 
-## Public alpha
+## Alpha evidence boundary
 
-Frasto will move toward public alpha after the component inventory is broad enough to be useful, existing APIs are consistent, documentation matches implementation, and accessibility and responsive checks are repeatable.
+Automated coverage is required before publication. A Windows NVDA smoke review and final keyboard checklist remain manual launch actions. VoiceOver and the broader physical-device matrix are disclosed post-alpha hardening work rather than blockers for `0.1.0-alpha.1`.
 
 Development milestones, planned components, and future ecosystem work are tracked separately in the [GitHub development roadmap](https://github.com/Freightpx/frasto/blob/main/docs/project/roadmap.md).

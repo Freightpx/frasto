@@ -1,0 +1,47 @@
+---
+title: ButtonGroup
+description: Labelled horizontal or vertical groups of closely related actions.
+---
+
+import { Button, ButtonGroup, ButtonGroupSeparator, ButtonGroupText, ChevronDownIcon, IconButton } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`ButtonGroup` gives closely related controls a shared accessible name and compact structural layout. It does not add selection state or alter the keyboard behavior of its children.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root>
+  <ButtonGroup label="Save options">
+    <Button>Save</Button>
+    <ButtonGroupSeparator />
+    <IconButton icon={ChevronDownIcon} label="More save options" />
+  </ButtonGroup>
+  <ButtonGroup label="Result range">
+    <ButtonGroupText>Rows</ButtonGroupText>
+    <Button variant="outline">25</Button>
+    <Button variant="outline">50</Button>
+  </ButtonGroup>
+</div>
+
+## Usage
+
+```astro
+---
+import { Button, ButtonGroup, ButtonGroupSeparator, ChevronDownIcon, IconButton } from '@freightpx/frasto';
+---
+
+<ButtonGroup label="Save options">
+  <Button>Save</Button>
+  <ButtonGroupSeparator />
+  <IconButton icon={ChevronDownIcon} label="More save options" />
+</ButtonGroup>
+```
+
+## API
+
+`ButtonGroup` requires `label` and accepts `orientation` (`"horizontal"` or `"vertical"`) and `class`. Native div attributes pass through except role and accessible name. The root always uses `role="group"`.
+
+`ButtonGroupText` is a non-interactive text addon. `ButtonGroupSeparator` is decorative, hidden from assistive technology, and follows the group direction. Both accept native span attributes and `class`.
+
+Keep groups small and task-specific. Child Buttons and IconButtons retain their ordinary focus order, disabled/loading behavior, names, and activation semantics.

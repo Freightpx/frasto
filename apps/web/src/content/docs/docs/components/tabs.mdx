@@ -15,8 +15,10 @@ import { Tab, TabPanel, Tabs } from '@freightpx/frasto';
   <Tabs label="Account sections" defaultValue="overview" style="width:100%;">
     <Tab slot="tab" value="overview">Overview</Tab>
     <Tab slot="tab" value="invoices">Invoices</Tab>
+    <Tab slot="tab" value="activity" disabled>Activity</Tab>
     <TabPanel slot="panel" value="overview">Account overview content.</TabPanel>
     <TabPanel slot="panel" value="invoices">Invoice content.</TabPanel>
+    <TabPanel slot="panel" value="activity">Activity content.</TabPanel>
   </Tabs>
 </div>
 

@@ -19,9 +19,14 @@ Display components communicate information without owning application data.
 | [Skeleton](/docs/components/skeleton/) | reserved loading shape — Experimental | pulse, static, reduced motion |
 | Progress | known completion | determinate/indeterminate semantics |
 | [Spinner](/docs/components/spinner/) | short indeterminate wait — Experimental | contextual or component-owned label |
-| [Stat](../planned-components/stat.md) | quantitative summary — Designing | value, context, trend meaning |
+| [Stat](/docs/components/stat/) | quantitative summary — Experimental | value, context, trend meaning |
 | DescriptionList | structured term/value information | semantic grouping, long content |
-| Kbd / Code | compact technical notation | contrast and readable overflow |
+| Kbd / Code | compact technical notation — Kbd committed for Phase 7 | contrast and readable overflow |
+| Date | deterministic localized date/time output — Phase 7 | valid datetime, locale, timezone, explicit fallback |
+| Card | restrained compound content region — Phase 7 | hierarchy, long content, no default elevation |
+| Item | reusable resource/list content — Phase 7 | semantic composition, actions, long content |
+| Carousel | user-controlled slide collection — Phase 7 | native scroll, controls, announcements, no autoplay |
+| Marquee | optional moving presentation — Phase 7 | pause, reduced motion, hidden duplicates |
 
 ## Data integrity
 

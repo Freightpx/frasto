@@ -18,7 +18,7 @@ const {
 } = Astro.props;
 ---
 
-<frasto-tabs {...rest} class:list={[tabsRoot, className]} data-default-value={defaultValue}>
+<frasto-tabs {...rest} class:list={[tabsRoot, className]} data-default-value={defaultValue} data-frasto-tabs>
   <div class:list={[tabListBase, listClass]} role="tablist" aria-label={label} data-frasto-tab-list>
     <slot name="tab" />
   </div>

@@ -74,7 +74,10 @@ const hasEndIcon = Astro.slots.has('icon-end');
   data-tone={tone}
   data-variant={variant}
 >
-  <span class:list={['inline-flex items-center justify-center gap-[inherit]', loading && 'invisible']}>
+  <span
+    class:list={['inline-flex items-center justify-center gap-[inherit]', loading && 'invisible']}
+    aria-hidden={loading ? 'true' : undefined}
+  >
     {hasStartIcon && <span class="inline-flex" aria-hidden="true"><slot name="icon-start" /></span>}
     <span><slot /></span>
     {hasEndIcon && <span class="inline-flex" aria-hidden="true"><slot name="icon-end" /></span>}

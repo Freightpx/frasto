@@ -25,7 +25,7 @@ const {
 const panelId = id ?? `frasto-popover-${Math.random().toString(36).slice(2)}`;
 ---
 
-<frasto-popover {...rest} class:list={[popoverRoot, className]} data-placement={placement}>
+<frasto-popover {...rest} class:list={[popoverRoot, className]} data-frasto-popover data-placement={placement}>
   <span class="inline-flex" data-frasto-overlay-trigger><slot name="trigger" /></span>
   <div
     id={panelId}

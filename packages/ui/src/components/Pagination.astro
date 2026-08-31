@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { paginationList, paginationRoot, paginationSummary } from './pagination-styles';
+
+type Props = Omit<HTMLAttributes<'nav'>, 'aria-label' | 'class'> & {
+  class?: string;
+  label?: string;
+  listClass?: string;
+};
+
+const {
+  class: className,
+  label = 'Pagination',
+  listClass,
+  ...rest
+} = Astro.props;
+
+const hasSummary = Astro.slots.has('summary');
+---
+
+<nav
+  {...rest}
+  class:list={[paginationRoot, className]}
+  aria-label={label}
+  data-frasto-pagination
+>
+  {hasSummary && (
+    <div class:list={paginationSummary} data-frasto-pagination-summary>
+      <slot name="summary" />
+    </div>
+  )}
+  <ol class:list={[paginationList, listClass]} data-frasto-pagination-list>
+    <slot />
+  </ol>
+</nav>

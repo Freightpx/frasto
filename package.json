@@ -10,10 +10,21 @@
     "dev": "pnpm --filter @freightpx/frasto-web dev",
     "build": "pnpm -r build",
     "check": "pnpm -r check",
+    "test": "pnpm test:render && pnpm test:browser && pnpm test:package && pnpm test:consumer",
+    "test:render": "vitest run --config packages/ui/vitest.config.ts",
+    "test:browser": "cross-env ASTRO_TELEMETRY_DISABLED=1 pnpm web:build && playwright test",
+    "test:package": "node scripts/audit-package.mjs",
+    "test:consumer": "node scripts/test-packed-consumer.mjs",
     "web:dev": "pnpm --filter @freightpx/frasto-web dev",
     "web:build": "pnpm --filter @freightpx/frasto-web build",
     "docs:dev": "pnpm --filter @freightpx/frasto-web dev",
     "docs:build": "pnpm --filter @freightpx/frasto-web build"
   },
-  "packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620"
+  "packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.62.1",
+    "cross-env": "^10.1.0",
+    "vitest": "^4.1.11"
+  }
 }

@@ -68,9 +68,12 @@ const descriptionId = description ? `${dialogId}-description` : undefined;
 </frasto-dialog>
 
 <script>
+  import { lockDocumentScroll, unlockDocumentScroll } from './overlay-scroll-lock';
+
   class FrastoDialog extends HTMLElement {
     private dialog: HTMLDialogElement | null = null;
     private opener: HTMLElement | null = null;
+    private scrollLocked = false;
     private trigger: HTMLElement | null = null;
 
     connectedCallback() {
@@ -96,13 +99,16 @@ const descriptionId = description ? `${dialogId}-description` : undefined;
       this.dialog?.removeEventListener('close', this.handleClose);
       this.dialog?.removeEventListener('pointerdown', this.handleBackdropPointer);
       this.querySelectorAll('[data-frasto-dialog-close]').forEach((button) => button.removeEventListener('click', this.close));
+      this.releaseScrollLock();
       delete this.dataset.initialized;
     }
 
     private open = () => {
       if (!this.dialog || this.dialog.open) return;
-      this.opener = document.activeElement as HTMLElement;
+      this.opener = this.trigger;
       this.dialog.showModal();
+      lockDocumentScroll();
+      this.scrollLocked = true;
       this.trigger?.setAttribute('aria-expanded', 'true');
       this.dispatchEvent(new CustomEvent('frasto:open', { bubbles: true }));
     };
@@ -114,9 +120,18 @@ const descriptionId = description ? `${dialogId}-description` : undefined;
       if (this.dataset.dismissible === 'true' && event.target === this.dialog) this.dialog?.close();
     };
     private handleClose = () => {
+      this.releaseScrollLock();
       this.trigger?.setAttribute('aria-expanded', 'false');
-      this.opener?.focus();
+      const opener = this.opener;
+      requestAnimationFrame(() => {
+        if (opener?.isConnected) opener.focus();
+      });
       this.dispatchEvent(new CustomEvent('frasto:close', { bubbles: true }));
+    };
+    private releaseScrollLock = () => {
+      if (!this.scrollLocked) return;
+      unlockDocumentScroll();
+      this.scrollLocked = false;
     };
   }
 

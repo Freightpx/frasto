@@ -1,0 +1,51 @@
+---
+title: Alert
+description: Persistent contextual feedback without forced live-region behavior.
+---
+
+import { Alert, CircleAlertIcon, CircleCheckIcon, InfoIcon } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Alert` presents persistent contextual feedback with visible meaning beyond color. It does not force `role="alert"`, because server-rendered or already-present guidance should not be announced as a new interruption.
+
+## Preview
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <Alert title="Review account details" tone="info">
+    <InfoIcon slot="icon" size={18} stroke-width={1.25} aria-hidden="true" />
+    Confirm the billing contact before sending the next invoice.
+  </Alert>
+  <Alert title="Changes saved" tone="positive">
+    <CircleCheckIcon slot="icon" size={18} stroke-width={1.25} aria-hidden="true" />
+    Workspace access rules now apply to all new members.
+  </Alert>
+  <Alert title="Payment requires attention" tone="warning">
+    <CircleAlertIcon slot="icon" size={18} stroke-width={1.25} aria-hidden="true" />
+    The current card expires this month.
+  </Alert>
+</div>
+
+## Usage
+
+```astro
+---
+import { Alert } from '@freightpx/frasto';
+---
+
+<Alert title="Review account details" tone="info">
+  Confirm the billing contact before sending the next invoice.
+</Alert>
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `tone` | `"neutral" \| "info" \| "positive" \| "warning" \| "danger"` | `"neutral"` | semantic visual treatment |
+| `title` | `string` | — | concise visible message heading |
+| `class` | `string` | — | styles the root |
+
+Native div attributes pass through. The optional `icon` slot accepts a visual; decorative icons must be hidden from assistive technology. The default slot supplies message content and may include links or relevant actions.
+
+Choose a live-region role only when the application inserts a time-sensitive message dynamically. Alert has no built-in dismissal or persistence state.

@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  buttonGroupOrientations,
+  buttonGroupRoot,
+  type ButtonGroupOrientation,
+} from './button-group-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'aria-label' | 'class' | 'role'> & {
+  class?: string;
+  label: string;
+  orientation?: ButtonGroupOrientation;
+};
+
+const { class: className, label, orientation = 'horizontal', ...rest } = Astro.props;
+---
+
+<div
+  {...rest}
+  class:list={[buttonGroupRoot, buttonGroupOrientations[orientation], className]}
+  role="group"
+  aria-label={label}
+  data-frasto-button-group
+  data-orientation={orientation}
+>
+  <slot />
+</div>

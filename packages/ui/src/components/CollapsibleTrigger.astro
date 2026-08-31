@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { accordionIndicator } from './accordion-styles';
+import { collapsibleTrigger } from './collapsible-styles';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class' | 'type'> & { class?: string };
+const { class: className, ...rest } = Astro.props;
+---
+
+<button {...rest} class:list={[collapsibleTrigger, className]} type="button" data-frasto-collapsible-trigger>
+  <span><slot /></span>
+  <span class:list={accordionIndicator} aria-hidden="true" data-frasto-disclosure-indicator>+</span>
+</button>

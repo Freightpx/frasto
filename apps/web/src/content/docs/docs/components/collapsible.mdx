@@ -1,0 +1,38 @@
+---
+title: Collapsible
+description: One independently controlled disclosure region.
+---
+
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Collapsible` progressively enhances one optional content region. Use it when the region does not need coordination with sibling disclosures.
+
+## Preview
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <Collapsible defaultOpen>
+    <CollapsibleTrigger>Show deployment details</CollapsibleTrigger>
+    <CollapsibleContent>Production deployed from commit 7f2d9c1 at 14:32 UTC by the release workflow.</CollapsibleContent>
+  </Collapsible>
+</div>
+
+## Usage
+
+```astro
+---
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@freightpx/frasto';
+---
+
+<Collapsible defaultOpen>
+  <CollapsibleTrigger>Show deployment details</CollapsibleTrigger>
+  <CollapsibleContent>Production deployed at 14:32 UTC.</CollapsibleContent>
+</Collapsible>
+```
+
+## API and behavior
+
+`Collapsible` accepts `defaultOpen`, `disabled`, and `class`; native div attributes pass through. Trigger and Content accept corresponding native attributes and `class`.
+
+The native button operates with Enter and Space. Enhancement assigns trigger/content relationships and emits bubbling `frasto:collapsible-change` with `{ open }` after user changes. A disabled trigger does not enter the tab order. Server output leaves content readable before enhancement.

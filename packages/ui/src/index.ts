@@ -1,11 +1,22 @@
 import '../dist/styles.css';
 
 export { default as Avatar } from './components/Avatar.astro';
+export { default as Accordion } from './components/Accordion.astro';
+export { default as AccordionContent } from './components/AccordionContent.astro';
+export { default as AccordionItem } from './components/AccordionItem.astro';
+export { default as AccordionTrigger } from './components/AccordionTrigger.astro';
+export { default as Alert } from './components/Alert.astro';
 export { default as Badge } from './components/Badge.astro';
 export { default as Breadcrumb } from './components/Breadcrumb.astro';
 export { default as BreadcrumbItem } from './components/BreadcrumbItem.astro';
 export { default as Button } from './components/Button.astro';
+export { default as ButtonGroup } from './components/ButtonGroup.astro';
+export { default as ButtonGroupSeparator } from './components/ButtonGroupSeparator.astro';
+export { default as ButtonGroupText } from './components/ButtonGroupText.astro';
 export { default as Checkbox } from './components/Checkbox.astro';
+export { default as Collapsible } from './components/Collapsible.astro';
+export { default as CollapsibleContent } from './components/CollapsibleContent.astro';
+export { default as CollapsibleTrigger } from './components/CollapsibleTrigger.astro';
 export { default as Dialog } from './components/Dialog.astro';
 export { default as Dropdown } from './components/Dropdown.astro';
 export { default as DropdownItem } from './components/DropdownItem.astro';
@@ -19,6 +30,8 @@ export { default as Icon } from './components/Icon.astro';
 export { default as IconButton } from './components/IconButton.astro';
 export { default as Input } from './components/Input.astro';
 export { default as PageHeader } from './components/PageHeader.astro';
+export { default as Pagination } from './components/Pagination.astro';
+export { default as PaginationItem } from './components/PaginationItem.astro';
 export { default as Popover } from './components/Popover.astro';
 export { default as Radio } from './components/Radio.astro';
 export { default as Select } from './components/Select.astro';
@@ -27,6 +40,7 @@ export { default as Separator } from './components/Separator.astro';
 export { default as Skeleton } from './components/Skeleton.astro';
 export { default as Spinner } from './components/Spinner.astro';
 export { default as Status } from './components/Status.astro';
+export { default as Stat } from './components/Stat.astro';
 export { default as Switch } from './components/Switch.astro';
 export { default as Surface } from './components/Surface.astro';
 export { default as Table } from './components/Table.astro';
@@ -38,6 +52,8 @@ export { default as Tooltip } from './components/Tooltip.astro';
 export type {
   AvatarSize,
 } from './components/avatar-styles';
+export type { AccordionType } from './components/accordion-styles';
+export type { AlertTone } from './components/alert-styles';
 export type {
   BadgeSize,
   BadgeTone,
@@ -48,6 +64,7 @@ export type {
   ButtonTone,
   ButtonVariant,
 } from './components/button-styles';
+export type { ButtonGroupOrientation } from './components/button-group-styles';
 export type { DropdownPlacement } from './components/dropdown-styles';
 export type { DialogSize } from './components/dialog-styles';
 export type {
@@ -62,6 +79,7 @@ export type {
 } from './components/drawer-styles';
 export type { InputSize } from './components/input-styles';
 export type { PageHeaderHeadingLevel } from './components/page-header-styles';
+export type { PaginationItemKind } from './components/pagination-styles';
 export type { PopoverPlacement } from './components/popover-styles';
 export type { CheckboxSize } from './components/checkbox-styles';
 export type { RadioSize } from './components/radio-styles';
@@ -76,6 +94,7 @@ export type {
 } from './components/skeleton-styles';
 export type { SpinnerSize } from './components/spinner-styles';
 export type { StatusTone } from './components/status-styles';
+export type { StatTone } from './components/stat-styles';
 export type { SwitchSize } from './components/switch-styles';
 export type {
   SurfaceElement,
@@ -87,11 +106,15 @@ export type { TextareaResize } from './components/textarea-styles';
 export type { TooltipPlacement } from './components/tooltip-styles';
 export {
   ArrowUpRight as ArrowUpRightIcon,
+  ChevronDown as ChevronDownIcon,
+  CircleAlert as CircleAlertIcon,
+  CircleCheck as CircleCheckIcon,
   FileText as FileTextIcon,
+  Info as InfoIcon,
   Menu as MenuIcon,
   Plus as PlusIcon,
   Search as SearchIcon,
   Slash as SlashIcon,
 } from '@lucide/astro';
 
-export const version = '0.0.0';
+export const version = '0.1.0-alpha.1';

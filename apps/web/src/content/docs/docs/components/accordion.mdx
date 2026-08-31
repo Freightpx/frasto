@@ -1,0 +1,61 @@
+---
+title: Accordion
+description: Coordinated disclosure regions with single or multiple expansion.
+---
+
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Accordion` progressively enhances related disclosure regions. Server output keeps all content readable; the browser adds coordinated expansion, relationships, keyboard movement, and state events.
+
+## Preview
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <Accordion defaultValue="shipping" collapsible>
+    <AccordionItem value="shipping">
+      <AccordionTrigger>How does shipping work?</AccordionTrigger>
+      <AccordionContent>Orders leave the warehouse within two business days. Tracking appears after the carrier accepts the package.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="returns">
+      <AccordionTrigger>Can I return an order?</AccordionTrigger>
+      <AccordionContent>Unused items may be returned within 30 days using the return link in the order detail.</AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="archived" disabled>
+      <AccordionTrigger>Archived policy</AccordionTrigger>
+      <AccordionContent>This policy is unavailable.</AccordionContent>
+    </AccordionItem>
+  </Accordion>
+</div>
+
+## Usage
+
+```astro
+---
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@freightpx/frasto';
+---
+
+<Accordion defaultValue="shipping" collapsible>
+  <AccordionItem value="shipping">
+    <AccordionTrigger>How does shipping work?</AccordionTrigger>
+    <AccordionContent>Orders leave the warehouse within two business days.</AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+## API
+
+`Accordion` accepts `type` (`"single"` or `"multiple"`), `collapsible`, `defaultValue` (`string` or `string[]`), and `class`. Native div attributes pass through.
+
+`AccordionItem` requires a stable `value` and accepts `disabled` and `class`. `AccordionTrigger` and `AccordionContent` accept their native button or div attributes and `class`.
+
+## Behavior and accessibility
+
+- Trigger buttons expose `aria-expanded` and `aria-controls`; content regions expose `role="region"` and `aria-labelledby` after enhancement.
+- Enter and Space retain native button behavior.
+- Arrow Down/Up moves between enabled triggers; Home/End moves to the first/last enabled trigger.
+- Disabled triggers do not enter the tab order.
+- User changes emit bubbling `frasto:accordion-change` with `{ value, open, values }`.
+- In single mode, `collapsible` controls whether the open item may close. Multiple mode permits independent open items.
+
+Content should remain useful when read in document order. Keep trigger labels concise and do not hide essential actions behind a disabled item.

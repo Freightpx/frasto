@@ -16,31 +16,25 @@ description: The shared maturity language and current expansion direction for Fr
 
 ## Experimental components
 
-- Actions: Button and IconButton
+- Actions: Button, ButtonGroup, and IconButton
 - Forms: Input, Textarea, Checkbox, Radio, Switch, Select, FormField, and [SearchInput](/docs/application-components/search-input/)
-- Display: Badge, Avatar, Status, Skeleton, and Spinner
-- Feedback: [EmptyState](/docs/application-components/empty-state/)
-- Navigation: Breadcrumb and Tabs
+- Display: Badge, Avatar, Status, Skeleton, Spinner, and Stat
+- Feedback: Alert and [EmptyState](/docs/application-components/empty-state/)
+- Disclosure: Accordion and Collapsible
+- Navigation: Breadcrumb, Pagination, and Tabs
 - Overlays: Tooltip, Dropdown, Dialog, Drawer, and Popover
 - Data: [Table](/docs/application-components/table/)
 - Layout: Separator, Surface, and [PageHeader](/docs/application-components/page-header/)
 
 SearchInput requires a dedicated keyboard and focus validation pass before it can advance to Beta.
 
-The [component quality inventory](./component-inventory.md) records the current evidence and remaining Beta blockers for all 27 public component families. Successful diagnostics and builds establish a repository baseline, but do not replace automated behavioral, accessibility, responsive, or package-consumer tests.
-
-## Designing
-
-- [Pagination](../specifications/planned-components/pagination.md)
-- [Stat](../specifications/planned-components/stat.md)
-
-Their contracts are documented, but implementation is intentionally outside the current product-direction update.
+The [component quality inventory](./component-inventory.md) records the current evidence and remaining Beta blockers for all 33 public component families. Successful diagnostics and builds establish a repository baseline, but no single automated check replaces behavioral, accessibility, responsive, package-consumer, and real-world evidence together.
 
 ## Planned coverage
 
-Phase 4 inventory work will prioritize repeated, general-purpose needs across:
+The post-alpha Phase 7 expansion will prioritize repeated, general-purpose needs across:
 
-- disclosure, including Accordion and Collapsible
+- disclosure beyond Accordion and Collapsible
 - advanced forms, validation, field grouping, and selection controls
 - alerts, toasts, banners, progress, and richer feedback states
 - navigation menus, steppers, and responsive navigation structures
@@ -54,4 +48,4 @@ High-level application systems such as AppShell, ResourceTable, FilterBar, Detai
 
 A component is not complete when it only renders. Stable components require documented purpose, complete states, responsive behavior, accessibility, API review, examples, tests, and real-world evidence.
 
-Use the [Phase 4 execution plan](./phase4-plan.md) for the ordered work that follows this inventory.
+Use the [Phase 5 maturity and hardening plan](./phase5-plan.md) for the current ordered work.

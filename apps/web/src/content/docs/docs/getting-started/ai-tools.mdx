@@ -1,0 +1,35 @@
+---
+title: AI tools
+description: Give Codex and compatible coding agents focused guidance for using Frasto without inventing APIs.
+---
+
+Frasto includes an instruction-only `frasto-ui` skill for AI coding tools that understand the open agent skills format. It helps an agent verify real exports, preserve Astro-first rendering, use semantic tokens, and respect Frasto's accessibility and composition boundaries.
+
+The skill does not generate components, run an MCP server, contact a backend, or grant an agent additional permissions.
+
+## Use it in this repository
+
+Codex discovers the checked-in skill at `.agents/skills/frasto-ui` when it works inside the Frasto repository. Invoke it explicitly with:
+
+```text
+$frasto-ui build an Astro customer list using the components available in this package.
+```
+
+Codex may also select the skill automatically when a request clearly asks for Frasto interface work.
+
+## Use it in another project
+
+Copy `.agents/skills/frasto-ui` into the consumer repository's `.agents/skills` directory, or ask Codex's skill installer to install it from the Frasto GitHub repository. Review the copied skill when upgrading Frasto because alpha APIs may change.
+
+The [official OpenAI skills documentation](https://developers.openai.com/codex/skills) explains repository and user skill locations, explicit `$skill` invocation, and skill discovery.
+
+## What the skill enforces
+
+- inspect the installed `@freightpx/frasto` and Astro versions
+- use flat package exports and documented component contracts
+- prefer server-rendered Astro and semantic HTML
+- keep data fetching, persistence, and domain logic application-owned
+- use documented semantic tokens rather than internal selectors
+- verify interaction states, accessibility, themes, long content, and narrow layouts
+
+The skill is an alpha integration. Report inaccurate or missing guidance through the Frasto issue tracker.

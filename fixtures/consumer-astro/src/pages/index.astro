@@ -1,0 +1,114 @@
+---
+import * as Frasto from '@freightpx/frasto';
+import type {
+  ButtonVariant,
+  AccordionType,
+  AlertTone,
+  ButtonGroupOrientation,
+  EmptyStateHeadingLevel,
+  PageHeaderHeadingLevel,
+  PaginationItemKind,
+  StatTone,
+  TableDensity,
+} from '@freightpx/frasto';
+
+const buttonVariant: ButtonVariant = 'solid';
+const accordionType: AccordionType = 'single';
+const alertTone: AlertTone = 'info';
+const groupOrientation: ButtonGroupOrientation = 'horizontal';
+const emptyHeading: EmptyStateHeadingLevel = 2;
+const pageHeading: PageHeaderHeadingLevel = 1;
+const tableDensity: TableDensity = 'compact';
+const paginationKind: PaginationItemKind = 'next';
+const statTone: StatTone = 'positive';
+const exportCount = Object.keys(Frasto).length;
+---
+
+<html lang="en">
+  <head><title>Frasto package consumer</title></head>
+  <body data-export-count={exportCount}>
+    <Frasto.PageHeader title="Package consumer" headingLevel={pageHeading} />
+    <Frasto.Avatar fallback="PF" label="Pixel Freight" />
+    <Frasto.Icon icon={Frasto.InfoIcon} label="Information" />
+    <Frasto.Badge tone="positive">Packed</Frasto.Badge>
+    <Frasto.Status tone="positive">Ready</Frasto.Status>
+    <Frasto.Breadcrumb label="Consumer location">
+      <Frasto.BreadcrumbItem href="/">Home</Frasto.BreadcrumbItem>
+      <Frasto.BreadcrumbItem current>Fixture</Frasto.BreadcrumbItem>
+    </Frasto.Breadcrumb>
+    <Frasto.Button variant={buttonVariant}>Continue</Frasto.Button>
+    <Frasto.IconButton icon={Frasto.PlusIcon} label="Add fixture" />
+    <Frasto.FormField>
+      <Frasto.FormLabel for="fixture-name" required>Name</Frasto.FormLabel>
+      <Frasto.FormDescription id="fixture-name-help">Packed field description.</Frasto.FormDescription>
+      <Frasto.Input id="fixture-name" name="name" aria-describedby="fixture-name-help" />
+      <Frasto.FormError id="fixture-name-error">Packed field error.</Frasto.FormError>
+    </Frasto.FormField>
+    <Frasto.Textarea name="notes" value="Packed textarea" />
+    <Frasto.Select name="status" aria-label="Fixture status">
+      <option value="ready">Ready</option>
+    </Frasto.Select>
+    <Frasto.Checkbox name="enabled" checked>Enabled</Frasto.Checkbox>
+    <Frasto.Radio name="mode" value="packed" checked>Packed mode</Frasto.Radio>
+    <Frasto.Switch name="live" checked>Live fixture</Frasto.Switch>
+    <Frasto.SearchInput id="fixture-search" label="Search fixture" />
+    <Frasto.Table caption="Package rows" density={tableDensity}>
+      <tbody><tr><td>Ready</td></tr></tbody>
+    </Frasto.Table>
+    <Frasto.EmptyState title="No additional rows" headingLevel={emptyHeading} />
+    <Frasto.Stat label="Package components" value={String(exportCount)} change="Package loaded" changeTone={statTone} />
+    <Frasto.Pagination label="Package pages">
+      <Frasto.PaginationItem current label="Current page, page 1">1</Frasto.PaginationItem>
+      <Frasto.PaginationItem kind={paginationKind} href="?page=2">Next</Frasto.PaginationItem>
+    </Frasto.Pagination>
+    <Frasto.Alert title="Package ready" tone={alertTone}>All representative imports rendered.</Frasto.Alert>
+    <Frasto.ButtonGroup label="Package actions" orientation={groupOrientation}>
+      <Frasto.Button>Save</Frasto.Button>
+      <Frasto.ButtonGroupSeparator />
+      <Frasto.ButtonGroupText>or</Frasto.ButtonGroupText>
+      <Frasto.Button variant="outline">Cancel</Frasto.Button>
+    </Frasto.ButtonGroup>
+    <Frasto.Accordion type={accordionType} defaultValue="consumer" collapsible>
+      <Frasto.AccordionItem value="consumer">
+        <Frasto.AccordionTrigger>Consumer details</Frasto.AccordionTrigger>
+        <Frasto.AccordionContent>Packed component content</Frasto.AccordionContent>
+      </Frasto.AccordionItem>
+    </Frasto.Accordion>
+    <Frasto.Collapsible defaultOpen>
+      <Frasto.CollapsibleTrigger>Build details</Frasto.CollapsibleTrigger>
+      <Frasto.CollapsibleContent>Astro consumer build</Frasto.CollapsibleContent>
+    </Frasto.Collapsible>
+    <Frasto.Dialog id="fixture-dialog" title="Packed dialog">
+      <Frasto.Button slot="trigger">Open dialog</Frasto.Button>
+      Dialog content
+    </Frasto.Dialog>
+    <Frasto.Drawer id="fixture-drawer" title="Packed drawer">
+      <Frasto.Button slot="trigger">Open drawer</Frasto.Button>
+      Drawer content
+    </Frasto.Drawer>
+    <Frasto.Dropdown id="fixture-menu" label="Fixture actions">
+      <Frasto.Button slot="trigger">Open actions</Frasto.Button>
+      <Frasto.DropdownItem href="/">Open home</Frasto.DropdownItem>
+      <Frasto.DropdownItem disabled>Unavailable</Frasto.DropdownItem>
+    </Frasto.Dropdown>
+    <Frasto.Popover id="fixture-popover" label="Fixture details">
+      <Frasto.Button slot="trigger">Show details</Frasto.Button>
+      Popover content
+    </Frasto.Popover>
+    <Frasto.Tooltip id="fixture-tooltip" content="Packed tooltip">
+      <Frasto.Button>Tooltip trigger</Frasto.Button>
+    </Frasto.Tooltip>
+    <Frasto.Tabs label="Fixture sections" defaultValue="overview">
+      <Frasto.Tab slot="tab" value="overview">Overview</Frasto.Tab>
+      <Frasto.Tab slot="tab" value="activity">Activity</Frasto.Tab>
+      <Frasto.TabPanel slot="panel" value="overview">Overview panel</Frasto.TabPanel>
+      <Frasto.TabPanel slot="panel" value="activity">Activity panel</Frasto.TabPanel>
+    </Frasto.Tabs>
+    <Frasto.Surface as="section" variant="outlined" aria-label="Packed surface">
+      Surface content
+      <Frasto.Separator />
+      <Frasto.Skeleton animation="none" />
+      <Frasto.Spinner label="Loading fixture" />
+    </Frasto.Surface>
+  </body>
+</html>

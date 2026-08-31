@@ -8,6 +8,7 @@ Use these documents when changing Frasto itself:
 - [Detailed foundation notes](./foundations/)
 - [Component standards](./component-standards.md)
 - [Testing](./testing.md)
+- [Upstream sources](./upstream-sources.md)
 - [Release process](./release-process.md)
 - [Contribution guidance](./contributing/)
 - [Repository contribution guide](../../CONTRIBUTING.md)

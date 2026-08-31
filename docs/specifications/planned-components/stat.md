@@ -3,7 +3,7 @@ title: Stat
 description: Designing compact quantitative summaries with explicit context and meaning.
 ---
 
-**Status: Designing**
+**Status: Experimental — implemented in Phase 4 Gate 3**
 
 `Stat` presents one formatted value, its label, and optional change or context without turning every metric into a decorative card.
 

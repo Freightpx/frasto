@@ -18,6 +18,11 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={frastoLogo.src} />
+    <script is:inline>
+      const savedTheme = localStorage.getItem('frasto-site-theme');
+      const systemTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = savedTheme ?? systemTheme;
+    </script>
     <title>{title}</title>
   </head>
   <body data-frasto-root>
@@ -27,6 +32,7 @@ const { title, description } = Astro.props;
         <a href="/docs/">Docs</a>
         <a href="/demo/">Demo</a>
         <a href="https://github.com/Freightpx/frasto">GitHub</a>
+        <button class="site-theme-toggle" type="button" data-site-theme-toggle>Dark theme</button>
       </nav>
     </header>
     <main>
@@ -37,5 +43,23 @@ const { title, description } = Astro.props;
       <span>Clarity first. Craft throughout.</span>
       <span>Built by Freightpx</span>
     </footer>
+    <script is:inline>
+      const toggle = document.querySelector('[data-site-theme-toggle]');
+      const updateToggle = () => {
+        if (!(toggle instanceof HTMLButtonElement)) return;
+        const isDark = document.documentElement.dataset.theme === 'dark';
+        toggle.textContent = isDark ? 'Light theme' : 'Dark theme';
+        toggle.setAttribute('aria-label', `Use ${isDark ? 'light' : 'dark'} theme`);
+      };
+
+      toggle?.addEventListener('click', () => {
+        const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = nextTheme;
+        localStorage.setItem('frasto-site-theme', nextTheme);
+        updateToggle();
+      });
+
+      updateToggle();
+    </script>
   </body>
 </html>

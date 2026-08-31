@@ -61,6 +61,60 @@
 }
 
 :where(
+  [data-frasto-pagination-link],
+  [data-frasto-pagination-current],
+  [data-frasto-pagination-disabled]
+) {
+  border-radius: var(--frasto-radius);
+}
+
+:where([data-frasto-alert], [data-frasto-button-group-text]) {
+  border-radius: var(--frasto-radius);
+}
+
+[data-frasto-accordion-item][data-open='true'] [data-frasto-disclosure-indicator],
+[data-frasto-collapsible][data-open='true'] [data-frasto-disclosure-indicator] {
+  transform: rotate(45deg);
+}
+
+[data-frasto-disclosure-indicator] {
+  transition: transform var(--frasto-duration-fast) var(--frasto-ease-standard);
+}
+
+[data-frasto-button-group][data-orientation='horizontal'] > :not(:first-child) {
+  margin-inline-start: -1px;
+}
+
+[data-frasto-button-group][data-orientation='vertical'] > :not(:first-child) {
+  margin-block-start: -1px;
+}
+
+[data-frasto-button-group][data-orientation='horizontal'] > [data-frasto-button-group-separator] {
+  width: 1px;
+  margin-inline: 0;
+}
+
+[data-frasto-button-group][data-orientation='vertical'] > [data-frasto-button-group-separator] {
+  height: 1px;
+  margin-block: 0;
+}
+
+@media (max-width: 39.999rem) {
+  [data-frasto-pagination] {
+    align-items: stretch;
+  }
+
+  [data-frasto-pagination-summary] {
+    flex-basis: 100%;
+  }
+
+  [data-frasto-pagination-item][data-kind='page']:not([data-current='true']),
+  [data-frasto-pagination-item][data-kind='gap'] {
+    display: none;
+  }
+}
+
+:where(
   [data-frasto-dropdown-panel],
   [data-frasto-popover-panel],
   [data-frasto-dialog-panel],
@@ -68,6 +122,16 @@
 ) {
   border-radius: var(--frasto-radius);
   box-shadow: 0 12px 32px rgb(17 17 17 / 12%);
+}
+
+[data-frasto-drawer][data-side='left'] [data-frasto-drawer-panel] {
+  margin-inline-start: 0;
+  margin-inline-end: auto;
+}
+
+[data-frasto-drawer][data-side='right'] [data-frasto-drawer-panel] {
+  margin-inline-start: auto;
+  margin-inline-end: 0;
 }
 
 :where([data-frasto-dialog], [data-frasto-drawer])::backdrop {

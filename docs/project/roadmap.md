@@ -59,17 +59,18 @@ The ordered execution gates, inventory findings, and advancement rules are maint
 - [x] Table — Experimental
 - [x] EmptyState — Experimental
 - [x] SearchInput — Experimental; keyboard and focus behavior must be revalidated before Beta
-- [ ] Pagination — Designing contract locked
-- [ ] Stat — Designing contract locked
+- [x] Pagination — Experimental
+- [x] Stat — Experimental
 
 ### Coverage priorities
 
-- Actions: ButtonGroup
+- [x] Actions: ButtonGroup — Experimental
 - Forms: Combobox, Date Picker, Date Range Picker, Tag Input, File Upload, Slider
 - Display: AvatarGroup, Progress, Kbd, Code, Aspect Ratio
-- Feedback: Alert, Toast, complete loading and error-state guidance
+- [x] Feedback: Alert — Experimental
+- [ ] Feedback: Toast, complete loading and error-state guidance
 - Navigation: Navigation Menu, sidebar primitives, Stepper, command interface
-- Disclosure: Accordion and Collapsible
+- [x] Disclosure: Accordion and Collapsible — Experimental
 - Overlays: Context Menu and Hover Card
 - Data: Table hardening and focused data-display utilities
 - Layout: Stack, Inline, Section, Divider, and other justified layout primitives
@@ -77,6 +78,8 @@ The ordered execution gates, inventory findings, and advancement rules are maint
 Inventory order is guided by repeated usefulness, accessibility complexity, category gaps, and maintainability. Higher-level systems such as ResourceTable, FilterBar, ActivityFeed, DetailLayout, SettingsLayout, AppShell, and complete product workflows remain planned, but no longer block the core library.
 
 ## Phase 5 — Component maturity and hardening
+
+**Status: In progress.** Follow the ordered [Phase 5 maturity and hardening plan](./phase5-plan.md).
 
 - [ ] Audit public API consistency and composition boundaries
 - [ ] Complete accessibility and keyboard test coverage
@@ -99,9 +102,14 @@ Target: `0.1.0-alpha` when the foundation and a meaningful component set are usa
 
 - [ ] Track real project usage, API friction, accessibility findings, and browser issues
 - [ ] Refine APIs through evidence and documented migration paths
-- [ ] Expand coverage where repeated user needs justify it
+- [ ] Wave A — Label, InputGroup, Slider, Toggle, and ToggleGroup
+- [ ] Wave B — Card, Item, Kbd, Date, LinkGroup, and StickySurface
+- [ ] Wave C — Combobox, HoverCard, NavigationMenu, Command, Carousel, and Marquee
+- [ ] Expand further coverage only where repeated user needs justify it
 - [ ] Encourage contributors, community examples, and integration guides
 - [ ] Monitor npm adoption, GitHub activity, and external projects as product-health signals
+
+Every Phase 7 family is a complete Experimental vertical slice with a written contract, structural Frasto styling, public documentation, rendered and browser evidence as applicable, accessibility review, and packed-package validation. The waves are roadmap commitments but do not delay the Phase 6 public alpha.
 
 ## Phase 8 — Frasto Icons
 

@@ -25,7 +25,7 @@ const {
 const panelId = id ?? `frasto-dropdown-${Math.random().toString(36).slice(2)}`;
 ---
 
-<frasto-dropdown {...rest} class:list={[dropdownRoot, className]} data-placement={placement}>
+<frasto-dropdown {...rest} class:list={[dropdownRoot, className]} data-frasto-dropdown data-placement={placement}>
   <span class="inline-flex" data-frasto-overlay-trigger><slot name="trigger" /></span>
   <div
     id={panelId}
@@ -62,6 +62,7 @@ const panelId = id ?? `frasto-dropdown-${Math.random().toString(36).slice(2)}`;
       this.trigger.addEventListener('keydown', this.handleTriggerKeydown);
       this.panel.addEventListener('keydown', this.handlePanelKeydown);
       this.panel.addEventListener('click', this.handlePanelClick);
+      document.addEventListener('keydown', this.handleDocumentKeydown);
       document.addEventListener('pointerdown', this.handleOutsidePointer);
       window.addEventListener('resize', this.reposition);
       window.addEventListener('scroll', this.reposition, true);
@@ -72,6 +73,7 @@ const panelId = id ?? `frasto-dropdown-${Math.random().toString(36).slice(2)}`;
       this.trigger?.removeEventListener('keydown', this.handleTriggerKeydown);
       this.panel?.removeEventListener('keydown', this.handlePanelKeydown);
       this.panel?.removeEventListener('click', this.handlePanelClick);
+      document.removeEventListener('keydown', this.handleDocumentKeydown);
       document.removeEventListener('pointerdown', this.handleOutsidePointer);
       window.removeEventListener('resize', this.reposition);
       window.removeEventListener('scroll', this.reposition, true);
@@ -84,6 +86,11 @@ const panelId = id ?? `frasto-dropdown-${Math.random().toString(36).slice(2)}`;
 
     private handleTriggerClick = () => this.panel?.hidden ? this.open(false) : this.close();
     private handleTriggerKeydown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && this.panel && !this.panel.hidden) {
+        event.preventDefault();
+        this.close();
+        return;
+      }
       if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
       event.preventDefault();
       this.open(true, event.key === 'ArrowUp');
@@ -94,6 +101,11 @@ const panelId = id ?? `frasto-dropdown-${Math.random().toString(36).slice(2)}`;
     };
     private handleOutsidePointer = (event: PointerEvent) => {
       if (!this.contains(event.target as Node)) this.close(false);
+    };
+    private handleDocumentKeydown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || !this.panel || this.panel.hidden) return;
+      event.preventDefault();
+      this.close();
     };
     private handlePanelKeydown = (event: KeyboardEvent) => {
       const items = this.items();

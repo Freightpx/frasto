@@ -17,7 +17,7 @@ Overlays temporarily place content above the normal page flow. They carry signif
 | [Popover](/docs/components/popover/) | contextual non-modal content — Experimental |
 | [Tooltip](/docs/components/tooltip/) | supplemental label or brief explanation — Experimental |
 | ContextMenu | contextual action menu — Planned |
-| HoverCard | optional linked-content preview — Planned |
+| HoverCard | optional linked-content preview — Phase 7 |
 
 ## Shared requirements
 

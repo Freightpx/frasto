@@ -1,6 +1,6 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/inter-tight";
-@import "@freightpx/frasto/tokens.css";
+@import "@freightpx/frasto/styles.css";
 
 /* Frasto documentation: editorial structure with compact interface density. */
 
@@ -396,17 +396,23 @@ main h1#_top::before {
 }
 
 .sl-markdown-content > p:first-child:has(> strong:first-child) {
-  display: inline-flex;
-  gap: 0.35rem;
-  align-items: center;
+  display: block;
+  max-width: 100%;
   margin-bottom: 1.75rem;
   padding: 0.4rem 0.55rem;
   border: 1px solid var(--freight-border);
   color: var(--freight-muted);
   background: var(--freight-surface-subtle);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  text-transform: none;
+}
+
+.sl-markdown-content > p:first-child:has(> strong:first-child) > strong:first-child {
+  margin-right: 0.35rem;
   letter-spacing: 0.055em;
-  line-height: 1.2;
   text-transform: uppercase;
 }
 
@@ -440,16 +446,39 @@ main h1#_top::before {
   line-height: 1;
 }
 
+.frasto-preview-column {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.frasto-preview-column > :where(*) {
+  width: 100%;
+  min-width: 0;
+}
+
 /* Starlight adds vertical prose rhythm between sibling elements. Frasto
    components own their dimensions, so documentation must not offset them. */
 
 [data-frasto-root] :where(
   [data-frasto-avatar],
+  [data-frasto-accordion],
+  [data-frasto-accordion-content],
+  [data-frasto-accordion-item],
+  [data-frasto-accordion-trigger],
+  [data-frasto-alert],
+  [data-frasto-alert-content],
+  [data-frasto-alert-title],
   [data-frasto-badge],
   [data-frasto-breadcrumb],
   [data-frasto-breadcrumb-item],
   [data-frasto-button],
+  [data-frasto-button-group],
+  [data-frasto-button-group-separator],
+  [data-frasto-button-group-text],
   [data-frasto-checkbox],
+  [data-frasto-collapsible],
+  [data-frasto-collapsible-content],
+  [data-frasto-collapsible-trigger],
   [data-frasto-dropdown-item],
   [data-frasto-empty-state],
   [data-frasto-empty-state-actions],
@@ -468,12 +497,22 @@ main h1#_top::before {
   [data-frasto-page-header-eyebrow],
   [data-frasto-page-header-metadata],
   [data-frasto-page-header-title],
+  [data-frasto-pagination],
+  [data-frasto-pagination-item],
+  [data-frasto-pagination-list],
+  [data-frasto-pagination-summary],
   [data-frasto-radio],
   [data-frasto-search-input],
   [data-frasto-search-input-label],
   [data-frasto-select],
   [data-frasto-skeleton],
   [data-frasto-spinner],
+  [data-frasto-stat],
+  [data-frasto-stat-change],
+  [data-frasto-stat-context],
+  [data-frasto-stat-description],
+  [data-frasto-stat-label],
+  [data-frasto-stat-value],
   [data-frasto-status],
   [data-frasto-switch],
   [data-frasto-tab],

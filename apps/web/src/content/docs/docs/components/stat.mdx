@@ -1,0 +1,54 @@
+---
+title: Stat
+description: Compact quantitative summaries with explicit context and meaning.
+---
+
+import { Stat } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Stat` presents one application-formatted value, its label, and optional change or context. It uses structural dividers and typography rather than turning every metric into a decorative card.
+
+## Preview
+
+<div class="frasto-preview" data-frasto-root style="width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));column-gap:1.5rem;">
+  <Stat label="Active customers" value="112" change="Up 8 this month" changeTone="positive" description="From 128 total records" />
+  <Stat label="Open balance" value="$42,840" change="Down 4.2%" changeTone="positive" description="Compared with last month" />
+  <Stat label="Needs review" value="7" change="2 overdue" changeTone="warning" description="Across all workspaces" />
+</div>
+
+## Usage
+
+```astro
+---
+import { Stat } from '@freightpx/frasto';
+---
+
+<Stat
+  label="Active customers"
+  value="112"
+  change="Up 8 this month"
+  changeTone="positive"
+  description="From 128 total records"
+/>
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `label` | `string` | required | identifies the metric |
+| `value` | `string` | required | application-formatted primary value |
+| `change` | `string` | — | visible change or trend text |
+| `changeTone` | `"neutral" \| "positive" \| "warning" \| "danger" \| "info"` | `"neutral"` | semantic treatment selected by the application |
+| `description` | `string` | — | period, comparison, or supporting context |
+| `class` | `string` | — | styles the root description list |
+| `valueClass` | `string` | — | styles the primary value |
+
+The optional `visual` slot accepts a small supplementary visualization. Decorative visuals must be hidden from assistive technology; informative visuals need an accessible summary that repeats their meaning in text.
+
+## Responsibilities and accessibility
+
+`Stat` owns description-list semantics, text hierarchy, tabular numerals, compact spacing, and wrapping. The application formats currency, percentages, units, dates, and localization before rendering. It also decides whether a change is positive or risky in its domain.
+
+Trend meaning must be written in `change`; do not rely on color or an unexplained arrow. Group multiple Stats in an application-owned responsive grid with shared spacing. Long values and localized context wrap without clipping.

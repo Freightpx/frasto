@@ -1,0 +1,12 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { accordionIndicator, accordionTrigger } from './accordion-styles';
+
+type Props = Omit<HTMLAttributes<'button'>, 'class' | 'type'> & { class?: string };
+const { class: className, ...rest } = Astro.props;
+---
+
+<button {...rest} class:list={[accordionTrigger, className]} type="button" data-frasto-accordion-trigger>
+  <span><slot /></span>
+  <span class:list={accordionIndicator} aria-hidden="true" data-frasto-disclosure-indicator>+</span>
+</button>

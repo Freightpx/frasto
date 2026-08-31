@@ -19,10 +19,12 @@ Forms should work with ordinary HTML submission, Astro Actions, or any applicati
 | [Radio](/docs/components/radio/) | one choice from a visible group — Experimental |
 | [Switch](/docs/components/switch/) | immediate binary setting — Experimental |
 | [SearchInput](/docs/application-components/search-input/) | search intent with clear behavior — Experimental |
+| Label | standalone native control label — Phase 7 |
+| InputGroup | control with addons, text, or actions — Phase 7 |
 | Fieldset / FieldGroup | related controls and group-level description — Planned |
-| Combobox | searchable option selection — Planned |
+| Combobox | searchable option selection — Phase 7 |
 | Date and time controls | typed temporal input with locale-aware guidance — Planned |
-| Slider / Range | bounded numeric selection — Planned |
+| Slider / Range | bounded numeric selection — Phase 7 |
 | FileInput | file selection, constraints, and selected-file feedback — Planned |
 
 ## Contract

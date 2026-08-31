@@ -2,7 +2,12 @@
 
 ## Supported versions
 
-Frasto is currently pre-alpha. No version is considered production-supported yet. Security fixes will be applied to the active development branch and documented in the changelog when releases begin.
+| Version | Security status |
+| --- | --- |
+| `0.1.0-alpha.x` | active alpha line; security fixes are targeted but production support is not guaranteed |
+| older development snapshots | unsupported |
+
+Alpha security fixes are applied to the active release line and documented in the changelog. Components remain Experimental until they individually meet the Beta evidence gate.
 
 ## Reporting a vulnerability
 

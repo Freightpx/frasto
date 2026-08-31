@@ -46,9 +46,21 @@ button, input, textarea { font: inherit; }
   border-bottom: 1px solid var(--site-border);
 }
 
-.site-header nav { display: flex; gap: 1.5rem; font-size: .875rem; }
+.site-header nav { display: flex; align-items: center; gap: 1.5rem; font-size: .875rem; }
 .site-header nav a { text-decoration: none; }
 .site-header nav a:hover { text-decoration: underline; text-underline-offset: .25rem; }
+.site-theme-toggle {
+  min-height: 36px;
+  padding: 0 .75rem;
+  border: 1px solid var(--site-border);
+  border-radius: 0;
+  background: var(--site-surface);
+  color: var(--site-ink);
+  cursor: pointer;
+  font-size: .75rem;
+}
+.site-theme-toggle:hover { border-color: var(--frasto-border-strong, #b9b5ac); }
+.site-theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 .wordmark { display: inline-flex; align-items: center; text-decoration: none; }
 
 .hero-shell,
@@ -63,7 +75,11 @@ button, input, textarea { font: inherit; }
 .hero-grid h1,
 .demo-intro h1 { margin: 0; max-width: 13ch; font-family: var(--frasto-font-display, "Inter Tight", Inter, sans-serif); font-size: clamp(3.25rem, 8.5vw, 8rem); line-height: .88; letter-spacing: -.065em; }
 .hero-copy > p { margin: 0; max-width: 34rem; color: var(--site-muted); font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.55; }
+.hero-copy > .alpha-label { margin-bottom: .75rem; color: var(--site-ink); font-size: .6875rem; font-weight: 650; letter-spacing: .12em; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }
+.install-command { margin-top: 1rem; padding: .875rem 1rem; overflow-x: auto; border: 1px solid var(--site-border); background: var(--site-surface); font-size: .8125rem; white-space: nowrap; }
+.hero-copy > .hero-links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; font-size: .75rem; }
+.hero-links a { text-underline-offset: .2rem; }
 
 .section-heading { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start; }
 .section-heading h2 { margin: 0; font-family: var(--frasto-font-display, "Inter Tight", Inter, sans-serif); font-size: clamp(2rem, 5vw, 4.5rem); line-height: .95; letter-spacing: -.05em; }
@@ -113,6 +129,8 @@ button, input, textarea { font: inherit; }
 .site-footer { border-top: 1px solid var(--site-border); border-bottom: 0; color: var(--site-muted); font-size: .75rem; }
 
 @media (max-width: 760px) {
+  .site-header { align-items: flex-start; padding-block: .75rem; }
+  .site-header nav { justify-content: flex-end; flex-wrap: wrap; gap: .5rem 1rem; }
   .hero-grid, .section-heading { grid-template-columns: 1fr; }
   .principle-list li { grid-template-columns: 2rem 1fr; }
   .principle-list p { grid-column: 2; }

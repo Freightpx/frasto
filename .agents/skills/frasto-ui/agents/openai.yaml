@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frasto UI"
+  short_description: "Build Astro interfaces with Frasto UI"
+  default_prompt: "Use $frasto-ui to build an Astro interface with Frasto components."

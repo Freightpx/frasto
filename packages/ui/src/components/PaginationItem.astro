@@ -1,0 +1,78 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  paginationCurrent,
+  paginationDisabled,
+  paginationGap,
+  paginationItem,
+  paginationLink,
+  type PaginationItemKind,
+} from './pagination-styles';
+
+type PaginationLinkAttributes = Omit<HTMLAttributes<'a'>, 'aria-current' | 'aria-label' | 'class' | 'href'>;
+
+type Props = Omit<HTMLAttributes<'li'>, 'class'> & {
+  class?: string;
+  current?: boolean;
+  disabled?: boolean;
+  href?: string;
+  kind?: PaginationItemKind;
+  label?: string;
+  linkAttributes?: PaginationLinkAttributes;
+  linkClass?: string;
+};
+
+const {
+  class: className,
+  current = false,
+  disabled = false,
+  href,
+  kind = 'page',
+  label,
+  linkAttributes = {},
+  linkClass,
+  ...rest
+} = Astro.props;
+---
+
+<li
+  {...rest}
+  class:list={[paginationItem, className]}
+  data-frasto-pagination-item
+  data-kind={kind}
+  data-current={current ? 'true' : undefined}
+>
+  {kind === 'gap' ? (
+    <span class:list={[paginationGap, linkClass]} aria-hidden="true" data-frasto-pagination-gap>
+      <slot />
+    </span>
+  ) : current ? (
+    <span
+      class:list={[paginationCurrent, linkClass]}
+      aria-current="page"
+      aria-label={label}
+      data-frasto-pagination-current
+    >
+      <slot />
+    </span>
+  ) : disabled || !href ? (
+    <span
+      class:list={[paginationDisabled, linkClass]}
+      aria-disabled="true"
+      aria-label={label}
+      data-frasto-pagination-disabled
+    >
+      <slot />
+    </span>
+  ) : (
+    <a
+      {...linkAttributes}
+      class:list={[paginationLink, linkClass]}
+      href={href}
+      aria-label={label}
+      data-frasto-pagination-link
+    >
+      <slot />
+    </a>
+  )}
+</li>

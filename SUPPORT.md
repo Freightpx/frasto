@@ -19,7 +19,7 @@ Review the [public documentation](https://frasto.freightpx.com/docs/) and search
 
 Support can clarify documented APIs, investigate reproducible package or documentation problems, and identify whether a request belongs in the component library.
 
-Support does not include guaranteed response times, private consulting, application-specific architecture, backend debugging, migration of an entire product, or production support for pre-alpha releases.
+Support does not include guaranteed response times, private consulting, application-specific architecture, backend debugging, migration of an entire product, or production support for alpha releases.
 
 ## Make a question answerable
 
@@ -34,4 +34,4 @@ Include:
 
 Security vulnerabilities must follow [SECURITY.md](./SECURITY.md), not a public issue.
 
-Frasto is pre-alpha. Maintainers may close questions about planned components or application-specific behavior with a pointer to the roadmap, specifications, or an external integration.
+Frasto is a public-alpha project. Maintainers may close questions about planned components or application-specific behavior with a pointer to the roadmap, specifications, or an external integration.

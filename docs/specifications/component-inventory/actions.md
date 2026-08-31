@@ -3,7 +3,7 @@ title: Actions inventory
 description: Available action primitives and the planned grouped-action contract.
 ---
 
-**Status: Mixed — Button and IconButton are Experimental; ButtonGroup is Planned.**
+**Status: Experimental.**
 
 Actions initiate a user-controlled operation or navigation. Labels should be verbs that describe the outcome.
 
@@ -13,9 +13,11 @@ Actions initiate a user-controlled operation or navigation. Labels should be ver
 | --- | --- | --- |
 | [Button](/docs/components/button/) | text action or link treatment | Experimental |
 | [IconButton](/docs/components/icon-button/) | compact familiar action | Experimental |
-| ButtonGroup | related actions | spacing, adjacency, focus order |
+| [ButtonGroup](/docs/components/button-group/) | related actions | spacing, adjacency, focus order |
 | SplitButton | primary action with related alternatives | explicit default, menu relationship |
 | ToggleButton | persistent pressed state | `aria-pressed`, visible selected state |
+| Toggle | one persistent pressed action — Phase 7 | `aria-pressed`, disabled state, visible selected state |
+| ToggleGroup | coordinated pressed actions — Phase 7 | single/multiple selection, roving focus, orientation |
 
 ## Shared API language
 

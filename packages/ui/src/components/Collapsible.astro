@@ -1,0 +1,73 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { collapsibleRoot } from './collapsible-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  class?: string;
+  defaultOpen?: boolean;
+  disabled?: boolean;
+};
+
+const { class: className, defaultOpen = false, disabled = false, ...rest } = Astro.props;
+---
+
+<frasto-collapsible
+  {...rest}
+  class:list={[collapsibleRoot, className]}
+  data-default-open={defaultOpen ? 'true' : 'false'}
+  data-disabled={disabled ? 'true' : 'false'}
+  data-frasto-collapsible
+>
+  <slot />
+</frasto-collapsible>
+
+<script>
+  let collapsibleInstance = 0;
+
+  class FrastoCollapsible extends HTMLElement {
+    private content: HTMLElement | null = null;
+    private trigger: HTMLButtonElement | null = null;
+
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      collapsibleInstance += 1;
+      this.trigger = this.querySelector('[data-frasto-collapsible-trigger]');
+      this.content = this.querySelector('[data-frasto-collapsible-content]');
+      if (!this.trigger || !this.content) return;
+      this.trigger.id ||= `frasto-collapsible-${collapsibleInstance}-trigger`;
+      this.content.id ||= `frasto-collapsible-${collapsibleInstance}-content`;
+      this.trigger.setAttribute('aria-controls', this.content.id);
+      this.content.setAttribute('aria-labelledby', this.trigger.id);
+      this.content.setAttribute('role', 'region');
+      this.trigger.disabled = this.dataset.disabled === 'true';
+      this.trigger.addEventListener('click', this.toggle);
+      this.setOpen(this.dataset.defaultOpen === 'true');
+    }
+
+    disconnectedCallback() {
+      this.trigger?.removeEventListener('click', this.toggle);
+      delete this.dataset.initialized;
+    }
+
+    private toggle = () => {
+      if (this.trigger?.disabled) return;
+      const open = this.dataset.open !== 'true';
+      this.setOpen(open);
+      this.dispatchEvent(new CustomEvent('frasto:collapsible-change', {
+        bubbles: true,
+        detail: { open },
+      }));
+    };
+
+    private setOpen(open: boolean) {
+      this.dataset.open = open ? 'true' : 'false';
+      this.trigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (this.content) this.content.hidden = !open;
+    }
+  }
+
+  if (!customElements.get('frasto-collapsible')) {
+    customElements.define('frasto-collapsible', FrastoCollapsible);
+  }
+</script>

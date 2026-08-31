@@ -7,7 +7,7 @@ An Astro-first open-source UI component library and design system for modern web
 
 Frasto combines reusable Astro components with warm neutral surfaces, near-black typography, thin structural lines, square geometry, compact controls, accessible states, and purposeful interaction.
 
-> **Pre-alpha:** Frasto is under active development, is not yet published for production use, and may make breaking API changes.
+> **Public alpha release candidate:** `0.1.0-alpha.1` is prepared for public evaluation. Every component remains Experimental, breaking changes are possible, and production use is not yet recommended.
 
 ## Why Frasto
 
@@ -24,6 +24,14 @@ Frasto combines reusable Astro components with warm neutral surfaces, near-black
 Experimental components currently cover actions, forms, display, feedback, navigation, overlays, data presentation, and layout. See the [public component documentation](https://frasto.freightpx.com/docs/components/overview/) for the available inventory.
 
 Planned APIs and future application-layer research are intentionally kept out of the consumer documentation.
+
+## Install the alpha
+
+After the public package is released, install the prerelease from npm's `next` channel:
+
+```bash
+pnpm add @freightpx/frasto@next
+```
 
 ## Repository
 

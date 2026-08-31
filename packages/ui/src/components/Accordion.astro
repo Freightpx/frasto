@@ -1,0 +1,139 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { accordionRoot, type AccordionType } from './accordion-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  class?: string;
+  collapsible?: boolean;
+  defaultValue?: string | string[];
+  type?: AccordionType;
+};
+
+const {
+  class: className,
+  collapsible = false,
+  defaultValue,
+  type = 'single',
+  ...rest
+} = Astro.props;
+
+const defaultValues = defaultValue === undefined
+  ? []
+  : Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+---
+
+<frasto-accordion
+  {...rest}
+  class:list={[accordionRoot, className]}
+  data-collapsible={collapsible ? 'true' : 'false'}
+  data-default-values={JSON.stringify(defaultValues)}
+  data-frasto-accordion
+  data-type={type}
+>
+  <slot />
+</frasto-accordion>
+
+<script>
+  let accordionInstance = 0;
+
+  class FrastoAccordion extends HTMLElement {
+    private items: HTMLElement[] = [];
+    private triggers: HTMLButtonElement[] = [];
+
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      accordionInstance += 1;
+      this.items = Array.from(this.querySelectorAll<HTMLElement>('[data-frasto-accordion-item]'))
+        .filter((item) => item.closest('frasto-accordion') === this);
+
+      this.items.forEach((item, index) => {
+        const trigger = item.querySelector<HTMLButtonElement>('[data-frasto-accordion-trigger]');
+        const content = item.querySelector<HTMLElement>('[data-frasto-accordion-content]');
+        if (!trigger || !content) return;
+        const baseId = `frasto-accordion-${accordionInstance}-${index}`;
+        trigger.id ||= `${baseId}-trigger`;
+        content.id ||= `${baseId}-content`;
+        trigger.setAttribute('aria-controls', content.id);
+        content.setAttribute('aria-labelledby', trigger.id);
+        content.setAttribute('role', 'region');
+        trigger.disabled = item.dataset.disabled === 'true';
+        trigger.addEventListener('click', this.handleClick);
+        trigger.addEventListener('keydown', this.handleKeydown);
+        this.triggers.push(trigger);
+      });
+
+      let defaults: string[] = [];
+      try {
+        defaults = JSON.parse(this.dataset.defaultValues ?? '[]');
+      } catch {
+        defaults = [];
+      }
+      if (this.dataset.type !== 'multiple') defaults = defaults.slice(0, 1);
+      this.items.forEach((item) => this.setOpen(item, defaults.includes(item.dataset.value ?? '')));
+    }
+
+    disconnectedCallback() {
+      this.triggers.forEach((trigger) => {
+        trigger.removeEventListener('click', this.handleClick);
+        trigger.removeEventListener('keydown', this.handleKeydown);
+      });
+      this.items = [];
+      this.triggers = [];
+      delete this.dataset.initialized;
+    }
+
+    private handleClick = (event: Event) => {
+      const trigger = event.currentTarget as HTMLButtonElement;
+      const item = trigger.closest<HTMLElement>('[data-frasto-accordion-item]');
+      if (!item || trigger.disabled) return;
+      const wasOpen = item.dataset.open === 'true';
+      if (this.dataset.type === 'single') {
+        if (wasOpen && this.dataset.collapsible !== 'true') return;
+        this.items.forEach((candidate) => this.setOpen(candidate, candidate === item ? !wasOpen : false));
+      } else {
+        this.setOpen(item, !wasOpen);
+      }
+      this.emitChange(item);
+    };
+
+    private handleKeydown = (event: KeyboardEvent) => {
+      const enabled = this.triggers.filter((trigger) => !trigger.disabled);
+      const current = enabled.indexOf(event.currentTarget as HTMLButtonElement);
+      let next = current;
+      if (event.key === 'ArrowDown') next = (current + 1) % enabled.length;
+      else if (event.key === 'ArrowUp') next = (current - 1 + enabled.length) % enabled.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = enabled.length - 1;
+      else return;
+      event.preventDefault();
+      enabled[next]?.focus();
+    };
+
+    private setOpen(item: HTMLElement, open: boolean) {
+      const trigger = item.querySelector<HTMLButtonElement>('[data-frasto-accordion-trigger]');
+      const content = item.querySelector<HTMLElement>('[data-frasto-accordion-content]');
+      item.dataset.open = open ? 'true' : 'false';
+      trigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (content) content.hidden = !open;
+    }
+
+    private emitChange(item: HTMLElement) {
+      const values = this.items
+        .filter((candidate) => candidate.dataset.open === 'true')
+        .map((candidate) => candidate.dataset.value ?? '');
+      this.dispatchEvent(new CustomEvent('frasto:accordion-change', {
+        bubbles: true,
+        detail: {
+          value: item.dataset.value,
+          open: item.dataset.open === 'true',
+          values,
+        },
+      }));
+    }
+  }
+
+  if (!customElements.get('frasto-accordion')) {
+    customElements.define('frasto-accordion', FrastoAccordion);
+  }
+</script>

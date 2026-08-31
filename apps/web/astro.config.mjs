@@ -49,6 +49,7 @@ export default defineConfig({
             { label: 'Themes', slug: 'docs/getting-started/themes' },
             { label: 'Icons', slug: 'docs/getting-started/icons' },
             { label: 'TypeScript', slug: 'docs/getting-started/typescript' },
+            { label: 'AI tools', slug: 'docs/getting-started/ai-tools' },
             { label: 'Project status', slug: 'docs/getting-started/status' },
           ],
         },
@@ -60,6 +61,7 @@ export default defineConfig({
               label: 'Actions',
               items: [
                 { label: 'Button', slug: 'docs/components/button' },
+                { label: 'ButtonGroup', slug: 'docs/components/button-group' },
                 { label: 'IconButton', slug: 'docs/components/icon-button' },
               ],
             },
@@ -84,18 +86,28 @@ export default defineConfig({
                 { label: 'Status', slug: 'docs/components/status' },
                 { label: 'Skeleton', slug: 'docs/components/skeleton' },
                 { label: 'Spinner', slug: 'docs/components/spinner' },
+                { label: 'Stat', slug: 'docs/components/stat' },
               ],
             },
             {
               label: 'Feedback',
               items: [
+                { label: 'Alert', slug: 'docs/components/alert' },
                 { label: 'EmptyState', slug: 'docs/application-components/empty-state' },
+              ],
+            },
+            {
+              label: 'Disclosure',
+              items: [
+                { label: 'Accordion', slug: 'docs/components/accordion' },
+                { label: 'Collapsible', slug: 'docs/components/collapsible' },
               ],
             },
             {
               label: 'Navigation',
               items: [
                 { label: 'Breadcrumb', slug: 'docs/components/breadcrumb' },
+                { label: 'Pagination', slug: 'docs/components/pagination' },
                 { label: 'Tabs', slug: 'docs/components/tabs' },
               ],
             },

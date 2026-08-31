@@ -3,7 +3,7 @@ title: Pagination
 description: Designing server-first result navigation with authored links and current-page context.
 ---
 
-**Status: Designing**
+**Status: Experimental — implemented in Phase 4 Gate 3**
 
 `Pagination` moves through a known result sequence with ordinary URLs and communicates the current position. The initial API is compositional so numbered, cursor-based, and abbreviated sequences share one semantic foundation.
 

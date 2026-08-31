@@ -1,0 +1,9 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { collapsibleContent } from './collapsible-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & { class?: string };
+const { class: className, ...rest } = Astro.props;
+---
+
+<div {...rest} class:list={[collapsibleContent, className]} data-frasto-collapsible-content><slot /></div>

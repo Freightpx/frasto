@@ -20,6 +20,7 @@ Layout components provide repeated spacing, alignment, surface, and section beha
 | Cluster | wrapping related controls or metadata |
 | Grid | responsive repeated-column layout |
 | Center / Container | readable width and page alignment |
+| StickySurface | stable sticky region with optional stuck-state enhancement — Phase 7 |
 
 ## Restraint
 

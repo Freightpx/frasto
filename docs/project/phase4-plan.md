@@ -20,6 +20,8 @@ Phase 4 expands Frasto's general-purpose component coverage while raising the qu
 
 ## Gate 2 — Test harness and existing-component hardening
 
+**Status: Complete**
+
 Implement the smallest maintainable harness that covers the test layers in the [testing strategy](../development/testing.md). Prove the harness with current components before expanding the inventory.
 
 Order:
@@ -35,22 +37,26 @@ Gate 2 is complete when these paths run repeatably in CI and their known finding
 
 ## Gate 3 — Locked expansion slice
 
+**Status: Complete at Experimental maturity**
+
 Implement as separate vertical slices:
 
-1. Pagination
-2. Stat
+1. [x] Pagination
+2. [x] Stat
 
 Each slice includes API confirmation, Astro implementation, public exports and types, rendered and browser tests as applicable, public component documentation, a realistic example, light/dark verification, narrow-layout verification, and successful package-consumer validation.
 
 ## Gate 4 — Category-gap slice
 
-Revalidate scope after Gate 3, then prefer the smallest broadly reusable gaps:
+**Status: Complete at Experimental maturity**
 
-1. Accordion and Collapsible
-2. Alert
-3. ButtonGroup
+Use the reviewed Bejamas snapshot only as an MIT-licensed implementation reference. Preserve Frasto's flat package exports, event namespace, progressive-enhancement policy, and structural styling.
 
-Do not begin all three as one batch. Each requires its own reviewed contract and evidence. Later candidates such as Combobox, Date Picker, Toast, Navigation Menu, and layout helpers remain behind a new inventory review because they carry larger API, runtime, or accessibility costs.
+1. [x] Accordion and Collapsible
+2. [x] Alert
+3. [x] ButtonGroup
+
+Each family has its own reviewed contract and full vertical-slice evidence. Gate 4 establishes the alpha-ready component boundary; the remaining 17 Bejamas-assisted families are committed to Phase 7 so they do not block public alpha.
 
 ## Work deliberately deferred
 
@@ -59,7 +65,8 @@ Do not begin all three as one batch. Each requires its own reviewed contract and
 - Theme builder, AI skills integration, and donation infrastructure
 - future application systems such as AppShell, ResourceTable, and FilterBar
 - promotion of any component to Beta based only on successful compilation or manual inspection
+- the Phase 7 families recorded in the roadmap
 
 ## Next executable task
 
-Begin Gate 2 by selecting the test harness and implementing the SearchInput quality slice. Do not begin Pagination until the harness proves keyboard, focus, responsive, and package-consumer coverage on existing components.
+Begin Phase 5 maturity and hardening on the alpha component set. Prioritize remaining high-risk keyboard/focus evidence, API consistency, cross-browser coverage, and manual assistive-technology review. Do not begin the remaining 17 Phase 7 families before public alpha unless the roadmap is explicitly revised.

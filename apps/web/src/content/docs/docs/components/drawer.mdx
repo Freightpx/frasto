@@ -50,3 +50,15 @@ Slots are `trigger`, default content, and `footer`. Add `data-frasto-drawer-clos
 - On narrow screens, every size remains within a 24px viewport remainder.
 - Content scrolls inside the panel while its heading and optional footer remain visible.
 - Use Dialog for centered decisions and Popover for non-modal context.
+
+## Required completion
+
+Set `dismissible={false}` only when users must make an explicit choice. Escape and backdrop interaction will not close the drawer, so the content must provide a clearly labelled close or completion control.
+
+<div class="frasto-preview" data-frasto-root>
+  <Drawer title="Complete profile review" dismissible={false} size="sm">
+    <Button slot="trigger" variant="outline">Review profile</Button>
+    <p>Confirm the profile details before continuing.</p>
+    <Button slot="footer" data-frasto-drawer-close>Finish review</Button>
+  </Drawer>
+</div>

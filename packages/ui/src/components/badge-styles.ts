@@ -6,10 +6,14 @@ export const badgeBase = [
   'frasto-badge',
   'inline-flex',
   'w-fit',
-  'shrink-0',
+  'max-w-full',
+  'min-w-0',
+  'shrink',
   'items-center',
   'justify-center',
-  'whitespace-nowrap',
+  'break-words',
+  'text-center',
+  'whitespace-normal',
   'border',
   'font-medium',
   'leading-none',
@@ -17,6 +21,6 @@ export const badgeBase = [
 ].join(' ');
 
 export const badgeSizes: Record<BadgeSize, string> = {
-  sm: 'h-5 gap-1 px-1.5 text-[11px]',
-  md: 'h-6 gap-1.5 px-2 text-xs',
+  sm: 'min-h-5 gap-1 px-1.5 py-1 text-[11px]',
+  md: 'min-h-6 gap-1.5 px-2 py-1 text-xs',
 };

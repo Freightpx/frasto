@@ -1,0 +1,71 @@
+---
+title: Pagination
+description: Server-first result navigation with authored links and current-page context.
+---
+
+import { Pagination, PaginationItem } from '@freightpx/frasto';
+
+**Status: Experimental**
+
+`Pagination` presents a known result sequence using ordinary links. It owns navigation semantics and responsive layout while the application owns URLs, query state, totals, fetching, and optional navigation enhancement.
+
+## Preview
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <Pagination label="Customer results">
+    <span slot="summary">26–50 of 128 customers</span>
+    <PaginationItem kind="previous" href="?page=1">Previous</PaginationItem>
+    <PaginationItem href="?page=1" label="Go to page 1">1</PaginationItem>
+    <PaginationItem current label="Current page, page 2">2</PaginationItem>
+    <PaginationItem href="?page=3" label="Go to page 3">3</PaginationItem>
+    <PaginationItem kind="gap">…</PaginationItem>
+    <PaginationItem href="?page=6" label="Go to page 6">6</PaginationItem>
+    <PaginationItem kind="next" href="?page=3">Next</PaginationItem>
+  </Pagination>
+</div>
+
+## Usage
+
+```astro
+---
+import { Pagination, PaginationItem } from '@freightpx/frasto';
+---
+
+<Pagination label="Customer results">
+  <span slot="summary">26–50 of 128 customers</span>
+  <PaginationItem kind="previous" href="?page=1">Previous</PaginationItem>
+  <PaginationItem current label="Current page, page 2">2</PaginationItem>
+  <PaginationItem kind="next" href="?page=3">Next</PaginationItem>
+</Pagination>
+```
+
+## Pagination API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `label` | `string` | `"Pagination"` | names the navigation landmark |
+| `class` | `string` | — | styles the root navigation element |
+| `listClass` | `string` | — | styles the ordered list |
+
+Native navigation attributes pass through. The default slot accepts `PaginationItem` children; the `summary` slot accepts visible result context.
+
+## PaginationItem API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `kind` | `"page" \| "previous" \| "next" \| "gap"` | `"page"` | identifies item meaning and narrow behavior |
+| `href` | `string` | — | ordinary link destination |
+| `current` | `boolean` | `false` | marks a non-linked current page |
+| `disabled` | `boolean` | `false` | marks an unavailable non-link item |
+| `label` | `string` | — | accessible name when visible text is insufficient |
+| `class` | `string` | — | styles the list item |
+| `linkClass` | `string` | — | styles the link or non-link control |
+| `linkAttributes` | anchor attributes | `{}` | passes attributes such as `rel` and `target` |
+
+`current` takes precedence over `href`. A missing `href` also renders a disabled non-link, preventing an unusable control from entering the tab order. Gap content is decorative and non-interactive.
+
+## Accessibility and responsive behavior
+
+The root is a named `nav` containing an ordered list. Current and unavailable states use `aria-current` and `aria-disabled`; color is not their only distinction. At narrow widths the summary, previous, current, and next items remain visible while non-current numbered pages and gaps are hidden. Links retain native browser keyboard and navigation behavior.
+
+Applications must preserve active filters and search parameters in every authored URL. Cursor pagination may omit numbered pages and use the summary slot for position context.

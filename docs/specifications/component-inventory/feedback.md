@@ -20,7 +20,8 @@ Feedback explains what the system is doing, what changed, and what the person ca
 
 ## Planned inventory
 
-- Alert and Banner for persistent contextual feedback
+- [Alert](/docs/components/alert/) for persistent contextual feedback — Experimental
+- Banner for broader page-level feedback — Planned
 - Toast for brief asynchronous outcomes with an accessible queue policy
 - Progress for known-duration work
 - ErrorSummary for form- or page-level validation navigation

@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { accordionItem } from './accordion-styles';
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  class?: string;
+  disabled?: boolean;
+  value: string;
+};
+
+const { class: className, disabled = false, value, ...rest } = Astro.props;
+---
+
+<div
+  {...rest}
+  class:list={[accordionItem, className]}
+  data-disabled={disabled ? 'true' : 'false'}
+  data-frasto-accordion-item
+  data-value={value}
+>
+  <slot />
+</div>

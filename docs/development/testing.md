@@ -9,10 +9,11 @@ The repository currently enforces:
 ```bash
 pnpm check
 pnpm build
+pnpm test
 git diff --check
 ```
 
-These commands verify TypeScript and Astro diagnostics, generated package styles, public documentation compilation, and the production site build. They do not prove browser behavior, accessibility, visual stability, or package installation in an external consumer.
+These commands verify TypeScript and Astro diagnostics, generated package styles, public documentation compilation, production builds, rendered semantic contracts, Chromium/Firefox/WebKit keyboard and focus behavior, representative axe scans, responsive/theme paths, and installation from a packed artifact into an external Astro fixture. Manual assistive-technology review and full visual regression remain separate requirements.
 
 ## Required test layers
 
@@ -49,7 +50,7 @@ These commands verify TypeScript and Astro diagnostics, generated package styles
 - build the fixture with the supported Astro and Node ranges
 - verify that package contents match the declared `files` and `exports`
 
-## Planned file ownership
+## Test ownership
 
 Add tests with the implementation they protect; do not create empty directories merely to reserve structure.
 
@@ -57,10 +58,10 @@ Add tests with the implementation they protect; do not create empty directories 
 | --- | --- | --- |
 | rendered component contracts | `packages/ui/tests/render/` | semantic output, attributes, slots, exported contracts |
 | browser behavior and accessibility | `apps/web/tests/components/` | keyboard, focus, dismissal, state, accessible relationships |
-| responsive and theme regression | `apps/web/tests/visual/` | wide, narrow, light, dark, zoom, reduced motion |
+| responsive and theme regression | `apps/web/tests/components/` today; extract to `apps/web/tests/visual/` when screenshot coverage is added | wide, narrow, light, dark, zoom, reduced motion |
 | packed-package consumption | `fixtures/consumer-astro/` | installation, exports, stylesheet, external build |
 
-The test runner and accessibility tooling must be selected and pinned when the Gate 2 harness is implemented. Tooling is not added during inventory planning.
+Vitest uses Astro Container rendering. Playwright provides Chromium, Firefox, and WebKit behavior and responsive paths, with `@axe-core/playwright` for representative automated accessibility scans. Install the browser matrix with `pnpm exec playwright install chromium firefox webkit`. The consumer script packs the real package and builds an isolated Astro fixture.
 
 ## Risk-based minimums
 
