@@ -32,15 +32,9 @@ pnpm build
 git diff --check
 ```
 
-## Documentation boundaries
+## Documentation
 
-- Consumer installation, usage, and implemented component APIs belong in `apps/web/src/content/docs/docs`.
-- Product direction and roadmap work belong in `docs/project`.
-- Architecture, design, testing, and release guidance belong in `docs/development`.
-- Unreleased contracts and pattern research belong in `docs/specifications`.
-- Superseded handoffs belong in `docs/archive`.
-
-Never present planned functionality as an available public API.
+Consumer installation, usage, and implemented component APIs belong in `apps/web/src/content/docs/docs`. Public documentation must describe behavior that exists in the package; never present planned functionality as an available API. Product planning, draft specifications, and maintainer notes are managed privately until they are ready to become an issue, proposal, or public component contract.
 
 ## Component proposals
 
@@ -55,11 +49,9 @@ A new component should solve a broadly repeatable interface problem. Define:
 7. responsive and long-content behavior
 8. theming and runtime impact
 
-Review the [component standards](./docs/development/component-standards.md) before implementation.
-
 ## Design and code principles
 
-Contributions must follow the [design system direction](./docs/development/design-system.md) and [development architecture](./docs/development/architecture.md).
+Contributions must preserve Frasto's established design and architecture:
 
 - Astro-first and server-first
 - TypeScript-safe

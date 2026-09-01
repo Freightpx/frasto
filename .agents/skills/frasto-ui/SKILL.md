@@ -5,13 +5,13 @@ description: Build or revise Astro interfaces with the published Frasto UI packa
 
 # Frasto UI
 
-Build against the installed `@freightpx/frasto` version and the public documentation. Treat planned specifications as unavailable until the package exports them.
+Build against the installed `@freight-px/frasto` version and the public documentation. Treat planned specifications as unavailable until the package exports them.
 
 ## Workflow
 
 1. Inspect the consumer's Frasto and Astro versions before choosing APIs.
 2. Confirm component names, props, slots, events, and exported types from the installed package or <https://frasto.freightpx.com/docs/>. Do not invent convenient APIs.
-3. Import components from the flat `@freightpx/frasto` entrypoint. Let that entrypoint load the compiled stylesheet.
+3. Import components from the flat `@freight-px/frasto` entrypoint. Let that entrypoint load the compiled stylesheet.
 4. Prefer useful server-rendered Astro, native HTML semantics, and ordinary form submission. Add client behavior only when the selected component owns an interaction.
 5. Keep application data, validation, requests, routing, and persistence outside Frasto components.
 6. Customize documented semantic tokens instead of depending on generated classes or internal selectors.

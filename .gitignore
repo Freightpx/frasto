@@ -10,3 +10,5 @@ coverage
 playwright-report
 test-results
 /bejamas/
+/docs/
+/IMPLEMENTATION_IDEAS.md

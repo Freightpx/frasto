@@ -7,12 +7,12 @@ Astro-first open-source components and design foundations for modern websites an
 ## Install
 
 ```bash
-pnpm add @freightpx/frasto@next
+pnpm add @freight-px/frasto@next
 ```
 
 ```astro
 ---
-import { Button, PageHeader } from '@freightpx/frasto';
+import { Button, PageHeader } from '@freight-px/frasto';
 ---
 
 <PageHeader title="Customers">

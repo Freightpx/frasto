@@ -6,7 +6,7 @@
     "build": "astro build"
   },
   "dependencies": {
-    "@freightpx/frasto": "0.0.0",
+    "@freight-px/frasto": "0.0.0",
     "astro": "7.2.7"
   }
 }

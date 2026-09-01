@@ -36,7 +36,7 @@ try {
 
   const manifestPath = join(consumerOutput, 'package.json');
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-  manifest.dependencies['@freightpx/frasto'] = `file:${join(packageOutput, archive)}`;
+  manifest.dependencies['@freight-px/frasto'] = `file:${join(packageOutput, archive)}`;
   await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 
   await run(pnpm, ['install', '--frozen-lockfile=false'], consumerOutput);

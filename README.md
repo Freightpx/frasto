@@ -30,7 +30,7 @@ Planned APIs and future application-layer research are intentionally kept out of
 After the public package is released, install the prerelease from npm's `next` channel:
 
 ```bash
-pnpm add @freightpx/frasto@next
+pnpm add @freight-px/frasto@next
 ```
 
 ## Repository
@@ -39,7 +39,7 @@ pnpm add @freightpx/frasto@next
 apps/
   web/                 Public website, consumer documentation, and demo
 packages/
-  ui/                  @freightpx/frasto package source
+  ui/                  @freight-px/frasto package source
 docs/
   project/             Product direction and roadmap
   development/         Architecture, design, testing, and release guidance
@@ -66,12 +66,9 @@ pnpm check
 pnpm build
 ```
 
-## Documentation boundaries
+## Documentation
 
-- [Public documentation](https://frasto.freightpx.com/docs) explains how to evaluate and use implemented Frasto components.
-- [Development documentation](./docs/README.md) explains how Frasto itself is designed and maintained.
-- [Implementation ideas](./IMPLEMENTATION_IDEAS.md) is a lightweight parking lot, not a roadmap commitment.
-- [Development roadmap](./docs/project/roadmap.md) contains accepted project milestones.
+The [public documentation](https://frasto.freightpx.com/docs) explains how to install, evaluate, and use implemented Frasto components. Internal planning, draft specifications, and maintainer notes are kept outside the public repository.
 
 ## Get help
 
@@ -84,14 +81,14 @@ pnpm build
 
 Contributions to documentation, accessibility, browser behavior, tests, component quality, and broadly reusable component proposals are welcome.
 
-Read [CONTRIBUTING.md](./CONTRIBUTING.md), the [Code of Conduct](./CODE_OF_CONDUCT.md), and the [component standards](./docs/development/component-standards.md) before starting substantial work.
+Read [CONTRIBUTING.md](./CONTRIBUTING.md) and the [Code of Conduct](./CODE_OF_CONDUCT.md) before starting substantial work.
 
 ## Project links
 
 - Website: [frasto.freightpx.com](https://frasto.freightpx.com)
 - Documentation: [frasto.freightpx.com/docs](https://frasto.freightpx.com/docs)
 - Repository: [github.com/Freightpx/frasto](https://github.com/Freightpx/frasto)
-- Package name: `@freightpx/frasto`
+- Package name: `@freight-px/frasto`
 - Organization: Freightpx
 
 ## License
