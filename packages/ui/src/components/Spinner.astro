@@ -4,20 +4,25 @@ import {
   spinnerBase,
   spinnerSizes,
   type SpinnerSize,
+  type SpinnerVariant,
 } from './spinner-styles';
 
 type Props = Omit<HTMLAttributes<'span'>, 'aria-hidden' | 'aria-label' | 'class' | 'role'> & {
   class?: string;
   label?: string;
   size?: SpinnerSize;
+  variant?: SpinnerVariant;
 };
 
 const {
   class: className,
   label,
   size = 'md',
+  variant = 'orbit',
   ...rest
 } = Astro.props;
+
+const cells = Array.from({ length: 9 });
 ---
 
 <span
@@ -28,4 +33,13 @@ const {
   aria-hidden={label ? undefined : 'true'}
   data-frasto-spinner
   data-size={size}
-></span>
+  data-variant={variant}
+>
+  {cells.map((_, index) => (
+    <span
+      aria-hidden="true"
+      data-frasto-spinner-cell
+      data-cell-index={index + 1}
+    ></span>
+  ))}
+</span>

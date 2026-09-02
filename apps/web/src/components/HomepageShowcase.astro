@@ -1,0 +1,595 @@
+---
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Alert,
+  Avatar,
+  Badge,
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  ButtonGroup,
+  ButtonGroupSeparator,
+  Checkbox,
+  CircleCheckIcon,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Dialog,
+  Drawer,
+  Dropdown,
+  DropdownItem,
+  EmptyState,
+  FileTextIcon,
+  FormDescription,
+  FormError,
+  FormField,
+  FormLabel,
+  Icon,
+  IconButton,
+  InfoIcon,
+  Input,
+  MenuIcon,
+  PageHeader,
+  Pagination,
+  PaginationItem,
+  PlusIcon,
+  Popover,
+  Radio,
+  SearchInput,
+  Select,
+  Separator,
+  Skeleton,
+  Spinner,
+  Stat,
+  Status,
+  Surface,
+  Switch,
+  Tab,
+  Table,
+  TabPanel,
+  Tabs,
+  Textarea,
+  ThemeSwitch,
+  ToastRegion,
+  Tooltip,
+} from '@freight-px/frasto';
+import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
+---
+
+<section class="component-field" id="components" aria-labelledby="component-field-title" data-homepage-showcase>
+  <header class="component-field__heading">
+    <p>35 EXPERIMENTAL FAMILIES</p>
+    <div>
+      <h2 id="component-field-title">A working field of Frasto components.</h2>
+      <p>Connected interface fragments, rendered directly with the public package.</p>
+    </div>
+  </header>
+
+  <div class="component-field__grid">
+    <section class="showcase-region showcase-region--compose" aria-labelledby="showcase-compose">
+      <header class="showcase-region__header">
+        <span>01</span><h3 id="showcase-compose">Compose</h3><small>10 families</small>
+      </header>
+      <div class="showcase-region__body showcase-compose">
+        <PageHeader
+          title="Release workspace"
+          description="Prepare the next public-alpha verification pass."
+          eyebrow="FRST-021"
+          headingLevel={4}
+        >
+          <Breadcrumb slot="breadcrumb" label="Release workspace path">
+            <BreadcrumbItem href="#components">Frasto</BreadcrumbItem>
+            <BreadcrumbItem current>Release</BreadcrumbItem>
+          </Breadcrumb>
+          <span slot="metadata">35 families · Astro 7</span>
+          <ButtonGroup slot="actions" label="Release actions">
+            <Button size="sm">Review</Button>
+            <ButtonGroupSeparator />
+            <IconButton icon={MenuIcon} label="More release actions" size="sm" />
+          </ButtonGroup>
+        </PageHeader>
+
+        <form class="showcase-form" action="/" method="get">
+          <FormField>
+            <FormLabel for="showcase-project" required>Project name</FormLabel>
+            <FormDescription id="showcase-project-help">Shown in the release summary.</FormDescription>
+            <Input id="showcase-project" name="project" value="Frasto UI" aria-describedby="showcase-project-help" />
+          </FormField>
+          <FormField>
+            <FormLabel for="showcase-channel">Channel</FormLabel>
+            <Select id="showcase-channel" name="channel">
+              <option>Public alpha</option>
+              <option>Internal preview</option>
+            </Select>
+          </FormField>
+          <FormField class="showcase-form__wide">
+            <FormLabel for="showcase-summary">Release summary</FormLabel>
+            <Textarea id="showcase-summary" name="summary" rows={3}>Overlay hardening and documentation updates.</Textarea>
+            <FormError id="showcase-summary-error">Keep the summary concise and actionable.</FormError>
+          </FormField>
+          <SearchInput
+            class="showcase-form__wide"
+            id="showcase-search"
+            name="component"
+            label="Search component families"
+            placeholder="Search the public inventory…"
+          />
+          <div class="showcase-form__actions showcase-form__wide">
+            <Button type="submit" size="sm"><Icon icon={PlusIcon} slot="icon-start" /> Add note</Button>
+            <Button type="button" size="sm" variant="outline">Save draft</Button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="showcase-region showcase-region--choose" aria-labelledby="showcase-choose">
+      <header class="showcase-region__header">
+        <span>02</span><h3 id="showcase-choose">Choose</h3><small>4 families</small>
+      </header>
+      <div class="showcase-region__body showcase-choices">
+        <fieldset>
+          <legend>Verification scope</legend>
+          <Checkbox name="checks" value="browser" checked>Browser matrix</Checkbox>
+          <Checkbox name="checks" value="device">Physical device</Checkbox>
+        </fieldset>
+        <fieldset>
+          <legend>Release channel</legend>
+          <Radio name="release-channel" value="next" checked>next</Radio>
+          <Radio name="release-channel" value="latest">latest</Radio>
+        </fieldset>
+        <Switch name="release-notes" checked>Include release notes</Switch>
+        <div class="showcase-theme">
+          <span>Theme</span>
+          <ThemeSwitch variant="segmented-icons" storageKey="starlight-theme" label="Showcase color theme" />
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase-region showcase-region--communicate" aria-labelledby="showcase-communicate">
+      <header class="showcase-region__header">
+        <span>03</span><h3 id="showcase-communicate">Communicate</h3><small>7 families</small>
+      </header>
+      <div class="showcase-region__body showcase-feedback">
+        <Alert title="Quality gate passed" tone="positive">
+          <CircleCheckIcon slot="icon" size={20} stroke-width={1.25} aria-hidden="true" />
+          Package and browser evidence are current.
+          <Button slot="action" size="sm" variant="outline" data-home-toast>Notify</Button>
+        </Alert>
+        <div class="showcase-feedback__meta">
+          <Badge tone="info">Experimental</Badge>
+          <Status tone="positive">All systems ready</Status>
+          <Avatar size="md" src={avatar01} alt="" imageClass="frasto-avatar-artwork" />
+        </div>
+        <Stat label="Public families" value="35" change="+2 this cycle" changeTone="positive" description="Every family remains Experimental" />
+        <EmptyState
+          title="No critical issues"
+          description="New reports will appear here after triage."
+          headingLevel={4}
+        >
+          <Icon slot="icon" icon={FileTextIcon} size={20} />
+          <Button slot="actions" size="sm" variant="outline">Open issue tracker</Button>
+        </EmptyState>
+        <ToastRegion label="Homepage notifications" />
+      </div>
+    </section>
+
+    <section class="showcase-region showcase-region--load" aria-labelledby="showcase-load">
+      <header class="showcase-region__header">
+        <span>04</span><h3 id="showcase-load">Load</h3><small>2 families</small>
+      </header>
+      <div class="showcase-region__body showcase-loading" aria-label="Loading component examples">
+        <div><Spinner label="Checking package" /><span>Checking package</span></div>
+        <div aria-busy="true">
+          <Skeleton style="width:42%;" />
+          <Skeleton style="width:88%;" />
+          <Skeleton style="width:64%;" />
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase-region showcase-region--navigate" aria-labelledby="showcase-navigate">
+      <header class="showcase-region__header">
+        <span>05</span><h3 id="showcase-navigate">Navigate</h3><small>4 families</small>
+      </header>
+      <div class="showcase-region__body showcase-navigation">
+        <Tabs label="Release evidence" defaultValue="automated" variant="segmented">
+          <Tab slot="tab" value="automated">Automated</Tab>
+          <Tab slot="tab" value="manual">Manual review</Tab>
+          <TabPanel slot="panel" value="automated"><p>Chromium, Firefox, WebKit, and the packed consumer are passing.</p></TabPanel>
+          <TabPanel slot="panel" value="manual"><p>Keyboard and assistive-technology notes stay attached to the release.</p></TabPanel>
+        </Tabs>
+        <Accordion defaultValue="package" collapsible>
+          <AccordionItem value="package">
+            <AccordionTrigger>What ships in the package?</AccordionTrigger>
+            <AccordionContent>Astro components, exported types, tokens, and the compiled stylesheet.</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="status">
+            <AccordionTrigger>What does Experimental mean?</AccordionTrigger>
+            <AccordionContent>APIs can change during alpha as real projects expose better boundaries.</AccordionContent>
+          </AccordionItem>
+        </Accordion>
+        <Collapsible>
+          <CollapsibleTrigger>Show compatibility details</CollapsibleTrigger>
+          <CollapsibleContent>Astro 7 and Node.js 22 or newer.</CollapsibleContent>
+        </Collapsible>
+        <Pagination label="Component showcase pages">
+          <span slot="summary">Page 1 of 3</span>
+          <PaginationItem kind="previous" disabled>Previous</PaginationItem>
+          <PaginationItem current label="Current page, page 1">1</PaginationItem>
+          <PaginationItem href="#showcase-choose" label="Go to page 2">2</PaginationItem>
+          <PaginationItem href="#showcase-communicate" label="Go to page 3">3</PaginationItem>
+          <PaginationItem kind="next" href="#showcase-choose">Next</PaginationItem>
+        </Pagination>
+      </div>
+    </section>
+
+    <section class="showcase-region showcase-region--reveal" aria-labelledby="showcase-reveal">
+      <header class="showcase-region__header">
+        <span>06</span><h3 id="showcase-reveal">Reveal</h3><small>5 families</small>
+      </header>
+      <div class="showcase-region__body showcase-overlays">
+        <Dropdown label="Release menu" placement="bottom-start">
+          <Button slot="trigger" size="sm" variant="outline">Actions</Button>
+          <DropdownItem>Review changes</DropdownItem>
+          <DropdownItem>Copy release notes</DropdownItem>
+          <DropdownItem disabled>Publish stable</DropdownItem>
+        </Dropdown>
+        <Popover label="Package status" placement="bottom-start">
+          <Button slot="trigger" size="sm" variant="outline">Package status</Button>
+          <strong>Tarball verified</strong>
+          <p>The clean Astro consumer compiled every public family.</p>
+        </Popover>
+        <Tooltip content="All exports are flat package imports" placement="top">
+          <IconButton icon={InfoIcon} label="Explain package exports" size="sm" variant="outline" />
+        </Tooltip>
+        <Dialog title="Review release" description="Confirm the evidence attached to this alpha release." size="sm">
+          <Button slot="trigger" size="sm" variant="outline">Open dialog</Button>
+          <p class="showcase-overlay-copy">Automated checks passed. Manual review remains recorded separately.</p>
+          <Button slot="footer" size="sm" variant="outline" data-frasto-dialog-close>Close</Button>
+        </Dialog>
+        <Drawer title="Release details" description="A wider view of the current alpha evidence." size="sm">
+          <Button slot="trigger" size="sm" variant="outline">Open drawer</Button>
+          <dl class="showcase-detail-list">
+            <div><dt>Version</dt><dd>0.1.0-alpha.1</dd></div>
+            <div><dt>Families</dt><dd>35 Experimental</dd></div>
+            <div><dt>Astro</dt><dd>7.x</dd></div>
+          </dl>
+        </Drawer>
+      </div>
+    </section>
+
+    <section class="showcase-region showcase-region--structure" aria-labelledby="showcase-structure">
+      <header class="showcase-region__header">
+        <span>07</span><h3 id="showcase-structure">Structure and data</h3><small>3 families</small>
+      </header>
+      <div class="showcase-region__body showcase-structure">
+        <Surface as="article" variant="outlined" padding="md">
+          <div class="showcase-structure__heading">
+            <div><strong>Verification runs</strong><span>Latest package evidence</span></div>
+            <Badge tone="positive">Passing</Badge>
+          </div>
+          <Separator />
+          <div class="showcase-table-wrap">
+            <Table caption="Latest verification runs" captionHidden minWidth="32rem" density="compact">
+              <thead><tr><th scope="col">Check</th><th scope="col">Environment</th><th scope="col">Result</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Browser matrix</th><td>3 engines</td><td><Status tone="positive">Passed</Status></td></tr>
+                <tr><th scope="row">Packed consumer</th><td>Astro 7</td><td><Status tone="positive">Passed</Status></td></tr>
+                <tr><th scope="row">Manual AT</th><td>Windows</td><td><Status>Planned</Status></td></tr>
+              </tbody>
+            </Table>
+          </div>
+        </Surface>
+      </div>
+    </section>
+  </div>
+</section>
+
+<script>
+  import { toast } from '@freight-px/frasto';
+
+  document.querySelector<HTMLElement>('[data-home-toast]')?.addEventListener('click', () => {
+    toast({
+      title: 'Release team notified',
+      description: 'The quality-gate summary is ready for review.',
+      tone: 'positive',
+    });
+  });
+</script>
+
+<style>
+  .component-field {
+    padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 4vw, 4rem);
+    border-bottom: 1px solid var(--frasto-border);
+  }
+
+  .component-field__heading {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.55fr) minmax(0, 1.45fr);
+    gap: 2rem;
+    margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .component-field__heading > p,
+  .showcase-region__header span,
+  .showcase-region__header small {
+    margin: 0;
+    color: var(--frasto-ink-muted);
+    font-size: 0.65625rem;
+    font-weight: 650;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .component-field__heading h2 {
+    max-width: 14ch;
+    margin: 0;
+    font-family: var(--frasto-font-display);
+    font-size: clamp(2.5rem, 5.5vw, 5.5rem);
+    font-weight: 620;
+    letter-spacing: -0.055em;
+    line-height: 0.92;
+  }
+
+  .component-field__heading div > p {
+    max-width: 36rem;
+    margin: 1.25rem 0 0;
+    color: var(--frasto-ink-muted);
+    line-height: 1.55;
+  }
+
+  .component-field__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    border-top: 1px solid var(--frasto-border);
+    border-left: 1px solid var(--frasto-border);
+  }
+
+  .showcase-region {
+    min-width: 0;
+    border-right: 1px solid var(--frasto-border);
+    border-bottom: 1px solid var(--frasto-border);
+    background: var(--frasto-surface);
+  }
+
+  .showcase-region--compose,
+  .showcase-region--structure {
+    grid-column: span 8;
+  }
+
+  .showcase-region--choose,
+  .showcase-region--load {
+    grid-column: span 4;
+  }
+
+  .showcase-region--communicate,
+  .showcase-region--navigate,
+  .showcase-region--reveal {
+    grid-column: span 6;
+  }
+
+  .showcase-region__header {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--frasto-border);
+    background: var(--frasto-surface-subtle);
+  }
+
+  .showcase-region__header h3 {
+    margin: 0;
+    font-family: var(--frasto-font-display);
+    font-size: 0.9375rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  .showcase-region__body {
+    min-width: 0;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  .showcase-compose {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .showcase-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .showcase-form__wide {
+    grid-column: 1 / -1;
+  }
+
+  .showcase-form__actions,
+  .showcase-feedback__meta,
+  .showcase-overlays,
+  .showcase-theme {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .showcase-choices {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .showcase-choices fieldset {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0 0 1.25rem;
+    border: 0;
+    border-bottom: 1px solid var(--frasto-border);
+  }
+
+  .showcase-choices legend,
+  .showcase-theme > span {
+    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 650;
+  }
+
+  .showcase-theme {
+    justify-content: space-between;
+  }
+
+  .showcase-feedback,
+  .showcase-navigation {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .showcase-feedback__meta {
+    padding-block: 0.75rem;
+    border-block: 1px solid var(--frasto-border);
+  }
+
+  .showcase-feedback__meta :global([data-frasto-avatar]) {
+    margin-inline-start: auto;
+  }
+
+  .showcase-loading {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .showcase-loading > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--frasto-ink-muted);
+    font-size: 0.8125rem;
+  }
+
+  .showcase-loading > div:last-child {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .showcase-navigation :global([data-frasto-tab-panel]) p,
+  .showcase-overlay-copy,
+  .showcase-overlays :global([data-frasto-popover-panel]) p {
+    margin: 0;
+    color: var(--frasto-ink-muted);
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+
+  .showcase-overlays {
+    align-items: flex-start;
+  }
+
+  .showcase-detail-list {
+    margin: 0;
+  }
+
+  .showcase-detail-list div {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: 1rem;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--frasto-border);
+  }
+
+  .showcase-detail-list dt {
+    color: var(--frasto-ink-muted);
+    font-size: 0.75rem;
+  }
+
+  .showcase-detail-list dd {
+    margin: 0;
+    font-size: 0.8125rem;
+  }
+
+  .showcase-structure__heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .showcase-structure__heading strong,
+  .showcase-structure__heading span {
+    display: block;
+  }
+
+  .showcase-structure__heading span {
+    margin-top: 0.35rem;
+    color: var(--frasto-ink-muted);
+    font-size: 0.75rem;
+  }
+
+  .showcase-table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  @media (max-width: 68rem) {
+    .showcase-region--compose,
+    .showcase-region--structure {
+      grid-column: span 12;
+    }
+
+    .showcase-region--choose,
+    .showcase-region--load {
+      grid-column: span 6;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .component-field__heading {
+      grid-template-columns: 1fr;
+    }
+
+    .showcase-region--choose,
+    .showcase-region--load,
+    .showcase-region--communicate,
+    .showcase-region--navigate,
+    .showcase-region--reveal {
+      grid-column: span 12;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .component-field {
+      padding-inline: 0;
+    }
+
+    .component-field__heading {
+      padding-inline: 1rem;
+    }
+
+    .component-field__grid {
+      border-left: 0;
+    }
+
+    .showcase-region {
+      border-right: 0;
+    }
+
+    .showcase-form {
+      grid-template-columns: 1fr;
+    }
+
+    .showcase-form__wide {
+      grid-column: auto;
+    }
+
+    .showcase-region__header small {
+      display: none;
+    }
+  }
+</style>

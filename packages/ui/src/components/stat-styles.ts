@@ -3,6 +3,9 @@ export type StatTone = 'neutral' | 'positive' | 'warning' | 'danger' | 'info';
 export const statRoot = [
   'm-0',
   'min-w-0',
+  'h-full',
+  'w-full',
+  'self-start',
   'border-t',
   'border-[var(--frasto-border)]',
   'py-4',
@@ -24,7 +27,7 @@ export const statValue = [
   'text-[var(--frasto-ink)]',
   'tabular-nums',
 ].join(' ');
-export const statContext = 'col-start-1 row-start-3 m-0 mt-2 flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1';
+export const statContext = 'col-start-1 row-start-3 m-0 mt-2 flex min-w-0 flex-col items-start gap-1';
 export const statChange = 'm-0 text-xs font-medium leading-5';
 export const statDescription = 'm-0 text-xs leading-5 text-[var(--frasto-ink-muted)]';
 export const statVisual = 'm-0 row-span-3 col-start-2 row-start-1 min-w-0 self-center';

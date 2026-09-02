@@ -1,0 +1,73 @@
+---
+import { Button, ButtonGroup, ToastRegion } from '@freight-px/frasto';
+---
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root data-toast-preview style="width:100%;">
+  <ButtonGroup label="Notification examples">
+    <Button data-toast-example="positive" size="sm">Success</Button>
+    <Button data-toast-example="info" size="sm" variant="outline">Information</Button>
+    <Button data-toast-example="warning" size="sm" variant="outline">Action</Button>
+    <Button data-toast-example="danger" size="sm" variant="outline">Urgent</Button>
+    <Button data-toast-example="persistent" size="sm" variant="ghost">Persistent</Button>
+    <Button data-toast-dismiss-all size="sm" variant="ghost">Dismiss all</Button>
+  </ButtonGroup>
+  <ToastRegion
+    position="bottom-right"
+    label="Documentation notifications"
+    dismissLabel="Dismiss notification"
+  />
+</div>
+
+<script>
+  import { dismissAllToasts, toast } from '@freight-px/frasto';
+
+  const preview = document.querySelector<HTMLElement>('[data-toast-preview]');
+  preview?.querySelectorAll<HTMLElement>('[data-toast-example]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const example = button.dataset.toastExample;
+      if (example === 'positive') {
+        toast({
+          title: 'Changes saved',
+          description: 'Workspace access rules now apply to new members.',
+          tone: 'positive',
+          duration: 1200,
+        });
+      } else if (example === 'info') {
+        toast({
+          title: 'Update available',
+          description: 'Refresh when you are ready to load the latest version.',
+          tone: 'info',
+        });
+      } else if (example === 'warning') {
+        toast({
+          title: 'Payment method expires soon',
+          description: 'Review the billing account before the next renewal.',
+          tone: 'warning',
+          duration: 0,
+          action: {
+            label: 'Review',
+            onSelect: () => {
+              preview.dataset.toastAction = 'reviewed';
+            },
+          },
+        });
+      } else if (example === 'danger') {
+        toast({
+          title: 'Connection lost',
+          description: 'Changes cannot be synchronized until the connection returns.',
+          tone: 'danger',
+          priority: 'assertive',
+        });
+      } else {
+        toast({
+          title: 'Background import running',
+          description: 'This notification remains until you dismiss it.',
+          duration: 0,
+        });
+      }
+    });
+  });
+
+  preview?.querySelector<HTMLElement>('[data-toast-dismiss-all]')
+    ?.addEventListener('click', dismissAllToasts);
+</script>

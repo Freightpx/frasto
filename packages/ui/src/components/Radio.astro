@@ -40,7 +40,7 @@ const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false
   data-invalid={isInvalid ? 'true' : undefined}
   data-size={size}
 >
-  <span class:list={['relative inline-flex shrink-0', radioSizes[size].box]}>
+  <span class:list={['inline-grid shrink-0 place-items-center', radioSizes[size].box]}>
     <input
       {...rest}
       class:list={[
@@ -57,7 +57,7 @@ const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false
     />
     <span
       class:list={[
-        'pointer-events-none absolute inset-0 m-auto bg-[var(--frasto-ink)] opacity-0 peer-checked:opacity-100',
+        'pointer-events-none col-start-1 row-start-1 m-0 bg-[var(--frasto-control-selected-bg)]',
         radioSizes[size].indicator,
       ]}
       aria-hidden="true"

@@ -10,26 +10,78 @@ test.describe('Phase 5 high-risk interaction evidence', () => {
     const preview = page.locator('.frasto-preview').first();
     const trigger = preview.getByRole('button', { name: 'View customer' });
     const drawer = page.getByRole('dialog', { name: 'Customer details' });
+    const initialPageGeometry = await page.evaluate(() => {
+      const root = document.documentElement;
+      return {
+        authoredPadding: root.style.paddingInlineEnd,
+        bodyWidth: document.body.getBoundingClientRect().width,
+        computedPadding: Number.parseFloat(getComputedStyle(root).paddingInlineEnd) || 0,
+        reservesStableGutter: getComputedStyle(root).scrollbarGutter.split(/\s+/).includes('stable'),
+        scrollbarWidth: Math.max(0, window.innerWidth - root.clientWidth),
+      };
+    });
 
     await trigger.click();
     await expect(drawer).toBeVisible();
+    await expect(drawer).toHaveAttribute('data-state', 'open');
     expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     await expect(drawer.getByRole('button', { name: 'Close drawer' })).toBeFocused();
+    const lockedPageGeometry = await page.evaluate(() => ({
+      authoredPadding: document.documentElement.style.paddingInlineEnd,
+      bodyWidth: document.body.getBoundingClientRect().width,
+      overflow: document.documentElement.style.overflow,
+    }));
+    expect(Math.abs(lockedPageGeometry.bodyWidth - initialPageGeometry.bodyWidth)).toBeLessThanOrEqual(1);
+    if (initialPageGeometry.scrollbarWidth > 0 && !initialPageGeometry.reservesStableGutter) {
+      expect(Number.parseFloat(lockedPageGeometry.authoredPadding)).toBe(
+        initialPageGeometry.computedPadding + initialPageGeometry.scrollbarWidth,
+      );
+    }
     expect(
       await drawer.locator('[data-frasto-drawer-panel]').evaluate((panel) => {
         const bounds = panel.getBoundingClientRect();
         return Math.abs(window.innerWidth - bounds.right) <= 1;
       }),
     ).toBe(true);
+    const drawerGeometry = await drawer.locator('[data-frasto-drawer-panel]').evaluate((panel) => {
+      const header = panel.querySelector('header')!;
+      const content = panel.querySelector<HTMLElement>('[data-frasto-drawer-content]')!;
+      const panelStyle = getComputedStyle(panel);
+      return {
+        width: panel.getBoundingClientRect().width,
+        headerPadding: getComputedStyle(header).paddingTop,
+        contentPadding: getComputedStyle(content).paddingTop,
+        transitionProperty: panelStyle.transitionProperty,
+        transitionDuration: panelStyle.transitionDuration,
+      };
+    });
+    expect(drawerGeometry.width).toBeCloseTo(384, 2);
+    expect(drawerGeometry.headerPadding).toBe('24px');
+    expect(drawerGeometry.contentPadding).toBe('24px');
+    expect(drawerGeometry.transitionProperty).toContain('transform');
+    expect(drawerGeometry.transitionDuration).toBe('0.22s');
     const results = await new AxeBuilder({ page }).include('dialog[open]').analyze();
     expect(seriousViolations(results.violations)).toEqual([]);
 
-    await page.keyboard.press('Escape');
+    const closingGeometry = await drawer.evaluate((element) => {
+      element.dispatchEvent(new Event('cancel', { cancelable: true }));
+      return {
+        paddingInlineEnd: document.documentElement.style.paddingInlineEnd,
+        overflow: document.documentElement.style.overflow,
+        state: element.getAttribute('data-state'),
+      };
+    });
+    expect(closingGeometry.state).toBe('closing');
+    expect(closingGeometry.overflow).toBe('hidden');
+    expect(closingGeometry.paddingInlineEnd).toBe(lockedPageGeometry.authoredPadding);
     await expect(drawer).toBeHidden();
     await expect(trigger).toBeFocused();
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+    expect(await page.evaluate(() => document.documentElement.style.paddingInlineEnd)).toBe(
+      initialPageGeometry.authoredPadding,
+    );
   });
 
   test('Dialog locks document scrolling and backdrop interaction restores the page', async ({ page }) => {
@@ -37,14 +89,24 @@ test.describe('Phase 5 high-risk interaction evidence', () => {
     const preview = page.locator('.frasto-preview').first();
     const trigger = preview.getByRole('button', { name: 'Rename customer' });
     const dialog = page.getByRole('dialog', { name: 'Rename customer' });
+    await page.evaluate(() => {
+      document.documentElement.style.scrollbarGutter = 'stable';
+      document.documentElement.style.paddingInlineEnd = '7px';
+    });
 
     await trigger.click();
     await expect(dialog).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
+    expect(await page.evaluate(() => document.documentElement.style.paddingInlineEnd)).toBe('7px');
     await page.mouse.click(4, 4);
     await expect(dialog).toBeHidden();
     await expect(trigger).toBeFocused();
     await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('');
+    expect(await page.evaluate(() => document.documentElement.style.paddingInlineEnd)).toBe('7px');
+    await page.evaluate(() => {
+      document.documentElement.style.scrollbarGutter = '';
+      document.documentElement.style.paddingInlineEnd = '';
+    });
   });
 
   test('A non-dismissible Drawer requires an explicit completion control', async ({ page }) => {

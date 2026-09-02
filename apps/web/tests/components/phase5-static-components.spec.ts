@@ -29,7 +29,7 @@ test.describe('Phase 5 static-component evidence', () => {
   test('Breadcrumb, Surface, and Separator expose deliberate structure', async ({ page }) => {
     await page.goto('/docs/components/breadcrumb/');
     const breadcrumb = page.getByRole('navigation', { name: 'Customer location' });
-    await expect(breadcrumb.getByRole('link', { name: 'Workspace' })).toHaveAttribute('href', '/demo/');
+    await expect(breadcrumb.getByRole('link', { name: 'Workspace' })).toHaveAttribute('href', '/docs/');
     await expect(breadcrumb.getByText('Northstar Goods', { exact: true })).toHaveAttribute('aria-current', 'page');
 
     await page.goto('/docs/components/surface/');

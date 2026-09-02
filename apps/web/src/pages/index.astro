@@ -1,5 +1,8 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import HomepageShowcase from '../components/HomepageShowcase.astro';
+import astroLogoDark from '../assets/astro-logo-dark.svg';
+import astroLogoLightGradient from '../assets/astro-logo-light-gradient.svg';
 import { ArrowUpRightIcon, Button, Icon } from '@freight-px/frasto';
 ---
 
@@ -8,10 +11,19 @@ import { ArrowUpRightIcon, Button, Icon } from '@freight-px/frasto';
   description="An Astro-first open-source UI component library and design system for modern interfaces and applications."
 >
   <section class="hero-shell">
-    <p class="index-label">01 / ASTRO-FIRST UI</p>
+    <div class="hero-background" aria-hidden="true"></div>
     <div class="hero-grid">
       <div>
-        <h1>Astro-first UI.<br />Quiet confidence.</h1>
+        <h1>
+          <span class="hero-astro-line">
+            <span class="hero-astro-logo" aria-hidden="true">
+              <img class="hero-astro-logo--light" src={astroLogoDark.src} alt="" width="115" height="40" />
+              <img class="hero-astro-logo--dark" src={astroLogoLightGradient.src} alt="" width="115" height="40" />
+            </span>
+            <span>Astro-first UI.</span>
+          </span>
+          <span>Quiet confidence.</span>
+        </h1>
       </div>
       <div class="hero-copy">
         <p class="alpha-label">PUBLIC ALPHA · 0.1.0-alpha.1</p>
@@ -21,7 +33,7 @@ import { ArrowUpRightIcon, Button, Icon } from '@freight-px/frasto';
         </p>
         <div class="hero-actions">
           <Button href="/docs/getting-started/introduction/">Read the docs <Icon icon={ArrowUpRightIcon} slot="icon-end" /></Button>
-          <Button href="/demo/" variant="outline">View the demo <Icon icon={ArrowUpRightIcon} slot="icon-end" /></Button>
+          <Button href="#components" variant="outline">Browse components <Icon icon={ArrowUpRightIcon} slot="icon-end" /></Button>
         </div>
         <div class="install-command" aria-label="Install the Frasto public alpha">
           <code>pnpm add @freight-px/frasto@next</code>
@@ -34,17 +46,5 @@ import { ArrowUpRightIcon, Button, Icon } from '@freight-px/frasto';
       </div>
     </div>
   </section>
-
-  <section class="principles" aria-labelledby="principles-heading">
-    <div class="section-heading">
-      <p class="index-label">02 / FOUNDATION</p>
-      <h2 id="principles-heading">Built for real interface work.</h2>
-    </div>
-    <ol class="principle-list">
-      <li><span>01</span><strong>Server first</strong><p>Useful HTML before JavaScript.</p></li>
-      <li><span>02</span><strong>Open-source first</strong><p>Useful on its own, without artificial limits.</p></li>
-      <li><span>03</span><strong>Broad coverage</strong><p>Reusable components for websites and applications.</p></li>
-      <li><span>04</span><strong>Accessible states</strong><p>Every state is part of the component contract.</p></li>
-    </ol>
-  </section>
+  <HomepageShowcase />
 </SiteLayout>

@@ -1,0 +1,25 @@
+---
+import {
+  Alert,
+  Button,
+  CircleAlertIcon,
+  CircleCheckIcon,
+  InfoIcon,
+} from '@freight-px/frasto';
+---
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <Alert title="Review account details" tone="info">
+    <InfoIcon slot="icon" size={20} stroke-width={1.25} aria-hidden="true" />
+    Confirm the billing contact before sending the next invoice.
+    <Button slot="action" size="sm" variant="outline">Review</Button>
+  </Alert>
+  <Alert title="Changes saved" tone="positive">
+    <CircleCheckIcon slot="icon" size={20} stroke-width={1.25} aria-hidden="true" />
+    Workspace access rules now apply to all new members.
+  </Alert>
+  <Alert title="Payment requires attention" tone="warning">
+    <CircleAlertIcon slot="icon" size={20} stroke-width={1.25} aria-hidden="true" />
+    The current card expires this month.
+  </Alert>
+</div>

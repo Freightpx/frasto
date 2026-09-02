@@ -1,14 +1,16 @@
 ---
 import '../styles/site.css';
 import frastoLogo from '../../../../logo/frastro_logo.svg';
-import Brand from '../components/Brand.astro';
+import ProjectFooter from '../components/ProjectFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 
 interface Props {
   title: string;
   description: string;
+  robots?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, robots } = Astro.props;
 ---
 
 <!doctype html>
@@ -17,49 +19,32 @@ const { title, description } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
     <link rel="icon" type="image/svg+xml" href={frastoLogo.src} />
     <script is:inline>
-      const savedTheme = localStorage.getItem('frasto-site-theme');
+      let savedTheme = null;
+      try {
+        const currentTheme = localStorage.getItem('starlight-theme');
+        const legacyTheme = localStorage.getItem('frasto-site-theme');
+        savedTheme = currentTheme === 'light' || currentTheme === 'dark'
+          ? currentTheme
+          : legacyTheme === 'light' || legacyTheme === 'dark'
+            ? legacyTheme
+            : null;
+        if (!currentTheme && savedTheme) localStorage.setItem('starlight-theme', savedTheme);
+      } catch {}
       const systemTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      document.documentElement.dataset.theme = savedTheme ?? systemTheme;
+      const theme = savedTheme ?? systemTheme;
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
     </script>
     <title>{title}</title>
   </head>
   <body data-frasto-root>
-    <header class="site-header">
-      <a class="wordmark" href="/" aria-label="Frasto home"><Brand /></a>
-      <nav aria-label="Primary navigation">
-        <a href="/docs/">Docs</a>
-        <a href="/demo/">Demo</a>
-        <a href="https://github.com/Freightpx/frasto">GitHub</a>
-        <button class="site-theme-toggle" type="button" data-site-theme-toggle>Dark theme</button>
-      </nav>
-    </header>
+    <SiteHeader />
     <main>
       <slot />
     </main>
-    <footer class="site-footer">
-      <Brand size="sm" />
-      <span>Clarity first. Craft throughout.</span>
-      <span>Built by Freightpx</span>
-    </footer>
-    <script is:inline>
-      const toggle = document.querySelector('[data-site-theme-toggle]');
-      const updateToggle = () => {
-        if (!(toggle instanceof HTMLButtonElement)) return;
-        const isDark = document.documentElement.dataset.theme === 'dark';
-        toggle.textContent = isDark ? 'Light theme' : 'Dark theme';
-        toggle.setAttribute('aria-label', `Use ${isDark ? 'light' : 'dark'} theme`);
-      };
-
-      toggle?.addEventListener('click', () => {
-        const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        document.documentElement.dataset.theme = nextTheme;
-        localStorage.setItem('frasto-site-theme', nextTheme);
-        updateToggle();
-      });
-
-      updateToggle();
-    </script>
+    <ProjectFooter />
   </body>
 </html>

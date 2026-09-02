@@ -52,7 +52,7 @@ const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false
     />
     <span
       class:list={[
-        'frasto-switch-track inline-flex border border-[var(--frasto-border-strong)] bg-[var(--frasto-surface)] shadow-none transition-colors duration-[var(--frasto-duration-fast)] ease-[var(--frasto-ease-standard)] peer-checked:border-[var(--frasto-ink)] peer-checked:bg-[var(--frasto-ink)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--frasto-focus)]',
+        'frasto-switch-track inline-flex border border-[var(--frasto-control-border)] bg-[var(--frasto-control-bg)] shadow-none transition-colors duration-[var(--frasto-duration-fast)] ease-[var(--frasto-ease-standard)] peer-checked:border-[var(--frasto-control-selected-bg)] peer-checked:bg-[var(--frasto-control-selected-bg)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--frasto-focus)]',
         switchSizes[size].track,
       ]}
       aria-hidden="true"
@@ -60,7 +60,7 @@ const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false
     >
       <span
         class:list={[
-          'frasto-switch-thumb block bg-[var(--frasto-ink-muted)] transition-[transform,background-color] duration-[var(--frasto-duration-fast)] ease-[var(--frasto-ease-standard)]',
+          'frasto-switch-thumb block bg-[var(--frasto-control-fg-muted)] transition-[transform,background-color] duration-[var(--frasto-duration-fast)] ease-[var(--frasto-ease-standard)]',
           switchSizes[size].thumb,
         ]}
         data-frasto-switch-thumb

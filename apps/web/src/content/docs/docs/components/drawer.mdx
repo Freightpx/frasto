@@ -7,7 +7,7 @@ import { Button, Drawer } from '@freight-px/frasto';
 
 **Status: Experimental**
 
-`Drawer` uses native modal dialog behavior while attaching its square surface to the left or right viewport edge. It is appropriate for contextual detail, compact task panels, and mobile navigation.
+`Drawer` uses native modal dialog behavior while attaching its square surface to the left or right viewport edge. It slides from its configured edge, completes its exit before restoring page interaction, and is appropriate for contextual detail, task panels, and mobile navigation.
 
 ## Preview
 
@@ -43,12 +43,15 @@ import { Button, Drawer } from '@freight-px/frasto';
 
 Slots are `trigger`, default content, and `footer`. Add `data-frasto-drawer-close` to a footer control that closes the drawer.
 
+The size scale is 24rem, 32rem, and 40rem. All regions use 24px interior padding, while the panel remains contained within narrow viewports.
+
 ## Accessibility and responsive behavior
 
 - Drawer traps focus through native modal dialog behavior and returns focus on close.
 - The trigger relationship and expanded state are managed automatically.
 - On narrow screens, every size remains within a 24px viewport remainder.
 - Content scrolls inside the panel while its heading and optional footer remain visible.
+- Opening and closing motion follows the selected side and is removed for reduced-motion users.
 - Use Dialog for centered decisions and Popover for non-modal context.
 
 ## Required completion

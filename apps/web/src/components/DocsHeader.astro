@@ -1,0 +1,67 @@
+---
+import Search from '@astrojs/starlight/components/Search.astro';
+import Brand from './Brand.astro';
+import SiteNavigation from './SiteNavigation.astro';
+---
+
+<div class="docs-global-header">
+  <a class="docs-global-header__brand" href="/" aria-label="Frasto home"><Brand /></a>
+  <div class="docs-global-header__search"><Search /></div>
+  <SiteNavigation label="Documentation navigation" />
+</div>
+
+<style>
+  .docs-global-header {
+    display: grid;
+    grid-template-columns: auto minmax(10rem, 1fr) auto;
+    align-items: center;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    width: 100%;
+    height: 100%;
+  }
+
+  .docs-global-header__brand {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .docs-global-header__search {
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .docs-global-header__search :global(site-search) {
+    width: min(22rem, 100%);
+  }
+
+  @media (max-width: 68rem) {
+    .docs-global-header {
+      grid-template-columns: auto auto 1fr;
+    }
+
+    .docs-global-header__search {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 49.999rem) {
+    .docs-global-header {
+      grid-template-columns: auto auto 1fr;
+      padding-inline-end: 2.75rem;
+    }
+
+    .docs-global-header :global(.site-navigation__primary) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .docs-global-header__brand :global(.brand-name),
+    .docs-global-header__brand :global(.brand-suffix) {
+      display: none;
+    }
+  }
+</style>

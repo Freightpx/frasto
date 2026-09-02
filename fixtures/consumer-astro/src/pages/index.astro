@@ -9,7 +9,13 @@ import type {
   PageHeaderHeadingLevel,
   PaginationItemKind,
   StatTone,
+  SpinnerVariant,
   TableDensity,
+  TabsVariant,
+  Theme,
+  ThemeSwitchVariant,
+  ToastPosition,
+  ToastTone,
 } from '@freight-px/frasto';
 
 const buttonVariant: ButtonVariant = 'solid';
@@ -21,6 +27,12 @@ const pageHeading: PageHeaderHeadingLevel = 1;
 const tableDensity: TableDensity = 'compact';
 const paginationKind: PaginationItemKind = 'next';
 const statTone: StatTone = 'positive';
+const spinnerVariants: SpinnerVariant[] = ['orbit', 'breathe', 'cascade', 'counter', 'typewriter'];
+const tabsVariant: TabsVariant = 'segmented';
+const theme: Theme = 'light';
+const themeSwitchVariant: ThemeSwitchVariant = 'animated-icon-label';
+const toastPosition: ToastPosition = 'bottom-right';
+const toastTone: ToastTone = 'positive';
 const exportCount = Object.keys(Frasto).length;
 ---
 
@@ -61,7 +73,10 @@ const exportCount = Object.keys(Frasto).length;
       <Frasto.PaginationItem current label="Current page, page 1">1</Frasto.PaginationItem>
       <Frasto.PaginationItem kind={paginationKind} href="?page=2">Next</Frasto.PaginationItem>
     </Frasto.Pagination>
-    <Frasto.Alert title="Package ready" tone={alertTone}>All representative imports rendered.</Frasto.Alert>
+    <Frasto.Alert title="Package ready" tone={alertTone}>
+      All representative imports rendered.
+      <Frasto.Button slot="action" size="sm">Review</Frasto.Button>
+    </Frasto.Alert>
     <Frasto.ButtonGroup label="Package actions" orientation={groupOrientation}>
       <Frasto.Button>Save</Frasto.Button>
       <Frasto.ButtonGroupSeparator />
@@ -98,17 +113,47 @@ const exportCount = Object.keys(Frasto).length;
     <Frasto.Tooltip id="fixture-tooltip" content="Packed tooltip">
       <Frasto.Button>Tooltip trigger</Frasto.Button>
     </Frasto.Tooltip>
-    <Frasto.Tabs label="Fixture sections" defaultValue="overview">
+    <Frasto.Tabs label="Fixture sections" defaultValue="overview" variant={tabsVariant}>
       <Frasto.Tab slot="tab" value="overview">Overview</Frasto.Tab>
       <Frasto.Tab slot="tab" value="activity">Activity</Frasto.Tab>
       <Frasto.TabPanel slot="panel" value="overview">Overview panel</Frasto.TabPanel>
       <Frasto.TabPanel slot="panel" value="activity">Activity panel</Frasto.TabPanel>
     </Frasto.Tabs>
+    <Frasto.ThemeSwitch
+      defaultTheme={theme}
+      storageKey="fixture-theme"
+      label="Fixture color theme"
+      variant={themeSwitchVariant}
+    />
+    <Frasto.Button data-packed-toast data-toast-tone={toastTone}>Show packed toast</Frasto.Button>
+    <Frasto.ToastRegion position={toastPosition} label="Packed notifications" />
     <Frasto.Surface as="section" variant="outlined" aria-label="Packed surface">
       Surface content
       <Frasto.Separator />
       <Frasto.Skeleton animation="none" />
-      <Frasto.Spinner label="Loading fixture" />
+      <Frasto.Spinner label="Loading fixture" variant="orbit" />
+      <span aria-label="Packed Spinner variants">
+        {spinnerVariants.map((variant) => <Frasto.Spinner variant={variant} />)}
+      </span>
     </Frasto.Surface>
   </body>
 </html>
+
+<script>
+  import { dismissAllToasts, dismissToast, toast } from '@freight-px/frasto';
+  import type { ToastTone } from '@freight-px/frasto';
+
+  const packedToastTrigger = document.querySelector<HTMLElement>('[data-packed-toast]');
+  packedToastTrigger?.addEventListener('click', () => {
+    const tone = (packedToastTrigger.dataset.toastTone || 'positive') as ToastTone;
+    const handle = toast({
+      id: 'packed-toast',
+      title: 'Packed package ready',
+      description: 'The runtime Toast API loaded in a clean Astro consumer.',
+      tone,
+      duration: 0,
+    });
+    window.setTimeout(() => dismissToast(handle.id), 50);
+    window.setTimeout(dismissAllToasts, 100);
+  });
+</script>

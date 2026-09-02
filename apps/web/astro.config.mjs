@@ -26,6 +26,11 @@ export default defineConfig({
         replacesTitle: false,
       },
       customCss: ['./src/styles/custom.css'],
+      components: {
+        Header: './src/components/DocsHeader.astro',
+        Footer: './src/components/DocsFooter.astro',
+        ThemeSelect: './src/components/DocsThemeToggle.astro',
+      },
       lastUpdated: true,
       editLink: {
         baseUrl: 'https://github.com/Freightpx/frasto/edit/main/apps/web/',
@@ -63,6 +68,7 @@ export default defineConfig({
                 { label: 'Button', slug: 'docs/components/button' },
                 { label: 'ButtonGroup', slug: 'docs/components/button-group' },
                 { label: 'IconButton', slug: 'docs/components/icon-button' },
+                { label: 'ThemeSwitch', slug: 'docs/components/theme-switch' },
               ],
             },
             {
@@ -93,6 +99,7 @@ export default defineConfig({
               label: 'Feedback',
               items: [
                 { label: 'Alert', slug: 'docs/components/alert' },
+                { label: 'Toast', slug: 'docs/components/toast' },
                 { label: 'EmptyState', slug: 'docs/application-components/empty-state' },
               ],
             },

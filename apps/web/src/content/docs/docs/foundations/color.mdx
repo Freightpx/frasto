@@ -42,6 +42,26 @@ Functional color communicates an application state. Pair it with text, an icon, 
 
 Information states may use a product-defined token later. Frasto does not make bright blue the default brand action merely because it is conventional.
 
+## Component color roles
+
+The base palette remains useful for page-level composition. Components also expose role tokens so a product can recolor controls without targeting internal selectors.
+
+| Token | Default alias | Purpose |
+| --- | --- | --- |
+| `--frasto-control-bg` | `--frasto-surface` | resting control background |
+| `--frasto-control-fg` | `--frasto-ink` | primary control text and icons |
+| `--frasto-control-fg-muted` | `--frasto-ink-muted` | unselected or secondary control text |
+| `--frasto-control-border` | `--frasto-border-strong` | resting interactive boundary |
+| `--frasto-control-hover-bg` | `--frasto-surface-subtle` | hover background |
+| `--frasto-control-hover-border` | `--frasto-ink` | hover boundary |
+| `--frasto-control-selected-bg` | `--frasto-ink` | checked or selected fill and indicator |
+| `--frasto-control-selected-fg` | `--frasto-bg` | content placed on a selected fill |
+| `--frasto-control-disabled-bg` | `--frasto-surface-subtle` | unavailable control background |
+| `--frasto-control-disabled-fg` | `--frasto-ink-soft` | unavailable control content |
+| `--frasto-overlay-backdrop` | `rgb(17 17 17 / 48%)` | dialog and drawer backdrop |
+
+Override the smallest role that expresses the design change. For example, changing `--frasto-control-selected-bg` customizes selected tabs, checkboxes, and radios as one coherent interaction family.
+
 ## Contrast and state
 
 - Test text, icons, borders, and focus indicators against their actual surface.

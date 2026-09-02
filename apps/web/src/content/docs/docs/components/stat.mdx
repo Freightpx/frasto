@@ -11,7 +11,7 @@ import { Stat } from '@freight-px/frasto';
 
 ## Preview
 
-<div class="frasto-preview" data-frasto-root style="width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));column-gap:1.5rem;">
+<div class="frasto-preview" data-frasto-root style="width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));column-gap:1.5rem;align-items:start;">
   <Stat label="Active customers" value="112" change="Up 8 this month" changeTone="positive" description="From 128 total records" />
   <Stat label="Open balance" value="$42,840" change="Down 4.2%" changeTone="positive" description="Compared with last month" />
   <Stat label="Needs review" value="7" change="2 overdue" changeTone="warning" description="Across all workspaces" />
@@ -51,4 +51,4 @@ The optional `visual` slot accepts a small supplementary visualization. Decorati
 
 `Stat` owns description-list semantics, text hierarchy, tabular numerals, compact spacing, and wrapping. The application formats currency, percentages, units, dates, and localization before rendering. It also decides whether a change is positive or risky in its domain.
 
-Trend meaning must be written in `change`; do not rely on color or an unexplained arrow. Group multiple Stats in an application-owned responsive grid with shared spacing. Long values and localized context wrap without clipping.
+Trend meaning must be written in `change`; do not rely on color or an unexplained arrow. Change and description occupy consistent stacked rows, so short copy does not alter alignment. Group multiple Stats in an application-owned responsive grid with shared spacing. Long values and localized context wrap without clipping.

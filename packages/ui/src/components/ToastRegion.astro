@@ -1,0 +1,334 @@
+---
+import type { ToastRegionProps } from './toast';
+
+type Props = ToastRegionProps;
+
+const {
+  class: className,
+  dismissLabel = 'Dismiss notification',
+  label = 'Notifications',
+  position = 'bottom-right',
+  ...rest
+} = Astro.props;
+---
+
+<frasto-toast-region
+  {...rest}
+  class:list={['frasto-toast-region', className]}
+  role="region"
+  aria-label={label}
+  data-dismiss-label={dismissLabel}
+  data-frasto-toast-region
+  data-position={position}
+>
+  <div data-frasto-toast-list></div>
+</frasto-toast-region>
+
+<script>
+  import {
+    connectToastRegion,
+    disconnectToastRegion,
+    type ToastDismissReason,
+    type ToastRegionController,
+    type ToastRequest,
+    type ToastTone,
+  } from './toast';
+
+  type PauseReason = 'focus' | 'hidden' | 'hover';
+
+  type ActiveToast = {
+    closeTimer: number | null;
+    element: HTMLElement;
+    pauseReasons: Set<PauseReason>;
+    remaining: number;
+    request: ToastRequest;
+    startedAt: number;
+    timer: number | null;
+  };
+
+  const svgNamespace = 'http://www.w3.org/2000/svg';
+
+  function createSvgElement(name: string, attributes: Record<string, string>) {
+    const element = document.createElementNS(svgNamespace, name);
+    Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value));
+    return element;
+  }
+
+  function createToastIcon(tone: ToastTone) {
+    const svg = createSvgElement('svg', {
+      'aria-hidden': 'true',
+      fill: 'none',
+      height: '20',
+      stroke: 'currentColor',
+      'stroke-linecap': 'round',
+      'stroke-linejoin': 'round',
+      'stroke-width': '1.25',
+      viewBox: '0 0 24 24',
+      width: '20',
+    });
+
+    if (tone === 'warning') {
+      svg.append(
+        createSvgElement('path', { d: 'm21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z' }),
+        createSvgElement('path', { d: 'M12 9v4' }),
+        createSvgElement('path', { d: 'M12 17h.01' }),
+      );
+      return svg;
+    }
+
+    svg.append(createSvgElement('circle', { cx: '12', cy: '12', r: '9' }));
+    if (tone === 'positive') {
+      svg.append(createSvgElement('path', { d: 'm8.5 12 2.3 2.3 4.8-5' }));
+    } else if (tone === 'danger') {
+      svg.append(
+        createSvgElement('path', { d: 'm9 9 6 6' }),
+        createSvgElement('path', { d: 'm15 9-6 6' }),
+      );
+    } else {
+      svg.append(
+        createSvgElement('path', { d: 'M12 11v5' }),
+        createSvgElement('path', { d: 'M12 8h.01' }),
+      );
+    }
+    return svg;
+  }
+
+  function createDismissIcon() {
+    const svg = createSvgElement('svg', {
+      'aria-hidden': 'true',
+      fill: 'none',
+      height: '16',
+      stroke: 'currentColor',
+      'stroke-linecap': 'round',
+      'stroke-width': '1.25',
+      viewBox: '0 0 24 24',
+      width: '16',
+    });
+    svg.append(
+      createSvgElement('path', { d: 'm7 7 10 10' }),
+      createSvgElement('path', { d: 'm17 7-10 10' }),
+    );
+    return svg;
+  }
+
+  class FrastoToastRegion extends HTMLElement implements ToastRegionController {
+    private list: HTMLElement | null = null;
+    private records = new Map<string, ActiveToast>();
+    private registered = false;
+
+    connectedCallback() {
+      if (this.parentElement !== document.body) {
+        document.body.append(this);
+        return;
+      }
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      this.list = this.querySelector<HTMLElement>('[data-frasto-toast-list]');
+      this.registered = connectToastRegion(this);
+      if (!this.registered) {
+        this.dataset.inactive = 'true';
+        console.warn('Frasto ToastRegion: mount exactly one ToastRegion per document.');
+        return;
+      }
+      document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    }
+
+    disconnectedCallback() {
+      document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+      if (this.registered) disconnectToastRegion(this);
+      this.records.forEach((record) => {
+        if (record.timer !== null) window.clearTimeout(record.timer);
+        if (record.closeTimer !== null) window.clearTimeout(record.closeTimer);
+      });
+      this.records.clear();
+      this.registered = false;
+      delete this.dataset.initialized;
+    }
+
+    show(request: ToastRequest) {
+      if (!this.registered || !this.list) return;
+      const existing = this.records.get(request.id);
+      if (existing) this.completeDismiss(existing, 'replaced');
+
+      const item = document.createElement('div');
+      item.dataset.frastoToastItem = '';
+      item.dataset.state = 'entering';
+      item.dataset.toastId = request.id;
+
+      const overflow = document.createElement('div');
+      overflow.dataset.frastoToastOverflow = '';
+
+      const surface = document.createElement('div');
+      surface.dataset.frastoToast = '';
+      surface.dataset.tone = request.tone;
+      surface.setAttribute('role', request.priority === 'assertive' ? 'alert' : 'status');
+      surface.setAttribute('aria-atomic', 'true');
+
+      const icon = document.createElement('span');
+      icon.dataset.frastoToastIcon = '';
+      icon.append(createToastIcon(request.tone));
+
+      const body = document.createElement('div');
+      body.dataset.frastoToastBody = '';
+
+      const title = document.createElement('p');
+      title.dataset.frastoToastTitle = '';
+      title.textContent = request.title;
+      body.append(title);
+
+      if (request.description) {
+        const description = document.createElement('p');
+        description.dataset.frastoToastDescription = '';
+        description.textContent = request.description;
+        body.append(description);
+      }
+
+      const controls = document.createElement('div');
+      controls.dataset.frastoToastControls = '';
+
+      if (request.action) {
+        const action = document.createElement('button');
+        action.type = 'button';
+        action.dataset.frastoToastAction = '';
+        action.textContent = request.action.label;
+        action.addEventListener('click', () => {
+          try {
+            request.action?.onSelect();
+          } finally {
+            if (request.action?.dismissOnSelect !== false) {
+              this.dismiss(request.id, 'action');
+            }
+          }
+        });
+        controls.append(action);
+      }
+
+      const dismiss = document.createElement('button');
+      dismiss.type = 'button';
+      dismiss.dataset.frastoToastDismiss = '';
+      dismiss.setAttribute('aria-label', request.dismissLabel || this.dataset.dismissLabel || 'Dismiss notification');
+      dismiss.append(createDismissIcon());
+      dismiss.addEventListener('click', () => this.dismiss(request.id, 'dismiss'));
+      controls.append(dismiss);
+
+      surface.append(icon, body, controls);
+      overflow.append(surface);
+      item.append(overflow);
+
+      const record: ActiveToast = {
+        closeTimer: null,
+        element: item,
+        pauseReasons: new Set(),
+        remaining: request.duration,
+        request,
+        startedAt: 0,
+        timer: null,
+      };
+      this.records.set(request.id, record);
+
+      surface.addEventListener('pointerenter', () => this.pause(record, 'hover'));
+      surface.addEventListener('pointerleave', () => this.resume(record, 'hover'));
+      surface.addEventListener('focusin', () => this.pause(record, 'focus'));
+      surface.addEventListener('focusout', () => {
+        queueMicrotask(() => {
+          if (!surface.contains(document.activeElement)) this.resume(record, 'focus');
+        });
+      });
+
+      if (document.visibilityState === 'hidden') record.pauseReasons.add('hidden');
+
+      if ((this.dataset.position || 'bottom-right').startsWith('top')) {
+        this.list.prepend(item);
+      } else {
+        this.list.append(item);
+      }
+
+      requestAnimationFrame(() => {
+        if (!item.isConnected) return;
+        item.dataset.state = 'open';
+        if (!(this.dataset.position || 'bottom-right').startsWith('top')) {
+          this.scrollTop = this.scrollHeight;
+        }
+      });
+
+      this.startTimer(record);
+      this.dispatchEvent(new CustomEvent('frasto:toast-show', {
+        bubbles: true,
+        detail: { id: request.id },
+      }));
+    }
+
+    dismiss(id: string, reason: ToastDismissReason) {
+      const record = this.records.get(id);
+      if (!record || record.element.dataset.state === 'closing') return;
+      if (record.timer !== null) window.clearTimeout(record.timer);
+      record.timer = null;
+      record.element.dataset.state = 'closing';
+
+      const finish = () => this.completeDismiss(record, reason);
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        finish();
+        return;
+      }
+
+      record.element.addEventListener('transitionend', (event) => {
+        if (event.propertyName === 'grid-template-rows') finish();
+      }, { once: true });
+      record.closeTimer = window.setTimeout(finish, 240);
+    }
+
+    dismissAll(reason: ToastDismissReason) {
+      Array.from(this.records.values()).forEach((record) => this.dismiss(record.request.id, reason));
+    }
+
+    private startTimer(record: ActiveToast) {
+      if (record.remaining <= 0 || record.pauseReasons.size > 0 || record.timer !== null) return;
+      record.startedAt = performance.now();
+      record.timer = window.setTimeout(() => {
+        record.timer = null;
+        this.dismiss(record.request.id, 'timeout');
+      }, record.remaining);
+    }
+
+    private pause(record: ActiveToast, reason: PauseReason) {
+      if (record.pauseReasons.has(reason)) return;
+      if (record.pauseReasons.size === 0 && record.timer !== null) {
+        const elapsed = performance.now() - record.startedAt;
+        record.remaining = Math.max(0, record.remaining - elapsed);
+        window.clearTimeout(record.timer);
+        record.timer = null;
+      }
+      record.pauseReasons.add(reason);
+    }
+
+    private resume(record: ActiveToast, reason: PauseReason) {
+      record.pauseReasons.delete(reason);
+      if (record.pauseReasons.size === 0) this.startTimer(record);
+    }
+
+    private completeDismiss(record: ActiveToast, reason: ToastDismissReason) {
+      if (!this.records.has(record.request.id)) return;
+      if (record.timer !== null) window.clearTimeout(record.timer);
+      if (record.closeTimer !== null) window.clearTimeout(record.closeTimer);
+      record.timer = null;
+      record.closeTimer = null;
+      record.element.remove();
+      this.records.delete(record.request.id);
+      this.dispatchEvent(new CustomEvent('frasto:toast-dismiss', {
+        bubbles: true,
+        detail: { id: record.request.id, reason },
+      }));
+    }
+
+    private handleVisibilityChange = () => {
+      this.records.forEach((record) => {
+        if (document.visibilityState === 'hidden') this.pause(record, 'hidden');
+        else this.resume(record, 'hidden');
+      });
+    };
+  }
+
+  if (!customElements.get('frasto-toast-region')) {
+    customElements.define('frasto-toast-region', FrastoToastRegion);
+  }
+</script>

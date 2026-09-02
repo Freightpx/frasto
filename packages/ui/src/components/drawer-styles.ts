@@ -32,7 +32,7 @@ export const drawerSides: Record<DrawerSide, string> = {
 };
 
 export const drawerSizes: Record<DrawerSize, string> = {
-  sm: 'w-80',
-  md: 'w-[28rem]',
-  lg: 'w-[36rem]',
+  sm: 'w-96',
+  md: 'w-[32rem]',
+  lg: 'w-[40rem]',
 };

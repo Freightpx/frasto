@@ -15,6 +15,21 @@
   --frasto-info: #315b70;
   --frasto-focus: #111111;
 
+  /* Component color roles. Override these to recolor controls without
+     depending on component selectors or internal markup. */
+  --frasto-control-bg: var(--frasto-surface);
+  --frasto-control-fg: var(--frasto-ink);
+  --frasto-control-fg-muted: var(--frasto-ink-muted);
+  --frasto-control-border: var(--frasto-border-strong);
+  --frasto-control-hover-bg: var(--frasto-surface-subtle);
+  --frasto-control-hover-border: var(--frasto-ink);
+  --frasto-control-selected-bg: var(--frasto-ink);
+  --frasto-control-selected-fg: var(--frasto-bg);
+  --frasto-control-disabled-bg: var(--frasto-surface-subtle);
+  --frasto-control-disabled-fg: var(--frasto-ink-soft);
+  --frasto-overlay-backdrop: rgb(17 17 17 / 48%);
+  --frasto-overlay-shadow: 0 12px 32px rgb(17 17 17 / 18%);
+
   --frasto-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --frasto-font-display: "Inter Tight", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --frasto-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -63,4 +78,5 @@
   --frasto-danger: #d98a86;
   --frasto-info: #8ab4c7;
   --frasto-focus: #f4f1ea;
+  --frasto-overlay-shadow: 0 12px 32px rgb(0 0 0 / 42%);
 }

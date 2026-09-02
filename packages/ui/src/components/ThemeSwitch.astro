@@ -1,0 +1,252 @@
+---
+import { Moon, Sun } from '@lucide/astro';
+import Icon from './Icon.astro';
+import {
+  themeSwitchAnimatedIcon,
+  themeSwitchAnimatedLabel,
+  themeSwitchButton,
+  themeSwitchGroup,
+  themeSwitchIconButton,
+  themeSwitchIndicator,
+  themeSwitchRoot,
+  themeSwitchToggle,
+  themeSwitchToggleIconOnly,
+  themeSwitchToggleWithLabel,
+  type ThemeSwitchProps,
+} from './theme-switch-styles';
+
+type Props = ThemeSwitchProps;
+
+const {
+  class: className,
+  darkLabel = 'Dark',
+  defaultTheme,
+  label = 'Color theme',
+  lightLabel = 'Light',
+  storageKey = 'frasto-theme',
+  variant = 'animated-icon-label',
+  ...rest
+} = Astro.props;
+
+const segmented = variant === 'segmented' || variant === 'segmented-icons';
+const iconOnly = variant === 'segmented-icons' || variant === 'animated-icon';
+---
+
+<frasto-theme-switch
+  {...rest}
+  class:list={[themeSwitchRoot, className]}
+  data-default-theme={defaultTheme}
+  data-dark-label={darkLabel}
+  data-frasto-theme-switch
+  data-label={label}
+  data-light-label={lightLabel}
+  data-storage-key={storageKey}
+  data-variant={variant}
+>
+  {segmented ? (
+    <div
+      class:list={themeSwitchGroup}
+      role="group"
+      aria-label={label}
+      data-frasto-theme-switch-group
+      data-variant={variant}
+    >
+      <span class:list={themeSwitchIndicator} aria-hidden="true" data-frasto-theme-switch-indicator></span>
+      <button
+        type="button"
+        class:list={[themeSwitchButton, iconOnly && themeSwitchIconButton]}
+        aria-label={iconOnly ? lightLabel : undefined}
+        aria-pressed="false"
+        tabindex="0"
+        data-frasto-theme-option
+        data-theme-value="light"
+      >
+        <span class="inline-flex shrink-0" aria-hidden="true"><Icon icon={Sun} size={16} /></span>
+        {!iconOnly && <span>{lightLabel}</span>}
+      </button>
+      <button
+        type="button"
+        class:list={[themeSwitchButton, iconOnly && themeSwitchIconButton]}
+        aria-label={iconOnly ? darkLabel : undefined}
+        aria-pressed="false"
+        tabindex="-1"
+        data-frasto-theme-option
+        data-theme-value="dark"
+      >
+        <span class="inline-flex shrink-0" aria-hidden="true"><Icon icon={Moon} size={16} /></span>
+        {!iconOnly && <span>{darkLabel}</span>}
+      </button>
+    </div>
+  ) : (
+    <button
+      type="button"
+      class:list={[
+        themeSwitchToggle,
+        iconOnly ? themeSwitchToggleIconOnly : themeSwitchToggleWithLabel,
+      ]}
+      aria-label={label}
+      aria-pressed="false"
+      data-frasto-theme-toggle
+    >
+      <span class:list={themeSwitchAnimatedIcon} aria-hidden="true" data-frasto-theme-switch-icon>
+        <span data-frasto-theme-icon data-theme-value="light"><Icon icon={Sun} size={16} /></span>
+        <span data-frasto-theme-icon data-theme-value="dark"><Icon icon={Moon} size={16} /></span>
+      </span>
+      {!iconOnly && (
+        <span class:list={themeSwitchAnimatedLabel} aria-hidden="true" data-frasto-theme-switch-label>
+          <span data-frasto-theme-label data-theme-value="light">{lightLabel}</span>
+          <span data-frasto-theme-label data-theme-value="dark">{darkLabel}</span>
+        </span>
+      )}
+    </button>
+  )}
+</frasto-theme-switch>
+
+<script>
+  type Theme = 'light' | 'dark';
+
+  const isTheme = (value: string | undefined | null): value is Theme =>
+    value === 'light' || value === 'dark';
+
+  class FrastoThemeSwitch extends HTMLElement {
+    private buttons: HTMLButtonElement[] = [];
+    private toggle: HTMLButtonElement | null = null;
+    private storageKey = 'frasto-theme';
+
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      this.storageKey = this.dataset.storageKey || 'frasto-theme';
+      this.buttons = Array.from(this.querySelectorAll<HTMLButtonElement>('[data-frasto-theme-option]'));
+      this.toggle = this.querySelector<HTMLButtonElement>('[data-frasto-theme-toggle]');
+      [...this.buttons, ...(this.toggle ? [this.toggle] : [])].forEach((button) => {
+        button.addEventListener('click', this.handleClick);
+        button.addEventListener('keydown', this.handleKeydown);
+      });
+      document.addEventListener('frasto:theme-change', this.handleThemeChange);
+      window.addEventListener('storage', this.handleStorage);
+      this.apply(this.resolveTheme(), false, false);
+      requestAnimationFrame(() => {
+        this.dataset.ready = 'true';
+      });
+    }
+
+    disconnectedCallback() {
+      [...this.buttons, ...(this.toggle ? [this.toggle] : [])].forEach((button) => {
+        button.removeEventListener('click', this.handleClick);
+        button.removeEventListener('keydown', this.handleKeydown);
+      });
+      document.removeEventListener('frasto:theme-change', this.handleThemeChange);
+      window.removeEventListener('storage', this.handleStorage);
+      delete this.dataset.initialized;
+      delete this.dataset.ready;
+    }
+
+    private resolveTheme(): Theme {
+      try {
+        const saved = localStorage.getItem(this.storageKey);
+        if (isTheme(saved)) return saved;
+      } catch {
+        // Storage is optional; theme switching remains available without it.
+      }
+      const current = document.documentElement.dataset.theme;
+      if (isTheme(current)) return current;
+      if (isTheme(this.dataset.defaultTheme)) return this.dataset.defaultTheme;
+      return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    private handleClick = (event: Event) => {
+      const button = event.currentTarget as HTMLButtonElement;
+      const explicitTheme = button.dataset.themeValue;
+      if (isTheme(explicitTheme)) {
+        this.apply(explicitTheme, true, true);
+        return;
+      }
+      const nextTheme: Theme = this.dataset.theme === 'dark' ? 'light' : 'dark';
+      this.apply(nextTheme, true, true);
+    };
+
+    private handleKeydown = (event: KeyboardEvent) => {
+      if (this.toggle) {
+        let theme: Theme | null = null;
+        if (event.key === 'ArrowRight' || event.key === 'End') theme = 'dark';
+        else if (event.key === 'ArrowLeft' || event.key === 'Home') theme = 'light';
+        if (!theme) return;
+        event.preventDefault();
+        this.apply(theme, true, true);
+        return;
+      }
+
+      const current = this.buttons.indexOf(event.currentTarget as HTMLButtonElement);
+      let next = current;
+      if (event.key === 'ArrowRight') next = (current + 1) % this.buttons.length;
+      else if (event.key === 'ArrowLeft') next = (current - 1 + this.buttons.length) % this.buttons.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = this.buttons.length - 1;
+      else return;
+      event.preventDefault();
+      const button = this.buttons[next];
+      const theme = button?.dataset.themeValue;
+      if (!button || !isTheme(theme)) return;
+      button.focus();
+      this.apply(theme, true, true);
+    };
+
+    private handleThemeChange = (event: Event) => {
+      const theme = (event as CustomEvent<{ theme?: string }>).detail?.theme;
+      if (isTheme(theme)) this.sync(theme);
+    };
+
+    private handleStorage = (event: StorageEvent) => {
+      if (event.key !== this.storageKey || !isTheme(event.newValue)) return;
+      this.apply(event.newValue, false, false);
+    };
+
+    private apply(theme: Theme, persist: boolean, emit: boolean) {
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+      this.sync(theme);
+      if (persist) {
+        try {
+          localStorage.setItem(this.storageKey, theme);
+        } catch {
+          // Storage is optional; the document theme has already changed.
+        }
+      }
+      if (emit) {
+        this.dispatchEvent(new CustomEvent('frasto:theme-change', {
+          bubbles: true,
+          detail: { theme },
+        }));
+      }
+    }
+
+    private sync(theme: Theme) {
+      this.dataset.theme = theme;
+      this.buttons.forEach((button) => {
+        const selected = button.dataset.themeValue === theme;
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        button.tabIndex = selected ? 0 : -1;
+      });
+
+      if (this.toggle) {
+        const currentLabel = theme === 'light'
+          ? (this.dataset.lightLabel || 'Light')
+          : (this.dataset.darkLabel || 'Dark');
+        const nextLabel = theme === 'light'
+          ? (this.dataset.darkLabel || 'Dark')
+          : (this.dataset.lightLabel || 'Light');
+        const groupLabel = this.dataset.label || 'Color theme';
+        this.toggle.setAttribute(
+          'aria-label',
+          groupLabel + '. Current theme: ' + currentLabel + '. Switch to ' + nextLabel + '.',
+        );
+        this.toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+      }
+    }
+  }
+
+  if (!customElements.get('frasto-theme-switch')) {
+    customElements.define('frasto-theme-switch', FrastoThemeSwitch);
+  }
+</script>

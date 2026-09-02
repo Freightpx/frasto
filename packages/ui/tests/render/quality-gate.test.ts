@@ -44,6 +44,8 @@ import Switch from '../../src/components/Switch.astro';
 import Tab from '../../src/components/Tab.astro';
 import TabPanel from '../../src/components/TabPanel.astro';
 import Tabs from '../../src/components/Tabs.astro';
+import ThemeSwitch from '../../src/components/ThemeSwitch.astro';
+import ToastRegion from '../../src/components/ToastRegion.astro';
 import Table from '../../src/components/Table.astro';
 import Textarea from '../../src/components/Textarea.astro';
 import Tooltip from '../../src/components/Tooltip.astro';
@@ -155,12 +157,14 @@ describe('Gate 4 rendered contracts', () => {
   test('Alert is static feedback without a forced live-region role', async () => {
     const html = await container.renderToString(Alert, {
       props: { title: 'Review account details', tone: 'warning' },
-      slots: { default: 'Confirm the billing contact.' },
+      slots: { default: 'Confirm the billing contact.', action: '<button type="button">Review</button>' },
     });
 
     expect(html).toContain('data-frasto-alert');
     expect(html).toContain('data-tone="warning"');
     expect(html).toContain('Review account details');
+    expect(html).toContain('data-frasto-alert-action');
+    expect(html).toContain('Review</button>');
     expect(html).not.toContain('role="alert"');
   });
 
@@ -240,6 +244,77 @@ describe('Phase 5 high-risk rendered contracts', () => {
     expect(root).toContain('aria-label="Account sections"');
     expect(tab).toContain('aria-selected="false"');
     expect(panel).not.toContain('hidden');
+  });
+
+  test('Segmented Tabs render a square moving-indicator hook without changing semantics', async () => {
+    const html = await container.renderToString(Tabs, {
+      props: { label: 'Communication sections', defaultValue: 'chat', variant: 'segmented' },
+      slots: { tab: '<button role="tab">Chats</button>', panel: '<div role="tabpanel">Recent chats</div>' },
+    });
+
+    expect(html).toContain('role="tablist"');
+    expect(html).toContain('data-variant="segmented"');
+    expect(html).toContain('data-frasto-tab-indicator');
+    expect(html).toContain('aria-hidden="true"');
+  });
+
+  test('ThemeSwitch renders a labelled two-button pressed-state group', async () => {
+    const html = await container.renderToString(ThemeSwitch, {
+      props: {
+        label: 'Application color theme',
+        lightLabel: 'Day',
+        darkLabel: 'Night',
+        storageKey: 'product-theme',
+        variant: 'segmented',
+      },
+    });
+
+    expect(html).toContain('data-frasto-theme-switch');
+    expect(html).toContain('role="group"');
+    expect(html).toContain('aria-label="Application color theme"');
+    expect(html).toContain('data-storage-key="product-theme"');
+    expect(html).toContain('Day');
+    expect(html).toContain('Night');
+    expect(html.match(/aria-pressed="false"/g)).toHaveLength(2);
+  });
+
+  test('ThemeSwitch renders compact and animated setting variants', async () => {
+    const compact = await container.renderToString(ThemeSwitch, {
+      props: { label: 'Compact theme', variant: 'segmented-icons' },
+    });
+    const animatedIcon = await container.renderToString(ThemeSwitch, {
+      props: { label: 'Icon theme', variant: 'animated-icon' },
+    });
+    const defaultAnimatedLabel = await container.renderToString(ThemeSwitch, {
+      props: { label: 'Labelled theme' },
+    });
+
+    expect(compact).toContain('data-variant="segmented-icons"');
+    expect(compact).toContain('aria-label="Light"');
+    expect(compact).toContain('aria-label="Dark"');
+    expect(animatedIcon).toContain('data-variant="animated-icon"');
+    expect(animatedIcon).toContain('data-frasto-theme-toggle');
+    expect(defaultAnimatedLabel).toContain('data-variant="animated-icon-label"');
+    expect(defaultAnimatedLabel).toContain('data-frasto-theme-switch-label');
+  });
+
+  test('ToastRegion renders one named empty notification region before enhancement', async () => {
+    const html = await container.renderToString(ToastRegion, {
+      props: {
+        position: 'top-center',
+        label: 'Account notifications',
+        dismissLabel: 'Close account notification',
+      },
+    });
+
+    expect(html).toContain('data-frasto-toast-region');
+    expect(html).toContain('role="region"');
+    expect(html).toContain('aria-label="Account notifications"');
+    expect(html).toContain('data-position="top-center"');
+    expect(html).toContain('data-dismiss-label="Close account notification"');
+    expect(html).toContain('data-frasto-toast-list');
+    expect(html).not.toContain('role="status"');
+    expect(html).not.toContain('role="alert"');
   });
 
   test('Switch remains a native named checkbox with switch semantics', async () => {
@@ -397,12 +472,27 @@ describe('Phase 5 static-component rendered contracts', () => {
     const labelledSpinner = await container.renderToString(Spinner, {
       props: { label: 'Loading invoices' },
     });
+    const variantSpinner = await container.renderToString(Spinner, {
+      props: {
+        variant: 'typewriter',
+        size: 'lg',
+        class: 'consumer-spinner',
+        'data-consumer': 'fixture',
+      },
+    });
 
     expect(skeleton).toContain('aria-hidden="true"');
     expect(skeleton).toContain('data-animation="none"');
     expect(decorativeSpinner).toContain('aria-hidden="true"');
+    expect(decorativeSpinner).toContain('data-variant="orbit"');
+    expect(decorativeSpinner.match(/data-frasto-spinner-cell/g)).toHaveLength(9);
     expect(labelledSpinner).toContain('role="status"');
     expect(labelledSpinner).toContain('aria-label="Loading invoices"');
+    expect(labelledSpinner.match(/aria-hidden="true"/g)).toHaveLength(9);
+    expect(variantSpinner).toContain('data-variant="typewriter"');
+    expect(variantSpinner).toContain('data-size="lg"');
+    expect(variantSpinner).toContain('consumer-spinner');
+    expect(variantSpinner).toContain('data-consumer="fixture"');
   });
 
   test('Breadcrumb keeps landmark, link, and current-page semantics explicit', async () => {

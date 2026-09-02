@@ -42,7 +42,7 @@ const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false
   data-invalid={isInvalid ? 'true' : undefined}
   data-size={size}
 >
-  <span class:list={['relative inline-flex shrink-0', checkboxSizes[size].box]}>
+  <span class:list={['inline-grid shrink-0 place-items-center', checkboxSizes[size].box]}>
     <input
       {...rest}
       class:list={[
@@ -60,7 +60,8 @@ const isInvalid = invalid || (ariaInvalid !== undefined && ariaInvalid !== false
     <Icon
       icon={Check}
       size={checkboxSizes[size].icon}
-      class="pointer-events-none absolute inset-0 m-auto text-[var(--frasto-bg)] opacity-0 peer-checked:opacity-100"
+      class="pointer-events-none col-start-1 row-start-1 m-0 text-[var(--frasto-control-selected-fg)]"
+      data-frasto-checkbox-indicator
     />
   </span>
   {hasLabel && <span class={checkboxSizes[size].label}><slot /></span>}

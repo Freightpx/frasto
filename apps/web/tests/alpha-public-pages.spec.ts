@@ -27,7 +27,7 @@ test.describe('Public alpha page evidence', () => {
     expect(primaryStyle.paddingInline).toBe('16px');
     expect(primaryStyle.background).not.toBe('rgba(0, 0, 0, 0)');
 
-    await page.getByRole('button', { name: 'Use dark theme' }).click();
+    await page.getByRole('button', { name: /Site color theme/ }).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
     const darkBackground = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
     expect(darkBackground).not.toBe(lightState.background);

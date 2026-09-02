@@ -5,18 +5,14 @@ export const selectRootBase = [
   'inline-flex',
   'items-center',
   'border',
-  'border-[var(--frasto-border-strong)]',
-  'bg-[var(--frasto-surface)]',
-  'text-[var(--frasto-ink)]',
+  'border-[var(--frasto-control-border)]',
+  'bg-[var(--frasto-control-bg)]',
+  'text-[var(--frasto-control-fg)]',
   'shadow-none',
   'transition-colors',
   'duration-[var(--frasto-duration-fast)]',
   'ease-[var(--frasto-ease-standard)]',
-  'focus-within:border-[var(--frasto-ink)]',
-  'focus-within:outline',
-  'focus-within:outline-2',
-  'focus-within:outline-offset-2',
-  'focus-within:outline-[var(--frasto-focus)]',
+  'focus-within:border-[var(--frasto-focus)]',
 ].join(' ');
 
 export const selectRootSizes: Record<SelectSize, string> = {

@@ -1,0 +1,150 @@
+---
+import Brand from './Brand.astro';
+
+interface Props {
+  as?: 'footer' | 'div';
+  compact?: boolean;
+}
+
+const { as = 'footer', compact = false } = Astro.props as Props;
+const Element = as;
+---
+
+<Element class="project-footer" data-compact={compact ? 'true' : undefined}>
+  <div class="project-footer__identity">
+    <Brand size="sm" />
+    <p>Astro-first components for modern websites and applications.</p>
+    <span class="project-footer__version">Public alpha · 0.1.0-alpha.1</span>
+  </div>
+  <nav class="project-footer__links" aria-label="Frasto project links">
+    <div>
+      <h2>Product</h2>
+      <a href="/docs/">Documentation</a>
+      <a href="/docs/components/overview/">Components</a>
+      <a href="/docs/getting-started/installation/">Installation</a>
+      <a href="/docs/foundations/themes/">Themes</a>
+    </div>
+    <div>
+      <h2>Project</h2>
+      <a href="https://github.com/Freightpx/frasto">GitHub</a>
+      <a href="https://www.npmjs.com/package/@freight-px/frasto">npm</a>
+      <a href="https://github.com/Freightpx/frasto/releases">Changelog</a>
+    </div>
+    <div>
+      <h2>Support</h2>
+      <a href="https://github.com/Freightpx/frasto/issues">Issues</a>
+      <a href="https://github.com/Freightpx/frasto/blob/main/SUPPORT.md">Support</a>
+      <a href="https://github.com/Freightpx/frasto/blob/main/SECURITY.md">Security</a>
+    </div>
+  </nav>
+  <div class="project-footer__legal">
+    <span>MIT licensed</span>
+    <span>Built by Freightpx</span>
+    <span>© 2026 Freightpx</span>
+  </div>
+</Element>
+
+<style>
+  .project-footer {
+    display: grid;
+    grid-template-columns: minmax(14rem, 1.2fr) minmax(0, 2fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 4rem) 1.5rem;
+    color: var(--frasto-ink);
+    border-top: 1px solid var(--frasto-border);
+    background: var(--frasto-bg);
+  }
+
+  .project-footer[data-compact='true'] {
+    margin-top: 3rem;
+    padding-inline: 0;
+  }
+
+  .project-footer__identity p {
+    max-width: 25rem;
+    margin: 1rem 0 0;
+    color: var(--frasto-ink-muted);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .project-footer__version {
+    display: block;
+    margin-top: 1rem;
+    color: var(--frasto-ink-muted);
+    font-size: 0.6875rem;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-footer__links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-footer__links > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  h2 {
+    margin: 0 0 0.35rem;
+    color: var(--frasto-ink-muted);
+    font-family: var(--frasto-font-sans);
+    font-size: 0.65625rem;
+    font-weight: 650;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  a {
+    color: var(--frasto-ink-muted);
+    font-size: 0.8125rem;
+    text-decoration-color: var(--frasto-border-strong);
+    text-underline-offset: 0.2rem;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--frasto-ink);
+    text-decoration-color: currentColor;
+  }
+
+  .project-footer__legal {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    padding-top: 1.25rem;
+    color: var(--frasto-ink-muted);
+    border-top: 1px solid var(--frasto-border);
+    font-size: 0.6875rem;
+  }
+
+  @media (max-width: 48rem) {
+    .project-footer {
+      grid-template-columns: 1fr;
+    }
+
+    .project-footer__links {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .project-footer__links {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .project-footer__links > div {
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--frasto-border);
+    }
+  }
+</style>

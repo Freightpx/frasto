@@ -1,13 +1,13 @@
 ---
 title: Tabs
-description: An accessible client-side view switcher with a quiet baseline and active bottom rule.
+description: An accessible client-side view switcher with underline and segmented presentation.
 ---
 
 import { Tab, TabPanel, Tabs } from '@freight-px/frasto';
 
 **Status: Experimental**
 
-`Tabs` switches related views without navigation. It follows Frasto's strict underline model: one quiet list baseline, no tab boxes or backgrounds, and one short active bottom rule.
+`Tabs` switches related views without navigation. The default underline variant uses one quiet baseline and a short active rule. The segmented variant adds a restrained square track and a moving square selection indicator without changing tab semantics.
 
 ## Preview
 
@@ -19,6 +19,15 @@ import { Tab, TabPanel, Tabs } from '@freight-px/frasto';
     <TabPanel slot="panel" value="overview">Account overview content.</TabPanel>
     <TabPanel slot="panel" value="invoices">Invoice content.</TabPanel>
     <TabPanel slot="panel" value="activity">Activity content.</TabPanel>
+  </Tabs>
+</div>
+
+<div class="frasto-preview" data-frasto-root style="width:100%;">
+  <Tabs label="Communication sections" defaultValue="chat" variant="segmented">
+    <Tab slot="tab" value="chat">Chats</Tab>
+    <Tab slot="tab" value="email">Emails</Tab>
+    <TabPanel slot="panel" value="chat">Recent chat conversations.</TabPanel>
+    <TabPanel slot="panel" value="email">Recent email conversations.</TabPanel>
   </Tabs>
 </div>
 
@@ -56,6 +65,7 @@ Every tab and panel pair shares the same `value`. The `slot` attributes are requ
 | --- | --- | --- | --- |
 | `label` | `string` | required | accessible tab-list name |
 | `defaultValue` | `string` | first enabled tab | initial selected value |
+| `variant` | `"underline" \| "segmented"` | `"underline"` | visual presentation; behavior remains identical |
 | `class` | `string` | — | styles the root |
 | `listClass` | `string` | — | styles the tab list |
 
@@ -68,4 +78,5 @@ Both require `value`. Tab also accepts native button attributes and `disabled`; 
 - IDs, `aria-controls`, `aria-labelledby`, `aria-selected`, and roving tabindex are wired automatically.
 - All panels remain readable if JavaScript does not initialize; enhancement hides inactive panels.
 - Long tab lists scroll horizontally rather than becoming pills or wrapping into ambiguous rows.
+- The segmented indicator follows variable tab widths and stops moving when reduced motion is requested.
 - Use ordinary links with `aria-current="page"` when changing routes instead of client-side views.

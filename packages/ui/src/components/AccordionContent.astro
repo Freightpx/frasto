@@ -1,9 +1,13 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { accordionContent } from './accordion-styles';
+import { accordionContent, accordionContentBody, accordionContentInner } from './accordion-styles';
 
 type Props = Omit<HTMLAttributes<'div'>, 'class'> & { class?: string };
 const { class: className, ...rest } = Astro.props;
 ---
 
-<div {...rest} class:list={[accordionContent, className]} data-frasto-accordion-content><slot /></div>
+<div {...rest} class:list={[accordionContent, className]} data-frasto-accordion-content>
+  <div class={accordionContentInner} data-frasto-accordion-content-inner>
+    <div class={accordionContentBody}><slot /></div>
+  </div>
+</div>

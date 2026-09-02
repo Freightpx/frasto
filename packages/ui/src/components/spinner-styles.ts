@@ -1,11 +1,13 @@
 export type SpinnerSize = 'sm' | 'md' | 'lg';
+export type SpinnerVariant = 'orbit' | 'breathe' | 'cascade' | 'counter' | 'typewriter';
 
 export const spinnerBase = [
-  'inline-block',
+  'relative',
+  'inline-grid',
   'shrink-0',
-  'border-[1.25px]',
-  'border-current',
   'align-middle',
+  'border-0',
+  'p-0',
 ].join(' ');
 
 export const spinnerSizes: Record<SpinnerSize, string> = {

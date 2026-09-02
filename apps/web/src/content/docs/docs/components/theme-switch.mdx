@@ -1,0 +1,82 @@
+---
+title: ThemeSwitch
+description: Four persisted light and dark theme controls with stable square geometry.
+---
+
+import { ThemeSwitch } from '@freight-px/frasto';
+
+**Status: Experimental**
+
+ThemeSwitch changes the document theme between explicit light and dark choices. The segmented styles use pressed-button groups; the animated styles use one setting button whose accessible name communicates the current theme and the next activation result.
+
+## Segmented styles
+
+Use segmented when both choices should remain visible. Use segmented-icons when the surrounding interface already makes the setting clear and compact icon-only controls are preferable.
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <ThemeSwitch
+    storageKey="starlight-theme"
+    label="Segmented color theme"
+    variant="segmented"
+  />
+  <ThemeSwitch
+    storageKey="starlight-theme"
+    label="Compact color theme"
+    variant="segmented-icons"
+  />
+</div>
+
+## Animated styles
+
+Animated-icon is a single square control. Animated-icon-label keeps the same icon transition and shows the active theme label without changing width between Light and Dark.
+
+<div class="frasto-preview frasto-preview-column" data-frasto-root style="width:100%;">
+  <ThemeSwitch
+    storageKey="starlight-theme"
+    label="Icon color theme"
+    variant="animated-icon"
+  />
+  <ThemeSwitch
+    storageKey="starlight-theme"
+    label="Labelled color theme"
+    variant="animated-icon-label"
+  />
+</div>
+
+## Usage
+
+~~~astro
+---
+import { ThemeSwitch } from '@freight-px/frasto';
+---
+
+<ThemeSwitch
+  storageKey="my-product-theme"
+  label="Application color theme"
+  variant="animated-icon-label"
+/>
+~~~
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| variant | segmented, segmented-icons, animated-icon, or animated-icon-label | animated-icon-label | visual and interaction presentation |
+| defaultTheme | light or dark | system preference | fallback when no saved or authored theme exists |
+| storageKey | string | frasto-theme | local-storage key used for persistence |
+| label | string | Color theme | accessible setting or group name |
+| lightLabel | string | Light | visible and accessible light label |
+| darkLabel | string | Dark | visible and accessible dark label |
+| class | string | — | styles the custom-element root |
+
+Selection applies data-theme and color-scheme to the document root, persists when storage is available, and emits a bubbling frasto:theme-change event with the selected theme.
+
+## Keyboard and initialization
+
+- Segmented variants keep the selected option as the single ordinary Tab stop.
+- Left and Right arrows move between choices; Home and End select an edge.
+- Animated variants use one ordinary button. Arrow Left and Home choose Light; Arrow Right and End choose Dark.
+- Enter, Space, pointer, and touch retain native button behavior.
+- Add a small early head script when a saved theme must be applied before first paint.
+- Multiple ThemeSwitch instances and cross-tab storage changes remain synchronized.
+- Motion is suppressed during initial synchronization and when reduced motion is requested.

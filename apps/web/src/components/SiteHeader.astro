@@ -1,0 +1,48 @@
+---
+import Brand from './Brand.astro';
+import SiteNavigation from './SiteNavigation.astro';
+---
+
+<header class="site-global-header">
+  <div class="site-global-header__inner">
+    <a class="site-global-header__brand" href="/" aria-label="Frasto home"><Brand /></a>
+    <SiteNavigation />
+  </div>
+</header>
+
+<style>
+  .site-global-header {
+    height: 4rem;
+    border-bottom: 1px solid var(--frasto-border);
+    background: var(--frasto-bg);
+  }
+
+  .site-global-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    padding-inline: clamp(1rem, 4vw, 4rem);
+  }
+
+  .site-global-header__brand {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @media (max-width: 34rem) {
+    .site-global-header__inner {
+      padding-inline: 1rem;
+    }
+
+    .site-global-header__brand :global(.brand-name),
+    .site-global-header__brand :global(.brand-suffix) {
+      display: none;
+    }
+  }
+</style>

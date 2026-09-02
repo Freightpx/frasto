@@ -1,6 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import {
+  alertAction,
   alertBody,
   alertContent,
   alertContentWithTitle,
@@ -8,7 +9,9 @@ import {
   alertRoot,
   alertTitle,
   alertTones,
+  alertWithAction,
   alertWithoutIcon,
+  alertWithoutIconWithAction,
   type AlertTone,
 } from './alert-styles';
 
@@ -20,17 +23,27 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
 
 const { class: className, title, tone = 'neutral', ...rest } = Astro.props;
 const hasIcon = Astro.slots.has('icon');
+const hasAction = Astro.slots.has('action');
 ---
 
 <div
   {...rest}
-  class:list={[alertRoot, alertTones[tone], !hasIcon && alertWithoutIcon, className]}
+  class:list={[
+    alertRoot,
+    alertTones[tone],
+    hasAction && (hasIcon ? alertWithAction : alertWithoutIconWithAction),
+    !hasAction && !hasIcon && alertWithoutIcon,
+    className,
+  ]}
   data-frasto-alert
+  data-has-action={hasAction ? 'true' : undefined}
+  data-has-icon={hasIcon ? 'true' : 'false'}
   data-tone={tone}
 >
   {hasIcon && <div class:list={alertIcon} data-frasto-alert-icon><slot name="icon" /></div>}
   <div class:list={alertBody} data-frasto-alert-body>
-    {title && <p class:list={alertTitle} data-frasto-alert-title>{title}</p>}
+    {title && <div class:list={alertTitle} data-frasto-alert-title>{title}</div>}
     <div class:list={[alertContent, title && alertContentWithTitle]} data-frasto-alert-content><slot /></div>
   </div>
+  {hasAction && <div class:list={alertAction} data-frasto-alert-action><slot name="action" /></div>}
 </div>

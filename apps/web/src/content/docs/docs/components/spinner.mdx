@@ -1,15 +1,17 @@
 ---
 title: Spinner
-description: A compact square indeterminate progress indicator for short waits and local operations.
+description: A compact 3×3 square indeterminate progress indicator for short waits and local operations.
 ---
 
 import { Button, Spinner } from '@freight-px/frasto';
 
 **Status: Experimental**
 
-`Spinner` communicates a short indeterminate wait. Its thin square outline follows Frasto's zero-radius geometry, inherits the surrounding text color, and becomes static when reduced motion is requested.
+`Spinner` communicates a short indeterminate wait through nine decorative square cells. Five presentation variants share the same loading semantics, fixed dimensions, color inheritance, and zero-JavaScript rendering.
 
 ## Preview
+
+The default `orbit` variant moves a leading square around the perimeter with a fading trail while the center remains quiet.
 
 <div class="frasto-preview" data-frasto-root>
   <span style="display:inline-flex; align-items:center; gap:.5rem;">
@@ -20,7 +22,7 @@ import { Button, Spinner } from '@freight-px/frasto';
 
 ## Basic usage
 
-Pair the decorative default with visible status text.
+Pair a decorative Spinner with visible status text.
 
 ```astro
 ---
@@ -33,16 +35,43 @@ import { Spinner } from '@freight-px/frasto';
 </span>
 ```
 
-If no visible text is appropriate, provide `label` so the Spinner becomes a polite status announcement.
+If visible text is not appropriate, provide `label` so the root becomes one polite status announcement.
 
 ```astro
 <Spinner label="Loading invoices" />
 ```
 
+<div class="frasto-preview" data-frasto-root data-spinner-semantics>
+  <span style="display:inline-flex; flex-wrap:wrap; align-items:center; gap:1.5rem;">
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner /> Visible loading text</span>
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner label="Loading the customer reconciliation report" /> Accessible label only</span>
+  </span>
+</div>
+
+## Variants
+
+Variants change presentation only. They never change loading semantics or announcement behavior.
+
+<div class="frasto-preview" data-frasto-root data-spinner-variants>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(8rem,1fr)); gap:1.5rem; width:100%;">
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="orbit" /> Orbit</span>
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="breathe" /> Breathe</span>
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="cascade" /> Cascade</span>
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="counter" /> Counter</span>
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="typewriter" /> Typewriter</span>
+  </div>
+</div>
+
+- `orbit` — a clockwise perimeter lead with two trail intensities.
+- `breathe` — a center-out pulse through edges and corners.
+- `cascade` — a diagonal intensity wave from top-left to bottom-right.
+- `counter` — two opposing perimeter leads with short trails.
+- `typewriter` — row-by-row reveal, hold, and gradual reset.
+
 ## Sizes
 
-<div class="frasto-preview" data-frasto-root>
-  <span style="display:inline-flex; align-items:center; gap:1.5rem;">
+<div class="frasto-preview" data-frasto-root data-spinner-sizes>
+  <span style="display:inline-flex; flex-wrap:wrap; align-items:center; gap:1.5rem;">
     <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner size="sm" /> Small</span>
     <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner size="md" /> Medium</span>
     <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner size="lg" /> Large</span>
@@ -55,46 +84,63 @@ If no visible text is appropriate, provide `label` so the Spinner becomes a poli
 | `md` | `16px` | inline status and default controls |
 | `lg` | `20px` | standalone local progress |
 
-## Color
+Cells and gaps scale inside the fixed root dimension, so animation never moves surrounding content.
 
-Spinner uses `currentColor`, so its color follows its parent. Keep semantic color on the accompanying status or surrounding operation; the indicator itself does not infer success, warning, or failure.
+## Color and duration
+
+Spinner uses `currentColor` and does not infer a semantic tone. Apply color to its parent when the surrounding operation has a meaningful status.
+
+<div class="frasto-preview" data-frasto-root data-spinner-customization>
+  <span style="display:inline-flex; flex-wrap:wrap; align-items:center; gap:1.5rem;">
+    <span style="display:inline-flex; align-items:center; gap:.5rem; color:var(--frasto-info);"><Spinner variant="cascade" /> Syncing</span>
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="typewriter" style="--frasto-spinner-duration:2400ms;" /> Slower cycle</span>
+  </span>
+</div>
 
 ```astro
-<span style="color:var(--frasto-ink-muted);">
-  <Spinner /> Refreshing
+<span style="color:var(--frasto-info);">
+  <Spinner variant="cascade" /> Syncing
 </span>
+
+<Spinner
+  variant="typewriter"
+  style="--frasto-spinner-duration:2400ms;"
+/>
 ```
+
+`--frasto-spinner-duration` is an advanced presentation override. Avoid very fast cycles that make state difficult to follow.
 
 ## Button loading
 
-<div class="frasto-preview" data-frasto-root>
+<div class="frasto-preview" data-frasto-root data-spinner-button>
   <Button loading loadingLabel="Saving changes">Save changes</Button>
 </div>
 
-`Button` uses Spinner internally while preserving its label width, preventing duplicate activation, and exposing `aria-busy="true"` on the control.
+`Button` uses the default Orbit Spinner while preserving its label width, preventing duplicate activation, and exposing `aria-busy="true"` on the control.
 
 ## API
 
 | Prop | Type | Default | Purpose |
 | --- | --- | --- | --- |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | indicator dimensions |
+| `variant` | `'orbit' \| 'breathe' \| 'cascade' \| 'counter' \| 'typewriter'` | `'orbit'` | chooses the square-matrix motion |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | fixes the indicator dimensions |
 | `label` | `string` | — | exposes the Spinner as an accessible status |
 | `class` | `string` | — | adds a consumer class |
 
-Native span attributes are forwarded except `role`, `aria-label`, and `aria-hidden`, which the component owns.
+Native span attributes are forwarded except `role`, `aria-label`, and `aria-hidden`, which the component owns. Use exported `SpinnerVariant` and `SpinnerSize` types when a wrapper exposes these choices.
 
 ## Accessibility
 
-- Without `label`, Spinner is `aria-hidden="true"`; pair it with visible status text or an already-labelled busy control.
-- With `label`, Spinner uses `role="status"` and the supplied accessible name.
+- All nine cells are decorative and hidden from assistive technology.
+- Without `label`, the Spinner root is `aria-hidden="true"`; pair it with visible status text or an already-labelled busy control.
+- With `label`, the root uses `role="status"` and the supplied accessible name.
 - Prefer one status announcement for the affected region instead of labelling several indicators.
-- For a longer wait, add visible explanatory text and preserve page context.
-- Use determinate progress when the completion value is known.
+- For a longer wait, keep explanatory text and page context visible.
 
 ## Reduced motion
 
-Rotation stops automatically under `prefers-reduced-motion`. The indicator becomes a complete, partially muted square while surrounding text or its accessible label continues to communicate progress.
+All five animations stop under `prefers-reduced-motion`. A calm static matrix with varied opacity remains visible while surrounding text or the root label continues to communicate progress.
 
-## Choosing between Spinner and Skeleton
+## Choosing Spinner, Skeleton, or Progress
 
-Use Spinner for a short local operation whose final structure is already present. Use [Skeleton](/docs/components/skeleton/) when initially unavailable structured content needs to reserve its eventual layout.
+Use Spinner for a short local operation whose final structure is already present. Use [Skeleton](/docs/components/skeleton/) when initially unavailable structured content needs to reserve its eventual layout. Use a future determinate Progress component when a reliable completion value is available.

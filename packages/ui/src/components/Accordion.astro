@@ -115,7 +115,11 @@ const defaultValues = defaultValue === undefined
       const content = item.querySelector<HTMLElement>('[data-frasto-accordion-content]');
       item.dataset.open = open ? 'true' : 'false';
       trigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (content) content.hidden = !open;
+      if (content) {
+        content.hidden = false;
+        content.setAttribute('aria-hidden', open ? 'false' : 'true');
+        content.toggleAttribute('inert', !open);
+      }
     }
 
     private emitChange(item: HTMLElement) {

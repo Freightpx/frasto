@@ -1,0 +1,108 @@
+---
+title: Toast
+description: Temporary browser notifications with controlled announcements, actions, stacking, and dismissal.
+---
+
+import ToastPreview from '../../../../components/examples/ToastPreview.astro';
+
+**Status: Experimental**
+
+ToastRegion renders temporary notifications created by the browser-only toast() API. Toasts never move focus, remain individually dismissible, and pause their remaining timeout while hovered, keyboard-focused, or while the document is hidden.
+
+## Preview
+
+<ToastPreview />
+
+## Setup
+
+Mount exactly one region near the end of the page body:
+
+~~~astro
+---
+import { ToastRegion } from '@freight-px/frasto';
+---
+
+<ToastRegion position="bottom-right" label="Notifications" />
+~~~
+
+Invoke toast() from a client script, not Astro server frontmatter:
+
+~~~astro
+<script>
+  import { toast } from '@freight-px/frasto';
+
+  document.querySelector('[data-save]')?.addEventListener('click', () => {
+    toast({
+      title: 'Changes saved',
+      description: 'The customer record is current.',
+      tone: 'positive',
+    });
+  });
+</script>
+~~~
+
+Calls made before ToastRegion initializes are queued and delivered when the region becomes available.
+
+## Persistent notification with an action
+
+~~~ts
+import { toast } from '@freight-px/frasto';
+
+toast({
+  title: 'Payment method expires soon',
+  description: 'Review billing before the next renewal.',
+  tone: 'warning',
+  duration: 0,
+  action: {
+    label: 'Review',
+    onSelect: () => openBillingSettings(),
+  },
+});
+~~~
+
+A duration of 0 keeps the toast visible until its action, dismiss button, returned handle, dismissToast(), or dismissAllToasts() removes it.
+
+## Announcement priority
+
+The default polite priority renders role=status. Use assertive only for urgent, time-sensitive failures that justify interrupting the current assistive-technology announcement; it renders role=alert.
+
+## Positions
+
+Top-left, top-center, top-right, bottom-left, bottom-center, and bottom-right are supported. The default is bottom-right. The newest toast stays closest to the configured viewport edge, and every active toast remains available in a viewport-constrained scroll region.
+
+## API
+
+### ToastRegion
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| position | ToastPosition | bottom-right | viewport edge and alignment |
+| label | string | Notifications | accessible region name |
+| dismissLabel | string | Dismiss notification | default dismiss-button name |
+| class | string | — | styles the region root |
+
+Ordinary div attributes pass through.
+
+### toast
+
+toast(options) requires a title and accepts description, tone, priority, duration, dismissLabel, one action, and an optional caller-provided id. It returns an id and dismiss() handle.
+
+Tone values are neutral, info, positive, warning, and danger. Duration defaults to 5000 milliseconds. Priority defaults to polite.
+
+### Dismissal functions and events
+
+- dismissToast(id) removes one active or queued toast.
+- dismissAllToasts() removes all active and queued toasts.
+- frasto:toast-show bubbles with the toast id.
+- frasto:toast-dismiss bubbles with the toast id and reason.
+
+Action selection dismisses by default. Set dismissOnSelect to false when the notification must remain after its action.
+
+## Accessibility and motion
+
+- Appearance never steals or moves focus.
+- Every toast includes an accessible dismiss button.
+- Hover, keyboard focus, and document visibility pause timed dismissal.
+- Long content wraps and controls move below the message on narrow screens.
+- Entry, stack, and exit motion is removed when reduced motion is requested.
+- Toasts communicate transient events. Use [Alert](/docs/components/alert/) for persistent content that belongs in the page layout.

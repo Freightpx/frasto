@@ -4,70 +4,55 @@ description: Astro-first components and design foundations for modern interfaces
 template: splash
 ---
 
-import { ArrowUpRightIcon, Button, Icon, Surface } from '@freight-px/frasto';
+import { ArrowUpRightIcon, Button, Icon } from '@freight-px/frasto';
 
 <div class="frasto-docs-home" data-frasto-root>
   <section class="frasto-docs-hero">
     <p class="frasto-docs-kicker">FRASTO / DOCUMENTATION</p>
     <h1>Build with Frasto UI.</h1>
     <p class="frasto-docs-lede">
-      Install the Astro-first component library, render your first interface, and use
-      only the browser behavior your components actually need.
+      Install the Astro-first component library, find a public component, and customize
+      its semantic tokens without taking on a client framework.
     </p>
+    <div class="frasto-docs-install" aria-label="Install Frasto UI">
+      <code>pnpm add @freight-px/frasto@next</code>
+    </div>
     <div class="frasto-docs-actions">
       <Button href="/docs/getting-started/installation/">
         Installation <Icon icon={ArrowUpRightIcon} slot="icon-end" />
-      </Button>
-      <Button href="/docs/components/overview/" variant="ghost">
-        Browse components
       </Button>
     </div>
   </section>
 
   <section class="frasto-docs-section" aria-labelledby="start-heading">
     <div class="frasto-docs-section-heading">
-      <p class="frasto-docs-kicker">01 / START HERE</p>
-      <h2 id="start-heading">Choose your next step.</h2>
+      <p class="frasto-docs-kicker">01 / DOCUMENTATION PATHS</p>
+      <h2 id="start-heading">Go directly to the work.</h2>
     </div>
-    <div class="frasto-docs-grid">
-      <Surface as="article" padding="lg">
-        <h3>Install Frasto</h3>
-        <p>Review the public-alpha status, compatibility range, installation, and limitations.</p>
-        <Button href="/docs/getting-started/installation/" variant="ghost" size="sm">Installation</Button>
-      </Surface>
-      <Surface as="article" padding="lg">
-        <h3>Render your first UI</h3>
-        <p>Use implemented components in a small server-rendered Astro example.</p>
-        <Button href="/docs/getting-started/quick-start/" variant="ghost" size="sm">Quick start</Button>
-      </Surface>
-      <Surface as="article" padding="lg">
-        <h3>Find a component</h3>
-        <p>Browse the available Experimental actions, forms, overlays, data, and layout components.</p>
-        <Button href="/docs/components/overview/" variant="ghost" size="sm">Components</Button>
-      </Surface>
-      <Surface as="article" padding="lg">
-        <h3>Check maturity</h3>
-        <p>Understand what Experimental means and whether Frasto is appropriate to evaluate.</p>
-        <Button href="/docs/getting-started/status/" variant="ghost" size="sm">Project status</Button>
-      </Surface>
+    <div class="frasto-docs-paths">
+      <a href="/docs/getting-started/installation/"><span>Installation</span><small>Compatibility, package setup, and first import</small><b aria-hidden="true">↗</b></a>
+      <a href="/docs/components/overview/"><span>Components</span><small>35 Experimental families grouped by purpose</small><b aria-hidden="true">↗</b></a>
+      <a href="/docs/foundations/themes/"><span>Themes and customization</span><small>Semantic tokens, light and dark themes</small><b aria-hidden="true">↗</b></a>
+      <a href="/docs/getting-started/quick-start/"><span>Quick start</span><small>A small server-rendered Astro interface</small><b aria-hidden="true">↗</b></a>
     </div>
   </section>
 
   <section class="frasto-docs-section" aria-labelledby="scope-heading">
     <div class="frasto-docs-section-heading">
-      <p class="frasto-docs-kicker">02 / CURRENT SCOPE</p>
-      <h2 id="scope-heading">Evaluate before production.</h2>
+      <p class="frasto-docs-kicker">02 / PUBLIC ALPHA</p>
+      <h2 id="scope-heading">Know the current boundary.</h2>
     </div>
-    <Surface as="article" padding="lg">
-      <h3>Frasto is entering public alpha.</h3>
+    <div class="frasto-docs-status">
+      <h3>Version 0.1.0-alpha.1</h3>
       <p>
-        Version <code>0.1.0-alpha.1</code> contains 33 Experimental component families. APIs may
-        change as real projects reveal better boundaries, so production-critical use is not recommended.
+        The package supports Astro 7 and Node.js 22 or newer. All 35 component families remain
+        Experimental, so APIs can change and production-critical use is not recommended yet.
       </p>
-    </Surface>
+    </div>
     <div class="frasto-docs-actions">
       <Button href="/docs/getting-started/status/" variant="outline">Read project status</Button>
-      <Button href="https://github.com/Freightpx/frasto/blob/main/SUPPORT.md" variant="ghost">Get support</Button>
+      <Button href="https://github.com/Freightpx/frasto/issues" variant="ghost">Report an issue</Button>
+      <Button href="https://github.com/Freightpx/frasto/blob/main/SUPPORT.md" variant="ghost">Support</Button>
     </div>
   </section>
 </div>

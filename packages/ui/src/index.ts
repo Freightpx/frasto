@@ -48,7 +48,14 @@ export { default as Tab } from './components/Tab.astro';
 export { default as TabPanel } from './components/TabPanel.astro';
 export { default as Tabs } from './components/Tabs.astro';
 export { default as Textarea } from './components/Textarea.astro';
+export { default as ThemeSwitch } from './components/ThemeSwitch.astro';
+export { default as ToastRegion } from './components/ToastRegion.astro';
 export { default as Tooltip } from './components/Tooltip.astro';
+export {
+  dismissAllToasts,
+  dismissToast,
+  toast,
+} from './components/toast';
 export type {
   AvatarSize,
 } from './components/avatar-styles';
@@ -92,7 +99,7 @@ export type {
   SkeletonAnimation,
   SkeletonVariant,
 } from './components/skeleton-styles';
-export type { SpinnerSize } from './components/spinner-styles';
+export type { SpinnerSize, SpinnerVariant } from './components/spinner-styles';
 export type { StatusTone } from './components/status-styles';
 export type { StatTone } from './components/stat-styles';
 export type { SwitchSize } from './components/switch-styles';
@@ -103,6 +110,21 @@ export type {
 } from './components/surface-styles';
 export type { TableDensity, TableLayout } from './components/table-styles';
 export type { TextareaResize } from './components/textarea-styles';
+export type {
+  Theme,
+  ThemeSwitchProps,
+  ThemeSwitchVariant,
+} from './components/theme-switch-styles';
+export type {
+  ToastAction,
+  ToastHandle,
+  ToastOptions,
+  ToastPosition,
+  ToastPriority,
+  ToastRegionProps,
+  ToastTone,
+} from './components/toast';
+export type { TabsVariant } from './components/tabs-styles';
 export type { TooltipPlacement } from './components/tooltip-styles';
 export {
   ArrowUpRight as ArrowUpRightIcon,
