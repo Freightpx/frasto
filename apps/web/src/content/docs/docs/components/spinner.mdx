@@ -7,7 +7,7 @@ import { Button, Spinner } from '@freight-px/frasto';
 
 **Status: Experimental**
 
-`Spinner` communicates a short indeterminate wait through nine decorative square cells. Five presentation variants share the same loading semantics, fixed dimensions, color inheritance, and zero-JavaScript rendering.
+`Spinner` communicates a short indeterminate wait through nine decorative square cells. Six presentation variants share the same loading semantics, fixed dimensions, color inheritance, and zero-JavaScript rendering.
 
 ## Preview
 
@@ -59,6 +59,7 @@ Variants change presentation only. They never change loading semantics or announ
     <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="cascade" /> Cascade</span>
     <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="counter" /> Counter</span>
     <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="typewriter" /> Typewriter</span>
+    <span style="display:inline-flex; align-items:center; gap:.5rem;"><Spinner variant="refresh" /> Refresh</span>
   </div>
 </div>
 
@@ -67,6 +68,7 @@ Variants change presentation only. They never change loading semantics or announ
 - `cascade` — a diagonal intensity wave from top-left to bottom-right.
 - `counter` — two opposing perimeter leads with short trails.
 - `typewriter` — row-by-row reveal, hold, and gradual reset.
+- `refresh` — two clockwise perimeter heads kept half a loop apart.
 
 ## Sizes
 
@@ -122,7 +124,7 @@ Spinner uses `currentColor` and does not infer a semantic tone. Apply color to i
 
 | Prop | Type | Default | Purpose |
 | --- | --- | --- | --- |
-| `variant` | `'orbit' \| 'breathe' \| 'cascade' \| 'counter' \| 'typewriter'` | `'orbit'` | chooses the square-matrix motion |
+| `variant` | `'orbit' \| 'breathe' \| 'cascade' \| 'counter' \| 'typewriter' \| 'refresh'` | `'orbit'` | chooses the square-matrix motion |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | fixes the indicator dimensions |
 | `label` | `string` | — | exposes the Spinner as an accessible status |
 | `class` | `string` | — | adds a consumer class |
@@ -139,7 +141,7 @@ Native span attributes are forwarded except `role`, `aria-label`, and `aria-hidd
 
 ## Reduced motion
 
-All five animations stop under `prefers-reduced-motion`. A calm static matrix with varied opacity remains visible while surrounding text or the root label continues to communicate progress.
+All six animations stop under `prefers-reduced-motion`. A calm static matrix with varied opacity remains visible while surrounding text or the root label continues to communicate progress.
 
 ## Choosing Spinner, Skeleton, or Progress
 

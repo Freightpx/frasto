@@ -65,8 +65,8 @@ test.describe('Unified public site', () => {
 
   test('homepage exposes the alpha field without reviving removed sections or demo promotion', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: 'Astro-first UI.' })).toBeVisible();
-    await expect(page.locator('.hero-astro-logo img')).toHaveCount(2);
+    await expect(page.getByRole('heading', { name: 'Astro UI components.' })).toBeVisible();
+    await expect(page.locator('.hero-astro-mark img')).toHaveCount(2);
     await expect(page.getByText('35 EXPERIMENTAL FAMILIES')).toBeVisible();
     await expect(page.locator('[data-homepage-showcase]')).toBeVisible();
     await expect(page.locator('[data-homepage-showcase] .showcase-region')).toHaveCount(7);
@@ -119,7 +119,7 @@ test.describe('Unified public site', () => {
     const page = await context.newPage();
 
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: 'Astro-first UI.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Astro UI components.' })).toBeVisible();
     await expect(page.getByText('35 EXPERIMENTAL FAMILIES')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Open dialog' })).toBeVisible();
 

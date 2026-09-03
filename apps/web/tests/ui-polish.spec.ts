@@ -264,21 +264,38 @@ test.describe('Component and documentation polish', () => {
     const copy = frame.locator('.copy button');
     const placement = await frame.evaluate((element) => {
       const frameBox = element.getBoundingClientRect();
-      const buttonBox = element.querySelector<HTMLElement>('.copy button')!.getBoundingClientRect();
+      const button = element.querySelector<HTMLElement>('.copy button')!;
+      const icon = button.querySelector<HTMLElement>('div')!;
+      const buttonBox = button.getBoundingClientRect();
+      const iconBox = icon.getBoundingClientRect();
+      const pre = element.querySelector<HTMLElement>('pre')!;
       return {
         top: buttonBox.top - frameBox.top,
         right: frameBox.right - buttonBox.right,
         width: buttonBox.width,
         height: buttonBox.height,
+        dx: Math.abs(buttonBox.left + buttonBox.width / 2 - (iconBox.left + iconBox.width / 2)),
+        dy: Math.abs(buttonBox.top + buttonBox.height / 2 - (iconBox.top + iconBox.height / 2)),
+        iconWidth: iconBox.width,
+        iconHeight: iconBox.height,
+        prePaddingRight: Number.parseFloat(getComputedStyle(pre).paddingInlineEnd),
       };
     });
     expect(placement.top).toBeGreaterThanOrEqual(5);
     expect(placement.top).toBeLessThanOrEqual(8);
     expect(placement.right).toBeGreaterThanOrEqual(5);
     expect(placement.right).toBeLessThanOrEqual(8);
-    expect(placement.width).toBe(32);
-    expect(placement.height).toBe(32);
+    expect(placement.width).toBe(36);
+    expect(placement.height).toBe(36);
+    expect(placement.dx).toBeLessThanOrEqual(1);
+    expect(placement.dy).toBeLessThanOrEqual(1);
+    expect(placement.iconWidth).toBe(16);
+    expect(placement.iconHeight).toBe(16);
+    expect(placement.prePaddingRight).toBeGreaterThanOrEqual(36);
     await expect(copy).toHaveAttribute('title', 'Copy to clipboard');
+
+    await copy.click();
+    await expect(copy).toHaveAttribute('data-copied');
 
     const docsSwitch = page.getByRole('button', { name: /Site color theme/ });
     const initialTheme = await page.locator('html').getAttribute('data-theme');

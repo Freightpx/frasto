@@ -62,11 +62,15 @@ button, input, textarea { font: inherit; }
 .demo-intro h1 { margin: 0; max-width: 13ch; font-family: var(--frasto-font-display, "Inter Tight", Inter, sans-serif); font-size: clamp(3.25rem, 8.5vw, 8rem); line-height: .88; letter-spacing: -.065em; }
 .hero-grid h1 > span { display: block; }
 .hero-astro-line { display: flex !important; flex-wrap: wrap; align-items: center; gap: clamp(.75rem, 1.5vw, 1.5rem); }
-.hero-astro-logo { position: relative; flex: 0 0 auto; width: clamp(7rem, 10vw, 10rem); aspect-ratio: 460 / 160; }
-.hero-astro-logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-.hero-astro-logo--dark { display: none; }
-:root[data-theme='dark'] .hero-astro-logo--light { display: none; }
-:root[data-theme='dark'] .hero-astro-logo--dark { display: block; }
+.hero-astro-mark { position: relative; flex: 0 0 auto; width: .72em; height: .72em; }
+.hero-astro-mark__logo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.hero-astro-mark__logo--dark { display: none; }
+:root[data-theme='dark'] .hero-astro-mark__logo--light { display: none; }
+:root[data-theme='dark'] .hero-astro-mark__logo--dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .hero-astro-mark__logo--light { display: none; }
+  :root:not([data-theme]) .hero-astro-mark__logo--dark { display: block; }
+}
 .hero-copy > p { margin: 0; max-width: 34rem; color: var(--site-muted); font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.55; }
 .hero-copy > .alpha-label { margin-bottom: .75rem; color: var(--site-ink); font-size: .6875rem; font-weight: 650; letter-spacing: .12em; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }

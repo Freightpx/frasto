@@ -1,5 +1,5 @@
 export type SpinnerSize = 'sm' | 'md' | 'lg';
-export type SpinnerVariant = 'orbit' | 'breathe' | 'cascade' | 'counter' | 'typewriter';
+export type SpinnerVariant = 'orbit' | 'breathe' | 'cascade' | 'counter' | 'typewriter' | 'refresh';
 
 export const spinnerBase = [
   'relative',

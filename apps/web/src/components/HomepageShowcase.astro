@@ -24,7 +24,6 @@ import {
   EmptyState,
   FileTextIcon,
   FormDescription,
-  FormError,
   FormField,
   FormLabel,
   Icon,
@@ -63,8 +62,8 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
   <header class="component-field__heading">
     <p>35 EXPERIMENTAL FAMILIES</p>
     <div>
-      <h2 id="component-field-title">A working field of Frasto components.</h2>
-      <p>Connected interface fragments, rendered directly with the public package.</p>
+      <h2 id="component-field-title">Every family, at a glance.</h2>
+      <p>A compact catalogue of the public inventory, rendered directly with the package.</p>
     </div>
   </header>
 
@@ -74,54 +73,93 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
         <span>01</span><h3 id="showcase-compose">Compose</h3><small>10 families</small>
       </header>
       <div class="showcase-region__body showcase-compose">
-        <PageHeader
-          title="Release workspace"
-          description="Prepare the next public-alpha verification pass."
-          eyebrow="FRST-021"
-          headingLevel={4}
-        >
-          <Breadcrumb slot="breadcrumb" label="Release workspace path">
-            <BreadcrumbItem href="#components">Frasto</BreadcrumbItem>
-            <BreadcrumbItem current>Release</BreadcrumbItem>
-          </Breadcrumb>
-          <span slot="metadata">35 families · Astro 7</span>
-          <ButtonGroup slot="actions" label="Release actions">
+        <div class="specimen specimen--wide">
+          <span class="specimen__name">Page header</span>
+          <div class="specimen__demo">
+            <PageHeader
+              title="Release workspace"
+              eyebrow="FRST-021"
+              headingLevel={4}
+            >
+              <span slot="metadata">35 families · Astro 7</span>
+            </PageHeader>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Breadcrumb</span>
+          <div class="specimen__demo">
+            <Breadcrumb label="Release workspace path">
+              <BreadcrumbItem href="#components">Frasto</BreadcrumbItem>
+              <BreadcrumbItem current>Release</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Button</span>
+          <div class="specimen__demo specimen__demo--row">
             <Button size="sm">Review</Button>
-            <ButtonGroupSeparator />
-            <IconButton icon={MenuIcon} label="More release actions" size="sm" />
-          </ButtonGroup>
-        </PageHeader>
-
-        <form class="showcase-form" action="/" method="get">
-          <FormField>
-            <FormLabel for="showcase-project" required>Project name</FormLabel>
-            <FormDescription id="showcase-project-help">Shown in the release summary.</FormDescription>
-            <Input id="showcase-project" name="project" value="Frasto UI" aria-describedby="showcase-project-help" />
-          </FormField>
-          <FormField>
-            <FormLabel for="showcase-channel">Channel</FormLabel>
-            <Select id="showcase-channel" name="channel">
+            <Button size="sm" variant="outline">Save draft</Button>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Icon button</span>
+          <div class="specimen__demo specimen__demo--row">
+            <IconButton icon={PlusIcon} label="Add component" size="sm" />
+            <IconButton icon={MenuIcon} label="More actions" size="sm" variant="outline" />
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Button group</span>
+          <div class="specimen__demo">
+            <ButtonGroup label="Release actions">
+              <Button size="sm">Ship</Button>
+              <ButtonGroupSeparator />
+              <IconButton icon={MenuIcon} label="More release actions" size="sm" />
+            </ButtonGroup>
+          </div>
+        </div>
+        <div class="specimen specimen--wide">
+          <span class="specimen__name">Form field</span>
+          <div class="specimen__demo">
+            <FormField>
+              <FormLabel for="showcase-project" required>Project name</FormLabel>
+              <FormDescription id="showcase-project-help">Shown in the release summary.</FormDescription>
+              <Input id="showcase-project" name="project" value="Frasto UI" aria-describedby="showcase-project-help" />
+            </FormField>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Input</span>
+          <div class="specimen__demo">
+            <Input name="component" placeholder="search-component" aria-label="Component name" />
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Select</span>
+          <div class="specimen__demo">
+            <Select name="channel" aria-label="Release channel">
               <option>Public alpha</option>
               <option>Internal preview</option>
             </Select>
-          </FormField>
-          <FormField class="showcase-form__wide">
-            <FormLabel for="showcase-summary">Release summary</FormLabel>
-            <Textarea id="showcase-summary" name="summary" rows={3}>Overlay hardening and documentation updates.</Textarea>
-            <FormError id="showcase-summary-error">Keep the summary concise and actionable.</FormError>
-          </FormField>
-          <SearchInput
-            class="showcase-form__wide"
-            id="showcase-search"
-            name="component"
-            label="Search component families"
-            placeholder="Search the public inventory…"
-          />
-          <div class="showcase-form__actions showcase-form__wide">
-            <Button type="submit" size="sm"><Icon icon={PlusIcon} slot="icon-start" /> Add note</Button>
-            <Button type="button" size="sm" variant="outline">Save draft</Button>
           </div>
-        </form>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Textarea</span>
+          <div class="specimen__demo">
+            <Textarea name="summary" rows={2} aria-label="Release summary">Overlay hardening.</Textarea>
+          </div>
+        </div>
+        <div class="specimen specimen--wide">
+          <span class="specimen__name">Search input</span>
+          <div class="specimen__demo">
+            <SearchInput
+              id="showcase-search"
+              name="component"
+              label="Search component families"
+              placeholder="Search the public inventory…"
+            />
+          </div>
+        </div>
       </div>
     </section>
 
@@ -130,134 +168,215 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
         <span>02</span><h3 id="showcase-choose">Choose</h3><small>4 families</small>
       </header>
       <div class="showcase-region__body showcase-choices">
-        <fieldset>
-          <legend>Verification scope</legend>
-          <Checkbox name="checks" value="browser" checked>Browser matrix</Checkbox>
-          <Checkbox name="checks" value="device">Physical device</Checkbox>
-        </fieldset>
-        <fieldset>
-          <legend>Release channel</legend>
-          <Radio name="release-channel" value="next" checked>next</Radio>
-          <Radio name="release-channel" value="latest">latest</Radio>
-        </fieldset>
-        <Switch name="release-notes" checked>Include release notes</Switch>
-        <div class="showcase-theme">
-          <span>Theme</span>
-          <ThemeSwitch variant="segmented-icons" storageKey="starlight-theme" label="Showcase color theme" />
+        <div class="specimen">
+          <span class="specimen__name">Checkbox</span>
+          <div class="specimen__demo specimen__demo--stack">
+            <Checkbox name="checks" value="browser" checked>Browser matrix</Checkbox>
+            <Checkbox name="checks" value="device">Physical device</Checkbox>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Radio</span>
+          <div class="specimen__demo specimen__demo--row">
+            <Radio name="release-channel" value="next" checked>next</Radio>
+            <Radio name="release-channel" value="latest">latest</Radio>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Switch</span>
+          <div class="specimen__demo">
+            <Switch name="release-notes" checked>Include release notes</Switch>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Theme switch</span>
+          <div class="specimen__demo">
+            <ThemeSwitch variant="segmented-icons" storageKey="starlight-theme" label="Showcase color theme" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase-region showcase-region--load" aria-labelledby="showcase-load">
+      <header class="showcase-region__header">
+        <span>03</span><h3 id="showcase-load">Load</h3><small>2 families</small>
+      </header>
+      <div class="showcase-region__body showcase-loading" aria-label="Loading component examples">
+        <div class="specimen">
+          <span class="specimen__name">Spinner</span>
+          <div class="specimen__demo specimen__demo--row">
+            <Spinner label="Checking package" />
+            <span class="specimen__hint">Checking package</span>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Skeleton</span>
+          <div class="specimen__demo specimen__demo--stack" aria-busy="true">
+            <Skeleton style="width:64%;" />
+            <Skeleton style="width:88%;" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase-region showcase-region--reveal" aria-labelledby="showcase-reveal">
+      <header class="showcase-region__header">
+        <span>04</span><h3 id="showcase-reveal">Reveal</h3><small>5 families</small>
+      </header>
+      <div class="showcase-region__body showcase-overlays">
+        <div class="specimen">
+          <span class="specimen__name">Dropdown</span>
+          <div class="specimen__demo">
+            <Dropdown label="Release menu" placement="bottom-start">
+              <Button slot="trigger" size="sm" variant="outline">Actions</Button>
+              <DropdownItem>Review changes</DropdownItem>
+              <DropdownItem>Copy release notes</DropdownItem>
+              <DropdownItem disabled>Publish stable</DropdownItem>
+            </Dropdown>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Popover</span>
+          <div class="specimen__demo">
+            <Popover label="Package status" placement="bottom-start">
+              <Button slot="trigger" size="sm" variant="outline">Details</Button>
+              <strong>Tarball verified</strong>
+              <p>The packed consumer compiled every family.</p>
+            </Popover>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Tooltip</span>
+          <div class="specimen__demo">
+            <Tooltip content="All exports are flat package imports" placement="top">
+              <IconButton icon={InfoIcon} label="Explain package exports" size="sm" variant="outline" />
+            </Tooltip>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Dialog</span>
+          <div class="specimen__demo">
+            <Dialog title="Review release" description="Confirm the evidence attached to this alpha release." size="sm">
+              <Button slot="trigger" size="sm" variant="outline">Open dialog</Button>
+              <p class="showcase-overlay-copy">Automated checks passed.</p>
+              <Button slot="footer" size="sm" variant="outline" data-frasto-dialog-close>Close</Button>
+            </Dialog>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Drawer</span>
+          <div class="specimen__demo">
+            <Drawer title="Release details" description="A wider view of the current alpha evidence." size="sm">
+              <Button slot="trigger" size="sm" variant="outline">Open drawer</Button>
+              <dl class="showcase-detail-list">
+                <div><dt>Version</dt><dd>0.1.0-alpha.1</dd></div>
+                <div><dt>Families</dt><dd>35 Experimental</dd></div>
+              </dl>
+            </Drawer>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="showcase-region showcase-region--communicate" aria-labelledby="showcase-communicate">
       <header class="showcase-region__header">
-        <span>03</span><h3 id="showcase-communicate">Communicate</h3><small>7 families</small>
+        <span>05</span><h3 id="showcase-communicate">Communicate</h3><small>7 families</small>
       </header>
       <div class="showcase-region__body showcase-feedback">
-        <Alert title="Quality gate passed" tone="positive">
-          <CircleCheckIcon slot="icon" size={20} stroke-width={1.25} aria-hidden="true" />
-          Package and browser evidence are current.
-          <Button slot="action" size="sm" variant="outline" data-home-toast>Notify</Button>
-        </Alert>
-        <div class="showcase-feedback__meta">
-          <Badge tone="info">Experimental</Badge>
-          <Status tone="positive">All systems ready</Status>
-          <Avatar size="md" src={avatar01} alt="" imageClass="frasto-avatar-artwork" />
+        <div class="specimen">
+          <span class="specimen__name">Alert</span>
+          <div class="specimen__demo">
+            <Alert title="Quality gate passed" tone="positive">
+              <CircleCheckIcon slot="icon" size={20} stroke-width={1.25} aria-hidden="true" />
+              Package and browser evidence are current.
+              <Button slot="action" size="sm" variant="outline" data-home-toast>Notify</Button>
+            </Alert>
+          </div>
         </div>
-        <Stat label="Public families" value="35" change="+2 this cycle" changeTone="positive" description="Every family remains Experimental" />
-        <EmptyState
-          title="No critical issues"
-          description="New reports will appear here after triage."
-          headingLevel={4}
-        >
-          <Icon slot="icon" icon={FileTextIcon} size={20} />
-          <Button slot="actions" size="sm" variant="outline">Open issue tracker</Button>
-        </EmptyState>
-        <ToastRegion label="Homepage notifications" />
-      </div>
-    </section>
-
-    <section class="showcase-region showcase-region--load" aria-labelledby="showcase-load">
-      <header class="showcase-region__header">
-        <span>04</span><h3 id="showcase-load">Load</h3><small>2 families</small>
-      </header>
-      <div class="showcase-region__body showcase-loading" aria-label="Loading component examples">
-        <div><Spinner label="Checking package" /><span>Checking package</span></div>
-        <div aria-busy="true">
-          <Skeleton style="width:42%;" />
-          <Skeleton style="width:88%;" />
-          <Skeleton style="width:64%;" />
+        <div class="specimen">
+          <span class="specimen__name">Badge · Status · Avatar</span>
+          <div class="specimen__demo specimen__demo--row">
+            <Badge tone="info">Experimental</Badge>
+            <Status tone="positive">All systems ready</Status>
+            <Avatar size="md" src={avatar01} alt="" imageClass="frasto-avatar-artwork" />
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Stat</span>
+          <div class="specimen__demo">
+            <Stat label="Public families" value="35" change="+2 this cycle" changeTone="positive" />
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Empty state</span>
+          <div class="specimen__demo">
+            <EmptyState
+              title="No critical issues"
+              description="New reports will appear here after triage."
+              headingLevel={4}
+            >
+              <Icon slot="icon" icon={FileTextIcon} size={20} />
+            </EmptyState>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Toast</span>
+          <div class="specimen__demo">
+            <ToastRegion label="Homepage notifications" />
+            <span class="specimen__hint">Triggered by the alert action.</span>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="showcase-region showcase-region--navigate" aria-labelledby="showcase-navigate">
       <header class="showcase-region__header">
-        <span>05</span><h3 id="showcase-navigate">Navigate</h3><small>4 families</small>
+        <span>06</span><h3 id="showcase-navigate">Navigate</h3><small>4 families</small>
       </header>
       <div class="showcase-region__body showcase-navigation">
-        <Tabs label="Release evidence" defaultValue="automated" variant="segmented">
-          <Tab slot="tab" value="automated">Automated</Tab>
-          <Tab slot="tab" value="manual">Manual review</Tab>
-          <TabPanel slot="panel" value="automated"><p>Chromium, Firefox, WebKit, and the packed consumer are passing.</p></TabPanel>
-          <TabPanel slot="panel" value="manual"><p>Keyboard and assistive-technology notes stay attached to the release.</p></TabPanel>
-        </Tabs>
-        <Accordion defaultValue="package" collapsible>
-          <AccordionItem value="package">
-            <AccordionTrigger>What ships in the package?</AccordionTrigger>
-            <AccordionContent>Astro components, exported types, tokens, and the compiled stylesheet.</AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="status">
-            <AccordionTrigger>What does Experimental mean?</AccordionTrigger>
-            <AccordionContent>APIs can change during alpha as real projects expose better boundaries.</AccordionContent>
-          </AccordionItem>
-        </Accordion>
-        <Collapsible>
-          <CollapsibleTrigger>Show compatibility details</CollapsibleTrigger>
-          <CollapsibleContent>Astro 7 and Node.js 22 or newer.</CollapsibleContent>
-        </Collapsible>
-        <Pagination label="Component showcase pages">
-          <span slot="summary">Page 1 of 3</span>
-          <PaginationItem kind="previous" disabled>Previous</PaginationItem>
-          <PaginationItem current label="Current page, page 1">1</PaginationItem>
-          <PaginationItem href="#showcase-choose" label="Go to page 2">2</PaginationItem>
-          <PaginationItem href="#showcase-communicate" label="Go to page 3">3</PaginationItem>
-          <PaginationItem kind="next" href="#showcase-choose">Next</PaginationItem>
-        </Pagination>
-      </div>
-    </section>
-
-    <section class="showcase-region showcase-region--reveal" aria-labelledby="showcase-reveal">
-      <header class="showcase-region__header">
-        <span>06</span><h3 id="showcase-reveal">Reveal</h3><small>5 families</small>
-      </header>
-      <div class="showcase-region__body showcase-overlays">
-        <Dropdown label="Release menu" placement="bottom-start">
-          <Button slot="trigger" size="sm" variant="outline">Actions</Button>
-          <DropdownItem>Review changes</DropdownItem>
-          <DropdownItem>Copy release notes</DropdownItem>
-          <DropdownItem disabled>Publish stable</DropdownItem>
-        </Dropdown>
-        <Popover label="Package status" placement="bottom-start">
-          <Button slot="trigger" size="sm" variant="outline">Package status</Button>
-          <strong>Tarball verified</strong>
-          <p>The clean Astro consumer compiled every public family.</p>
-        </Popover>
-        <Tooltip content="All exports are flat package imports" placement="top">
-          <IconButton icon={InfoIcon} label="Explain package exports" size="sm" variant="outline" />
-        </Tooltip>
-        <Dialog title="Review release" description="Confirm the evidence attached to this alpha release." size="sm">
-          <Button slot="trigger" size="sm" variant="outline">Open dialog</Button>
-          <p class="showcase-overlay-copy">Automated checks passed. Manual review remains recorded separately.</p>
-          <Button slot="footer" size="sm" variant="outline" data-frasto-dialog-close>Close</Button>
-        </Dialog>
-        <Drawer title="Release details" description="A wider view of the current alpha evidence." size="sm">
-          <Button slot="trigger" size="sm" variant="outline">Open drawer</Button>
-          <dl class="showcase-detail-list">
-            <div><dt>Version</dt><dd>0.1.0-alpha.1</dd></div>
-            <div><dt>Families</dt><dd>35 Experimental</dd></div>
-            <div><dt>Astro</dt><dd>7.x</dd></div>
-          </dl>
-        </Drawer>
+        <div class="specimen">
+          <span class="specimen__name">Tabs</span>
+          <div class="specimen__demo">
+            <Tabs label="Release evidence" defaultValue="automated" variant="segmented">
+              <Tab slot="tab" value="automated">Automated</Tab>
+              <Tab slot="tab" value="manual">Manual review</Tab>
+              <TabPanel slot="panel" value="automated"><p>Chromium, Firefox, WebKit, and the packed consumer are passing.</p></TabPanel>
+              <TabPanel slot="panel" value="manual"><p>Keyboard and assistive-technology notes stay attached to the release.</p></TabPanel>
+            </Tabs>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Accordion</span>
+          <div class="specimen__demo">
+            <Accordion defaultValue="package" collapsible>
+              <AccordionItem value="package">
+                <AccordionTrigger>What ships in the package?</AccordionTrigger>
+                <AccordionContent>Astro components, exported types, tokens, and the compiled stylesheet.</AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Collapsible</span>
+          <div class="specimen__demo">
+            <Collapsible>
+              <CollapsibleTrigger>Show compatibility details</CollapsibleTrigger>
+              <CollapsibleContent>Astro 7 and Node.js 22 or newer.</CollapsibleContent>
+            </Collapsible>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Pagination</span>
+          <div class="specimen__demo">
+            <Pagination label="Component showcase pages">
+              <span slot="summary">Page 1 of 2</span>
+              <PaginationItem kind="previous" disabled>Previous</PaginationItem>
+              <PaginationItem current label="Current page, page 1">1</PaginationItem>
+              <PaginationItem href="#showcase-communicate" label="Go to page 2">2</PaginationItem>
+              <PaginationItem kind="next" href="#showcase-communicate">Next</PaginationItem>
+            </Pagination>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -266,23 +385,34 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
         <span>07</span><h3 id="showcase-structure">Structure and data</h3><small>3 families</small>
       </header>
       <div class="showcase-region__body showcase-structure">
-        <Surface as="article" variant="outlined" padding="md">
-          <div class="showcase-structure__heading">
-            <div><strong>Verification runs</strong><span>Latest package evidence</span></div>
-            <Badge tone="positive">Passing</Badge>
-          </div>
-          <Separator />
-          <div class="showcase-table-wrap">
-            <Table caption="Latest verification runs" captionHidden minWidth="32rem" density="compact">
+        <div class="specimen">
+          <span class="specimen__name">Table</span>
+          <div class="specimen__demo showcase-table-wrap">
+            <Table caption="Latest verification runs" captionHidden minWidth="0" density="compact">
               <thead><tr><th scope="col">Check</th><th scope="col">Environment</th><th scope="col">Result</th></tr></thead>
               <tbody>
                 <tr><th scope="row">Browser matrix</th><td>3 engines</td><td><Status tone="positive">Passed</Status></td></tr>
-                <tr><th scope="row">Packed consumer</th><td>Astro 7</td><td><Status tone="positive">Passed</Status></td></tr>
-                <tr><th scope="row">Manual AT</th><td>Windows</td><td><Status>Planned</Status></td></tr>
               </tbody>
             </Table>
           </div>
-        </Surface>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Surface</span>
+          <div class="specimen__demo">
+            <Surface as="article" variant="outlined" padding="sm">
+              <strong>Verification runs</strong>
+              <span class="specimen__hint">Latest package evidence</span>
+            </Surface>
+          </div>
+        </div>
+        <div class="specimen">
+          <span class="specimen__name">Separator</span>
+          <div class="specimen__demo specimen__demo--stack">
+            <span class="specimen__hint">Above the rule</span>
+            <Separator />
+            <span class="specimen__hint">Below the rule</span>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -302,15 +432,15 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
 
 <style>
   .component-field {
-    padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 4vw, 4rem);
+    padding: clamp(2rem, 4vw, 3rem) clamp(1rem, 4vw, 4rem);
     border-bottom: 1px solid var(--frasto-border);
   }
 
   .component-field__heading {
     display: grid;
-    grid-template-columns: minmax(10rem, 0.55fr) minmax(0, 1.45fr);
-    gap: 2rem;
-    margin-bottom: clamp(2.5rem, 6vw, 5rem);
+    grid-template-columns: minmax(10rem, 0.4fr) minmax(0, 1.6fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .component-field__heading > p,
@@ -325,18 +455,18 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
   }
 
   .component-field__heading h2 {
-    max-width: 14ch;
+    max-width: 18ch;
     margin: 0;
     font-family: var(--frasto-font-display);
-    font-size: clamp(2.5rem, 5.5vw, 5.5rem);
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
     font-weight: 620;
-    letter-spacing: -0.055em;
-    line-height: 0.92;
+    letter-spacing: -0.04em;
+    line-height: 1;
   }
 
   .component-field__heading div > p {
     max-width: 36rem;
-    margin: 1.25rem 0 0;
+    margin: 0.75rem 0 0;
     color: var(--frasto-ink-muted);
     line-height: 1.55;
   }
@@ -355,127 +485,115 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
     background: var(--frasto-surface);
   }
 
-  .showcase-region--compose,
-  .showcase-region--structure {
-    grid-column: span 8;
+  .showcase-region--compose {
+    grid-column: span 12;
   }
 
   .showcase-region--choose,
-  .showcase-region--load {
+  .showcase-region--load,
+  .showcase-region--reveal {
     grid-column: span 4;
   }
 
   .showcase-region--communicate,
   .showcase-region--navigate,
-  .showcase-region--reveal {
-    grid-column: span 6;
+  .showcase-region--structure {
+    grid-column: span 4;
   }
 
   .showcase-region__header {
     display: grid;
-    grid-template-columns: 2rem 1fr auto;
-    align-items: center;
-    gap: 0.75rem;
-    min-height: 3rem;
-    padding: 0.75rem 1rem;
+    grid-template-columns: auto auto 1fr;
+    align-items: baseline;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.875rem;
     border-bottom: 1px solid var(--frasto-border);
-    background: var(--frasto-surface-subtle);
+  }
+
+  .showcase-region__header span::after {
+    content: "/";
+    margin-inline-start: 0.5rem;
+    color: var(--frasto-ink-muted);
+    font-weight: 400;
   }
 
   .showcase-region__header h3 {
     margin: 0;
     font-family: var(--frasto-font-display);
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
     font-weight: 650;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
+  }
+
+  .showcase-region__header small {
+    justify-self: end;
+    text-align: end;
   }
 
   .showcase-region__body {
+    display: grid;
     min-width: 0;
-    padding: clamp(1rem, 2.5vw, 1.5rem);
+    gap: 1px;
+    background: var(--frasto-border);
   }
 
-  .showcase-compose {
-    display: grid;
-    gap: 2rem;
+  .specimen {
+    min-width: 0;
+    padding: 0.75rem 0.875rem;
+    background: var(--frasto-surface);
   }
 
-  .showcase-form {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+  .specimen__name {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--frasto-ink-muted);
+    font-size: 0.625rem;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  .showcase-form__wide {
-    grid-column: 1 / -1;
+  .specimen__demo {
+    min-width: 0;
   }
 
-  .showcase-form__actions,
-  .showcase-feedback__meta,
-  .showcase-overlays,
-  .showcase-theme {
+  .specimen__demo--row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .showcase-choices {
+  .specimen__demo--stack {
     display: grid;
-    gap: 1.5rem;
+    gap: 0.5rem;
+    justify-items: start;
   }
 
-  .showcase-choices fieldset {
-    display: grid;
-    gap: 0.65rem;
-    margin: 0;
-    padding: 0 0 1.25rem;
-    border: 0;
-    border-bottom: 1px solid var(--frasto-border);
-  }
-
-  .showcase-choices legend,
-  .showcase-theme > span {
-    margin-bottom: 0.3rem;
-    font-size: 0.75rem;
-    font-weight: 650;
-  }
-
-  .showcase-theme {
-    justify-content: space-between;
-  }
-
-  .showcase-feedback,
-  .showcase-navigation {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .showcase-feedback__meta {
-    padding-block: 0.75rem;
-    border-block: 1px solid var(--frasto-border);
-  }
-
-  .showcase-feedback__meta :global([data-frasto-avatar]) {
-    margin-inline-start: auto;
-  }
-
-  .showcase-loading {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .showcase-loading > div:first-child {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+  .specimen__hint {
     color: var(--frasto-ink-muted);
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
   }
 
-  .showcase-loading > div:last-child {
-    display: grid;
-    gap: 0.6rem;
+  .showcase-compose {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .showcase-compose .specimen--wide {
+    grid-column: span 2;
+  }
+
+  .showcase-choices,
+  .showcase-loading,
+  .showcase-feedback,
+  .showcase-navigation,
+  .showcase-structure {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-overlays {
+    grid-template-columns: 1fr;
   }
 
   .showcase-navigation :global([data-frasto-tab-panel]) p,
@@ -487,20 +605,20 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
     line-height: 1.55;
   }
 
-  .showcase-overlays {
-    align-items: flex-start;
-  }
-
   .showcase-detail-list {
     margin: 0;
   }
 
   .showcase-detail-list div {
     display: grid;
-    grid-template-columns: 6rem 1fr;
+    grid-template-columns: 5rem 1fr;
     gap: 1rem;
-    padding-block: 0.75rem;
+    padding-block: 0.5rem;
     border-bottom: 1px solid var(--frasto-border);
+  }
+
+  .showcase-detail-list div:last-child {
+    border-bottom: 0;
   }
 
   .showcase-detail-list dt {
@@ -513,39 +631,23 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
     font-size: 0.8125rem;
   }
 
-  .showcase-structure__heading {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-bottom: 1rem;
-  }
-
-  .showcase-structure__heading strong,
-  .showcase-structure__heading span {
-    display: block;
-  }
-
-  .showcase-structure__heading span {
-    margin-top: 0.35rem;
-    color: var(--frasto-ink-muted);
-    font-size: 0.75rem;
-  }
-
   .showcase-table-wrap {
     max-width: 100%;
     overflow-x: auto;
   }
 
   @media (max-width: 68rem) {
-    .showcase-region--compose,
+    .showcase-region--choose,
+    .showcase-region--load,
+    .showcase-region--reveal,
+    .showcase-region--communicate,
+    .showcase-region--navigate,
     .showcase-region--structure {
-      grid-column: span 12;
+      grid-column: span 6;
     }
 
-    .showcase-region--choose,
-    .showcase-region--load {
-      grid-column: span 6;
+    .showcase-compose {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
@@ -556,10 +658,15 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
 
     .showcase-region--choose,
     .showcase-region--load,
+    .showcase-region--reveal,
     .showcase-region--communicate,
     .showcase-region--navigate,
-    .showcase-region--reveal {
+    .showcase-region--structure {
       grid-column: span 12;
+    }
+
+    .showcase-compose {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
@@ -580,11 +687,11 @@ import avatar01 from '../../../../avatars/frasto_avatar-01.svg';
       border-right: 0;
     }
 
-    .showcase-form {
+    .showcase-compose {
       grid-template-columns: 1fr;
     }
 
-    .showcase-form__wide {
+    .showcase-compose .specimen--wide {
       grid-column: auto;
     }
 

@@ -1,5 +1,6 @@
 ---
-import frastoLogo from '../../../../logo/frastro_logo.svg';
+import frastroLogoBlack from '../../../../logo/frastro_logo_black_nobg.png?url';
+import frastroLogoWhite from '../../../../logo/frastro_logo_white_nobg.png?url';
 
 interface Props {
   class?: string;
@@ -15,7 +16,10 @@ const {
 ---
 
 <span class:list={['brand-lockup', className]} data-size={size}>
-  <img src={frastoLogo.src} width={frastoLogo.width} height={frastoLogo.height} alt="" />
+  <span class="brand-mark" aria-hidden="true">
+    <img class="brand-mark__logo brand-mark__logo--light" src={frastroLogoBlack} width="32" height="32" alt="" loading="eager" />
+    <img class="brand-mark__logo brand-mark__logo--dark" src={frastroLogoWhite} width="32" height="32" alt="" loading="eager" />
+  </span>
   <span class="brand-name">Frasto</span>
   {suffix && <span class="brand-suffix">{suffix}</span>}
 </span>
@@ -32,10 +36,41 @@ const {
     white-space: nowrap;
   }
 
-  img {
+  .brand-mark {
+    position: relative;
+    flex: 0 0 auto;
     width: 2rem;
     height: 2rem;
+  }
+
+  .brand-mark__logo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+  }
+
+  .brand-mark__logo--dark {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .brand-mark__logo--light {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .brand-mark__logo--dark {
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(html:not([data-theme])) .brand-mark__logo--light {
+      display: none;
+    }
+
+    :global(html:not([data-theme])) .brand-mark__logo--dark {
+      display: block;
+    }
   }
 
   .brand-name {
@@ -56,7 +91,7 @@ const {
     font-size: 0.875rem;
   }
 
-  [data-size='sm'] img {
+  [data-size='sm'] .brand-mark {
     width: 1.5rem;
     height: 1.5rem;
   }

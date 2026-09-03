@@ -1,13 +1,13 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import HomepageShowcase from '../components/HomepageShowcase.astro';
-import astroLogoDark from '../assets/astro-logo-dark.svg';
-import astroLogoLightGradient from '../assets/astro-logo-light-gradient.svg';
+import astroMarkInk from '../assets/astro-mark-ink.svg';
+import astroMarkGradient from '../assets/astro-mark-gradient.svg';
 import { ArrowUpRightIcon, Button, Icon } from '@freight-px/frasto';
 ---
 
 <SiteLayout
-  title="Frasto UI — Astro-first component library"
+  title="Frasto UI — Astro UI components built for consistency"
   description="An Astro-first open-source UI component library and design system for modern interfaces and applications."
 >
   <section class="hero-shell">
@@ -16,13 +16,13 @@ import { ArrowUpRightIcon, Button, Icon } from '@freight-px/frasto';
       <div>
         <h1>
           <span class="hero-astro-line">
-            <span class="hero-astro-logo" aria-hidden="true">
-              <img class="hero-astro-logo--light" src={astroLogoDark.src} alt="" width="115" height="40" />
-              <img class="hero-astro-logo--dark" src={astroLogoLightGradient.src} alt="" width="115" height="40" />
+            <span class="hero-astro-mark" aria-hidden="true">
+              <img class="hero-astro-mark__logo hero-astro-mark__logo--light" src={astroMarkInk.src} alt="" width="80" height="100" />
+              <img class="hero-astro-mark__logo hero-astro-mark__logo--dark" src={astroMarkGradient.src} alt="" width="80" height="100" />
             </span>
-            <span>Astro-first UI.</span>
+            <span>Astro UI components.</span>
           </span>
-          <span>Quiet confidence.</span>
+          <span>Built for consistency.</span>
         </h1>
       </div>
       <div class="hero-copy">

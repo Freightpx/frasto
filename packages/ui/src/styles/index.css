@@ -738,6 +738,13 @@
   42%, 88% { opacity: 0.12; transform: scale(0.82); }
 }
 
+@keyframes frasto-spinner-leader {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  13% { opacity: 0.58; transform: scale(0.94); }
+  26% { opacity: 0.3; transform: scale(0.88); }
+  42%, 88% { opacity: 0; transform: scale(0.82); }
+}
+
 @keyframes frasto-spinner-breathe {
   0%, 100% { opacity: 0.16; transform: scale(0.8); }
   24% { opacity: 0.95; transform: scale(1); }
@@ -753,9 +760,9 @@
 }
 
 @keyframes frasto-spinner-typewriter {
-  0%, 8% { opacity: 0.12; transform: scale(0.8); }
-  18%, 68% { opacity: 1; transform: scale(1); }
-  86%, 100% { opacity: 0.12; transform: scale(0.84); }
+  0% { opacity: 0.12; transform: scale(0.84); }
+  6%, 50% { opacity: 1; transform: scale(1); }
+  58%, 100% { opacity: 0.12; transform: scale(0.84); }
 }
 
 [data-frasto-spinner] {
@@ -783,6 +790,23 @@
   --frasto-spinner-duration: 1800ms;
 }
 
+[data-frasto-spinner][data-variant='refresh'] {
+  --frasto-spinner-duration: 1400ms;
+}
+
+/*
+ * Cell indices follow the row-major matrix:
+ *   1 2 3
+ *   4 5 6
+ *   7 8 9
+ *
+ * All phase maps use negative animation delays, so a cell peaks at the
+ * fraction stored in its phase value. The perimeter maps encode:
+ * - --frasto-orbit-phase: clockwise from cell 1 (1 2 3 6 9 8 7 4)
+ * - --frasto-opposite-phase: counter-clockwise from cell 9 (9 6 3 2 1 4 7 8)
+ * - --frasto-offset-phase: clockwise from cell 9, half a loop behind orbit
+ *   (9 8 7 4 1 2 3 6)
+ */
 [data-frasto-spinner-cell] {
   position: relative;
   width: 100%;
@@ -795,15 +819,15 @@
   transform-origin: center;
 }
 
-[data-frasto-spinner-cell]:nth-child(1) { --frasto-orbit-phase: 0; --frasto-reverse-phase: 0; --frasto-breathe-phase: -0.24; --frasto-cascade-phase: 0; --frasto-typewriter-phase: 0; }
-[data-frasto-spinner-cell]:nth-child(2) { --frasto-orbit-phase: -0.125; --frasto-reverse-phase: -0.875; --frasto-breathe-phase: -0.12; --frasto-cascade-phase: -0.1; --frasto-typewriter-phase: -0.055; }
-[data-frasto-spinner-cell]:nth-child(3) { --frasto-orbit-phase: -0.25; --frasto-reverse-phase: -0.75; --frasto-breathe-phase: -0.24; --frasto-cascade-phase: -0.2; --frasto-typewriter-phase: -0.11; }
-[data-frasto-spinner-cell]:nth-child(4) { --frasto-orbit-phase: -0.875; --frasto-reverse-phase: -0.125; --frasto-breathe-phase: -0.12; --frasto-cascade-phase: -0.1; --frasto-typewriter-phase: -0.165; }
-[data-frasto-spinner-cell]:nth-child(5) { --frasto-orbit-phase: 0; --frasto-reverse-phase: 0; --frasto-breathe-phase: 0; --frasto-cascade-phase: -0.2; --frasto-typewriter-phase: -0.22; }
-[data-frasto-spinner-cell]:nth-child(6) { --frasto-orbit-phase: -0.375; --frasto-reverse-phase: -0.625; --frasto-breathe-phase: -0.12; --frasto-cascade-phase: -0.3; --frasto-typewriter-phase: -0.275; }
-[data-frasto-spinner-cell]:nth-child(7) { --frasto-orbit-phase: -0.75; --frasto-reverse-phase: -0.25; --frasto-breathe-phase: -0.24; --frasto-cascade-phase: -0.2; --frasto-typewriter-phase: -0.33; }
-[data-frasto-spinner-cell]:nth-child(8) { --frasto-orbit-phase: -0.625; --frasto-reverse-phase: -0.375; --frasto-breathe-phase: -0.12; --frasto-cascade-phase: -0.3; --frasto-typewriter-phase: -0.385; }
-[data-frasto-spinner-cell]:nth-child(9) { --frasto-orbit-phase: -0.5; --frasto-reverse-phase: -0.5; --frasto-breathe-phase: -0.24; --frasto-cascade-phase: -0.4; --frasto-typewriter-phase: -0.44; }
+[data-frasto-spinner-cell]:nth-child(1) { --frasto-orbit-phase: 0; --frasto-opposite-phase: -0.5; --frasto-offset-phase: -0.5; --frasto-breathe-phase: -0.76; --frasto-cascade-phase: -0.34; --frasto-typewriter-phase: 0; }
+[data-frasto-spinner-cell]:nth-child(2) { --frasto-orbit-phase: -0.875; --frasto-opposite-phase: -0.625; --frasto-offset-phase: -0.375; --frasto-breathe-phase: -0.88; --frasto-cascade-phase: -0.14; --frasto-typewriter-phase: -0.96; }
+[data-frasto-spinner-cell]:nth-child(3) { --frasto-orbit-phase: -0.75; --frasto-opposite-phase: -0.75; --frasto-offset-phase: -0.25; --frasto-breathe-phase: -0.76; --frasto-cascade-phase: -0.94; --frasto-typewriter-phase: -0.92; }
+[data-frasto-spinner-cell]:nth-child(4) { --frasto-orbit-phase: -0.125; --frasto-opposite-phase: -0.375; --frasto-offset-phase: -0.625; --frasto-breathe-phase: -0.88; --frasto-cascade-phase: -0.14; --frasto-typewriter-phase: -0.88; }
+[data-frasto-spinner-cell]:nth-child(5) { --frasto-orbit-phase: 0; --frasto-opposite-phase: 0; --frasto-offset-phase: 0; --frasto-breathe-phase: 0; --frasto-cascade-phase: -0.94; --frasto-typewriter-phase: -0.84; }
+[data-frasto-spinner-cell]:nth-child(6) { --frasto-orbit-phase: -0.625; --frasto-opposite-phase: -0.875; --frasto-offset-phase: -0.125; --frasto-breathe-phase: -0.88; --frasto-cascade-phase: -0.74; --frasto-typewriter-phase: -0.8; }
+[data-frasto-spinner-cell]:nth-child(7) { --frasto-orbit-phase: -0.25; --frasto-opposite-phase: -0.25; --frasto-offset-phase: -0.75; --frasto-breathe-phase: -0.76; --frasto-cascade-phase: -0.94; --frasto-typewriter-phase: -0.76; }
+[data-frasto-spinner-cell]:nth-child(8) { --frasto-orbit-phase: -0.375; --frasto-opposite-phase: -0.125; --frasto-offset-phase: -0.875; --frasto-breathe-phase: -0.88; --frasto-cascade-phase: -0.74; --frasto-typewriter-phase: -0.72; }
+[data-frasto-spinner-cell]:nth-child(9) { --frasto-orbit-phase: -0.5; --frasto-opposite-phase: 0; --frasto-offset-phase: 0; --frasto-breathe-phase: -0.76; --frasto-cascade-phase: -0.54; --frasto-typewriter-phase: -0.68; }
 
 [data-frasto-spinner][data-variant='orbit'] [data-frasto-spinner-cell]:not(:nth-child(5)) {
   animation: frasto-spinner-orbit var(--frasto-spinner-duration) linear infinite;
@@ -816,47 +840,58 @@
 }
 
 [data-frasto-spinner][data-variant='breathe'] [data-frasto-spinner-cell] {
-  animation: frasto-spinner-breathe var(--frasto-spinner-duration) var(--frasto-ease-standard) infinite;
+  animation: frasto-spinner-breathe var(--frasto-spinner-duration) linear infinite;
   animation-delay: calc(var(--frasto-spinner-duration) * var(--frasto-breathe-phase));
 }
 
 [data-frasto-spinner][data-variant='cascade'] [data-frasto-spinner-cell] {
-  animation: frasto-spinner-cascade var(--frasto-spinner-duration) var(--frasto-ease-standard) infinite;
+  animation: frasto-spinner-cascade var(--frasto-spinner-duration) linear infinite;
   animation-delay: calc(var(--frasto-spinner-duration) * var(--frasto-cascade-phase));
 }
 
-[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell] {
+[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell],
+[data-frasto-spinner][data-variant='refresh'] [data-frasto-spinner-cell] {
+  opacity: 1;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  transform: scale(0.82);
+}
+
+[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell]:nth-child(5),
+[data-frasto-spinner][data-variant='refresh'] [data-frasto-spinner-cell]:nth-child(5) {
+  opacity: 0.06;
   background: currentColor;
-  opacity: 0.1;
-  transform: scale(0.78);
+  transform: scale(0.72);
 }
 
 [data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell]:not(:nth-child(5))::before,
-[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell]:not(:nth-child(5))::after {
+[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell]:not(:nth-child(5))::after,
+[data-frasto-spinner][data-variant='refresh'] [data-frasto-spinner-cell]:not(:nth-child(5))::before,
+[data-frasto-spinner][data-variant='refresh'] [data-frasto-spinner-cell]:not(:nth-child(5))::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 0;
   background: currentColor;
-  opacity: 0.12;
+  opacity: 0;
   transform: scale(0.82);
-  animation: frasto-spinner-orbit var(--frasto-spinner-duration) linear infinite;
+  animation: frasto-spinner-leader var(--frasto-spinner-duration) linear infinite;
 }
 
-[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell]::before {
+[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell]:not(:nth-child(5))::before,
+[data-frasto-spinner][data-variant='refresh'] [data-frasto-spinner-cell]:not(:nth-child(5))::before {
   animation-delay: calc(var(--frasto-spinner-duration) * var(--frasto-orbit-phase));
 }
 
-[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell]::after {
-  animation-delay: calc(var(--frasto-spinner-duration) * var(--frasto-reverse-phase));
+[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell]:not(:nth-child(5))::after {
+  animation-delay: calc(var(--frasto-spinner-duration) * var(--frasto-opposite-phase));
 }
 
-[data-frasto-spinner][data-variant='counter'] [data-frasto-spinner-cell]:nth-child(5) {
-  opacity: 0.06;
+[data-frasto-spinner][data-variant='refresh'] [data-frasto-spinner-cell]:not(:nth-child(5))::after {
+  animation-delay: calc(var(--frasto-spinner-duration) * var(--frasto-offset-phase));
 }
 
 [data-frasto-spinner][data-variant='typewriter'] [data-frasto-spinner-cell] {
-  animation: frasto-spinner-typewriter var(--frasto-spinner-duration) var(--frasto-ease-standard) infinite;
+  animation: frasto-spinner-typewriter var(--frasto-spinner-duration) linear infinite;
   animation-delay: calc(var(--frasto-spinner-duration) * var(--frasto-typewriter-phase));
 }
 
