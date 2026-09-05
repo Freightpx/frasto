@@ -7,7 +7,7 @@ An Astro-first open-source UI component library and design system for modern web
 
 Frasto combines reusable Astro components with warm neutral surfaces, near-black typography, thin structural lines, square geometry, compact controls, accessible states, and purposeful interaction.
 
-> **Public alpha release candidate:** `0.1.0-alpha.1` is prepared for public evaluation. Every component remains Experimental, breaking changes are possible, and production use is not yet recommended.
+> **Public alpha:** `0.1.0-alpha.1` was published on September 3, 2026 and is available for public evaluation. Every component remains Experimental, breaking changes are possible, and production use is not yet recommended.
 
 ## Why Frasto
 
@@ -27,7 +27,7 @@ Planned APIs and future application-layer research are intentionally kept out of
 
 ## Install the alpha
 
-After the public package is released, install the prerelease from npm's `next` channel:
+Install the public alpha from npm's `next` channel:
 
 ```bash
 pnpm add @freight-px/frasto@next

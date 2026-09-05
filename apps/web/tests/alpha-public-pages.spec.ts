@@ -40,7 +40,7 @@ test.describe('Public alpha page evidence', () => {
 
     expect(response?.status()).toBe(200);
     const banner = page.locator('.sl-markdown-content > p').first();
-    await expect(banner).toContainText('public-alpha release-candidate stage');
+    await expect(banner).toContainText('public alpha 0.1.0-alpha.1 is available');
 
     const layout = await banner.evaluate((element) => ({
       clientWidth: element.clientWidth,
