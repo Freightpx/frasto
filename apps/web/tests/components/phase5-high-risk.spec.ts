@@ -38,6 +38,11 @@ test.describe('Phase 5 high-risk interaction evidence', () => {
         initialPageGeometry.computedPadding + initialPageGeometry.scrollbarWidth,
       );
     }
+    // The open state starts the slide; measure final geometry only after it settles.
+    await expect(drawer.locator('[data-frasto-drawer-panel]')).toHaveCSS(
+      'transform',
+      'matrix(1, 0, 0, 1, 0, 0)',
+    );
     expect(
       await drawer.locator('[data-frasto-drawer-panel]').evaluate((panel) => {
         const bounds = panel.getBoundingClientRect();
