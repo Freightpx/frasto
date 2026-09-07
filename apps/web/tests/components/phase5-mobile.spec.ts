@@ -23,7 +23,19 @@ test.describe('Phase 5 mobile interaction evidence', () => {
     await drawerTrigger.tap();
     await expect(drawer).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('hidden');
-    await page.touchscreen.tap(4, 4);
+    const panel = drawer.locator('[data-frasto-drawer-panel]');
+    // Visibility precedes the opening slide and native focus scrolling settling.
+    await expect(drawer).toHaveAttribute('data-state', 'open');
+    await expect(panel).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)');
+    const backdropPoint = await panel.evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      return { x: bounds.left / 2, y: window.innerHeight / 2 };
+    });
+    expect(backdropPoint.x).toBeGreaterThan(0);
+    await expect.poll(() => drawer.evaluate((element, point) => (
+      document.elementFromPoint(point.x, point.y) === element
+    ), backdropPoint)).toBe(true);
+    await page.touchscreen.tap(backdropPoint.x, backdropPoint.y);
     await expect(drawer).toBeHidden();
     await expect.poll(() => page.evaluate(() => document.documentElement.style.overflow)).toBe('');
   });
